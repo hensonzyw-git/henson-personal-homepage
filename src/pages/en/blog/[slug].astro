@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogDetail from '../../../components/BlogDetail.astro';
+import { getBlogPairs, pickLang } from '../../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const pairs = await getBlogPairs();
+  const paths = [];
+  for (const [slug, pair] of pairs) {
+    const picked = pickLang(pair, 'en');
+    if (!picked) continue;
+    paths.push({ params: { slug }, props: { ...picked } });
+  }
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { entry, fellBack } = Astro.props;
+---
+<BaseLayout lang="en" title={`${entry.data.title} · Henson`} description={entry.data.summary} canonicalPath={`/blog/${entry.data.key}`}>
+  <BlogDetail lang="en" entry={entry} fellBack={fellBack} />
+</BaseLayout>

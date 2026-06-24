@@ -1,0 +1,109 @@
+---
+import { type Lang } from '../lib/i18n';
+import { resume } from '../data/resume';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const c = resume[lang];
+const eyebrow = lang === 'en' ? 'Resume' : '简历 · Resume';
+---
+<section class="resume">
+  <div class="resume-head">
+    <div>
+      <div class="eyebrow resume-eyebrow">{eyebrow}</div>
+      <h1 class="display resume-name">{c.name}</h1>
+      <p class="resume-role">{c.role}</p>
+    </div>
+    <div class="resume-pdf">
+      <!-- PDF-pending degraded state: disabled button, no dead link (R-R3 / AC-3) -->
+      <button class="pdf-btn" disabled aria-disabled="true">{c.pdfPending}</button>
+      <span class="mono pdf-note">{c.pdfNote}</span>
+    </div>
+  </div>
+
+  <div class="sample-chip resume-sample">{c.sampleChip}</div>
+
+  <div class="resume-section">
+    <h2 class="mono section-label">{c.sections.experience.label}</h2>
+    <div class="timeline">
+      {c.sections.experience.rows.map((row) => (
+        <div class="timeline-row">
+          <div class="mono timeline-period">{row.period}</div>
+          <div>
+            <div class="display timeline-title">{row.title}</div>
+            {row.desc && <div class="timeline-desc">{row.desc}</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="resume-section">
+    <h2 class="mono section-label">{c.sections.education.label}</h2>
+    <div class="timeline">
+      {c.sections.education.rows.map((row) => (
+        <div class="timeline-row">
+          <div class="mono timeline-period">{row.period}</div>
+          <div><div class="display timeline-title">{row.title}</div></div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="resume-section">
+    <h2 class="mono section-label">{c.sections.skills.label}</h2>
+    <div class="skill-pills">
+      {c.sections.skills.items.map((s) => <span class="skill-pill">{s}</span>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .resume { max-width: 820px; margin: 0 auto; padding: 56px 40px 40px; }
+  .resume-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .resume-eyebrow { margin-bottom: 14px; }
+  .resume-name { font-size: clamp(32px, 4vw, 46px); margin: 0; }
+  .resume-role { font-size: 17px; color: var(--muted); margin: 12px 0 0; }
+  .resume-pdf { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .pdf-btn {
+    background: rgba(31, 30, 27, .06);
+    color: var(--meta);
+    border: 1px solid var(--line-12);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: not-allowed;
+  }
+  .pdf-note { font-size: 10px; color: var(--meta); }
+  .resume-sample { margin-top: 26px; }
+  .resume-section { margin-top: 40px; }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--meta);
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-12);
+  }
+  .timeline { display: flex; flex-direction: column; gap: 26px; }
+  .timeline-row { display: grid; grid-template-columns: 130px 1fr; gap: 24px; }
+  .timeline-period { font-size: 12px; color: var(--meta); }
+  .timeline-title { font-size: 20px; }
+  .timeline-desc { font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 9px; }
+  .skill-pill {
+    font-size: 14px;
+    color: var(--body-2);
+    background: var(--surface);
+    border: 1px solid var(--line-12);
+    border-radius: 999px;
+    padding: 7px 15px;
+  }
+  @media (max-width: 860px) {
+    .resume { padding-left: 22px; padding-right: 22px; }
+    .timeline-row { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>

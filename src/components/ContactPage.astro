@@ -1,0 +1,88 @@
+---
+import { type Lang } from '../lib/i18n';
+import { contactItems, contactCopy } from '../data/contact';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const c = contactCopy[lang];
+---
+<section class="contact">
+  <div class="eyebrow contact-eyebrow">{c.eyebrow}</div>
+  <h1 class="display contact-h1">{c.title}</h1>
+  <p class="contact-intro">{c.intro}</p>
+  <div class="sample-chip contact-sample">{c.sample}</div>
+
+  <div class="contact-list">
+    {contactItems.map((item) => (
+      <a
+        class="contact-card"
+        href={item.href}
+        data-action={item.action}
+        data-copy={item.action === 'copy' ? item.value : undefined}
+        data-label-done={item.action === 'copy' ? c.copied : undefined}
+        rel={item.action === 'open' ? 'noopener' : undefined}
+        target={item.action === 'open' ? '_blank' : undefined}
+      >
+        <div>
+          <div class="mono contact-label">{item.label}</div>
+          <div class="display contact-value">{item.value}</div>
+        </div>
+        <span class="mono contact-action">{item.action === 'copy' ? c.copy : c.open}</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<script>
+  // Progressive enhancement: copy the email to the clipboard on click.
+  // The mailto: href stays as the no-JS fallback (and if the clipboard API
+  // is unavailable, the default link navigation is left intact).
+  for (const card of document.querySelectorAll<HTMLAnchorElement>('.contact-card[data-action="copy"]')) {
+    const value = card.dataset.copy;
+    const doneLabel = card.dataset.labelDone ?? 'copied';
+    const action = card.querySelector<HTMLElement>('.contact-action');
+    if (!value || !navigator.clipboard || !action) continue;
+    const original = action.textContent;
+    card.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(value);
+        action.textContent = doneLabel;
+        window.setTimeout(() => { action.textContent = original; }, 1600);
+      } catch {
+        // Clipboard blocked (e.g. permissions) — fall back to the mailto link.
+        window.location.href = card.href;
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact { max-width: 720px; margin: 0 auto; padding: 72px 40px 56px; }
+  .contact-eyebrow { margin-bottom: 18px; }
+  .contact-h1 { font-size: clamp(34px, 4.4vw, 52px); margin: 0; line-height: 1.1; }
+  .contact-intro { font-size: 18px; color: var(--muted); max-width: 50ch; margin: 20px 0 0; }
+  .contact-sample { margin-top: 22px; }
+  .contact-list { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line-10);
+    border-radius: 14px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .12s ease;
+  }
+  .contact-card:hover { border-color: var(--clay); }
+  .contact-label { font-size: 11px; color: var(--meta); margin-bottom: 5px; }
+  .contact-value { font-size: 20px; }
+  .contact-action { font-size: 13px; color: var(--clay); }
+  @media (max-width: 860px) {
+    .contact { padding-left: 22px; padding-right: 22px; }
+    .contact-value { font-size: 17px; }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, localePath, type Lang } from '../lib/i18n';
+import EnFallbackNote from './EnFallbackNote.astro';
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<'projects'>;
+  fellBack: boolean;
+}
+const { lang, entry, fellBack } = Astro.props;
+const ui = t(lang);
+const d = entry.data;
+
+const labels = lang === 'en'
+  ? { problem: 'Problem', decisions: 'Decisions / tradeoffs', result: 'Result (with data)', contribution: 'My contribution', placeholder: 'product screenshot · placeholder' }
+  : { problem: '问题', decisions: '决策 / 取舍', result: '结果（含数据）', contribution: '我的个人贡献', placeholder: '产品截图 · 待替换' };
+
+// Four-part frame. Badges 01/02 dark, 03/04 clay (per design-final.md).
+const parts = [
+  { n: '01', clay: false, title: labels.problem, body: d.problem },
+  { n: '02', clay: false, title: labels.decisions, body: d.decisions },
+  { n: '03', clay: true, title: labels.result, body: d.result, stats: d.stats },
+  { n: '04', clay: true, title: labels.contribution, body: d.contribution },
+];
+---
+<article class="article">
+  <a class="mono back-link" href={localePath(lang, '/projects')}>{ui.backToProjects}</a>
+  <div class="mono article-meta">{d.tag}{d.period ? ` · ${d.period}` : ''}</div>
+  <h1 class="display article-h1">{d.title}</h1>
+
+  {fellBack && <EnFallbackNote lang={lang} />}
+
+  <div class="hatch hero-band"><span class="mono band-label">{labels.placeholder}</span></div>
+
+  <div class="frame">
+    {parts.map((part) => (
+      <div class="part">
+        <div class="part-head">
+          <span class={`badge mono ${part.clay ? 'badge-clay' : 'badge-dark'}`}>{part.n}</span>
+          <h2 class="display part-title">{part.title}</h2>
+        </div>
+        {part.stats && part.stats.length > 0 && (
+          <div class="stat-grid grid-3">
+            {part.stats.map((s) => (
+              <div class="stat-tile">
+                <div class="display stat-value">{s.value}</div>
+                <div class="stat-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        <p class="part-body">{part.body}</p>
+      </div>
+    ))}
+  </div>
+</article>
+
+<style>
+  .article { max-width: 760px; margin: 0 auto; padding: 48px 40px 40px; }
+  .back-link { font-size: 12px; color: var(--meta); text-decoration: none; display: inline-block; margin-bottom: 30px; }
+  .back-link:hover { color: var(--clay); }
+  .article-meta { font-size: 12px; color: var(--meta); margin-bottom: 16px; }
+  .article-h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; margin: 0; }
+  .hero-band { height: 200px; margin-top: 28px; border-radius: 14px; }
+  .band-label { font-size: 12px; color: var(--meta); }
+  .frame { margin-top: 40px; display: flex; flex-direction: column; gap: 36px; }
+  .part-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .badge { font-size: 12px; color: #fff; border-radius: 999px; padding: 4px 11px; }
+  .badge-dark { background: var(--ink); }
+  .badge-clay { background: var(--clay); }
+  .part-title { font-size: 25px; margin: 0; }
+  .part-body { font-size: 17px; line-height: 1.7; color: var(--body); margin: 0; }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line-10);
+    border: 1px solid var(--line-10);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .stat-tile { background: var(--surface); padding: 20px; }
+  .stat-value { font-size: 28px; }
+  .stat-label { font-size: 13px; color: var(--meta); margin-top: 6px; }
+  @media (max-width: 860px) {
+    .article { padding-left: 22px; padding-right: 22px; }
+  }
+</style>

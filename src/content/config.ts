@@ -1,0 +1,69 @@
+import { defineCollection, z } from 'astro:content';
+
+// Every Blog / AI / Project entry ships BOTH languages (GATE 1: 每条强制中英双份).
+// Convention: one markdown file per language, named `<slug>.<lang>.md`, sharing
+// the same `slug` field in frontmatter so the two halves can be paired.
+
+const langField = z.enum(['zh', 'en']);
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    key: z.string(),
+    lang: langField,
+    title: z.string(),
+    date: z.coerce.date(),
+    summary: z.string(),
+    category: z.string().default('文章'),
+    readMins: z.number().default(6),
+    draft: z.boolean().default(false),
+    // en bodies may be labelled draft translations
+    draftTranslation: z.boolean().default(false),
+  }),
+});
+
+const ai = defineCollection({
+  type: 'content',
+  schema: z.object({
+    key: z.string(),
+    lang: langField,
+    title: z.string(),
+    date: z.coerce.date(),
+    oneLiner: z.string(),
+    tag: z.string().optional(),       // e.g. 自指实践
+    featured: z.boolean().default(false),
+    facts: z.string().optional(),     // facts card line on the detail page
+    // index-card rows: 做了什么 / 怎么做 / 价值
+    did: z.string().optional(),
+    how: z.string().optional(),
+    value: z.string().optional(),
+    placeholderLabel: z.string().default('截图 · 待替换'),
+    hasDetail: z.boolean().default(false),
+    draftTranslation: z.boolean().default(false),
+  }),
+});
+
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    key: z.string(),
+    lang: langField,
+    title: z.string(),
+    date: z.coerce.date(),
+    tag: z.string(),                   // mono kicker, e.g. "0 → 1 · B 端"
+    oneLiner: z.string(),
+    period: z.string().optional(),     // e.g. 2024 – 2025
+    sample: z.boolean().default(false),
+    // four-part frame
+    problem: z.string(),
+    decisions: z.string(),
+    result: z.string(),
+    contribution: z.string(),
+    stats: z
+      .array(z.object({ value: z.string(), label: z.string() }))
+      .default([]),
+    draftTranslation: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, ai, projects };

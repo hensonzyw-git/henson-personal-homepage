@@ -1,0 +1,68 @@
+---
+import { localePath, type Lang } from '../lib/i18n';
+import { getBlogIndex, monoDate } from '../lib/content';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const p = (path: string) => localePath(lang, path);
+const rows = await getBlogIndex(lang);
+
+const copy = lang === 'en'
+  ? { eyebrow: 'Writing', title: 'Thinking, written down', intro: 'Long-form on AI, product and judgment, newest first. Drafts stay out of the index.', empty: 'Writing starts soon' }
+  : { eyebrow: '文章 · Writing', title: '写下来的思考', intro: '关于 AI、产品与判断方式的长文，按发布日期倒序。草稿不出现在索引中。', empty: '即将开始写作' };
+---
+<section class="container index">
+  <div class="eyebrow index-eyebrow">{copy.eyebrow}</div>
+  <h1 class="display index-h1">{copy.title}</h1>
+  <p class="index-intro">{copy.intro}</p>
+
+  {rows.length === 0 ? (
+    <div class="empty-state">{copy.empty}</div>
+  ) : (
+    <div class="post-list">
+      {rows.map((r) => (
+        <a class="post-row" href={p(`/blog/${r.slug}`)}>
+          <div class="post-date">{monoDate(r.entry.data.date, '·')}</div>
+          <div>
+            <div class="display post-title">{r.entry.data.title}</div>
+            <div class="post-summary">{r.entry.data.summary}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</section>
+
+<style>
+  .index { padding-top: 64px; padding-bottom: 40px; }
+  .index-eyebrow { margin-bottom: 18px; }
+  .index-h1 { font-size: clamp(34px, 4.4vw, 52px); margin: 0; max-width: 18ch; line-height: 1.1; }
+  .index-intro { font-size: 18px; color: var(--muted); max-width: 56ch; margin: 20px 0 0; }
+  .post-list { margin-top: 34px; border-top: 1px solid var(--line-12); }
+  .post-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    border-bottom: 1px solid var(--line-12);
+    padding: 30px 0;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity .12s ease;
+  }
+  .post-row:hover { opacity: .65; }
+  .post-date { font-family: var(--mono); font-size: 12px; color: var(--meta); padding-top: 6px; }
+  .post-title { font-size: 25px; line-height: 1.25; }
+  .post-summary { font-size: 16px; color: var(--muted); margin-top: 9px; max-width: 62ch; }
+  .empty-state {
+    margin-top: 34px;
+    border: 1px dashed var(--line-16);
+    border-radius: 14px;
+    padding: 48px;
+    text-align: center;
+    color: var(--muted-2);
+    font-size: 16px;
+  }
+  @media (max-width: 860px) {
+    .post-row { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>

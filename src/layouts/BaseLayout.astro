@@ -1,0 +1,36 @@
+---
+import '../styles/fonts.ts'; // self-hosted webfonts (no Google CDN; see fonts.ts)
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { htmlLang, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  canonicalPath: string; // canonical (zh) path of the current page
+}
+const { lang, title, description = '', canonicalPath } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang={htmlLang(lang)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {/* Fonts are self-hosted via @fontsource (imported in the frontmatter) and bundled
+        same-origin — no Google Fonts <link> / preconnect, which is blocked in China. */}
+  </head>
+  <body>
+    <Nav lang={lang} canonicalPath={canonicalPath} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,17 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# os / editor
+.DS_Store
+*.log
+.vscode/
+
+# local tooling
+.claude/

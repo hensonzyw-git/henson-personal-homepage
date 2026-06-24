@@ -1,0 +1,89 @@
+---
+import { t, localePath, type Lang } from '../lib/i18n';
+import { contactItems } from '../data/contact';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const ui = t(lang);
+const p = (path: string) => localePath(lang, path);
+---
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <span class="logo-mark"></span>
+        <span class="footer-name">Henson</span>
+      </div>
+      <p class="footer-tagline">{ui.footer.tagline}</p>
+      <p class="footer-built">{ui.footer.built}</p>
+    </div>
+
+    <div>
+      <div class="footer-col-label">{ui.footer.navLabel}</div>
+      <div class="footer-links">
+        <a href={p('/blog')}>{ui.nav.blog}</a>
+        <a href={p('/ai')}>{ui.nav.ai}</a>
+        <a href={p('/projects')}>{ui.nav.projects}</a>
+        <a href={p('/resume')}>{ui.nav.resume}</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-label">{ui.footer.contactLabel}</div>
+      <div class="footer-links">
+        <a href={contactItems[0].href}>{contactItems[0].value}</a>
+        <a href={contactItems[1].href} rel="noopener" target="_blank">LinkedIn</a>
+        <a href={contactItems[2].href} rel="noopener" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>{ui.footer.copyright}</span>
+      <span>{ui.footer.motto}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--dark); color: #cfcabd; margin-top: 40px; }
+  .footer-grid {
+    padding-top: 56px;
+    padding-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .footer-brand .logo-mark { width: 12px; height: 12px; background: var(--clay); transform: rotate(45deg); display: inline-block; border-radius: 2px; }
+  .footer-name { font-family: var(--display); font-size: 20px; font-weight: 600; color: #EDEAE0; }
+  .footer-tagline { font-size: 14.5px; color: #9b968a; max-width: 34ch; line-height: 1.6; margin: 0; }
+  .footer-built { font-family: var(--mono); font-size: 11px; color: #736f64; margin: 20px 0 0; }
+  .footer-col-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #736f64;
+    margin-bottom: 14px;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 11px; }
+  .footer-links a { color: #cfcabd; font-size: 14.5px; text-decoration: none; }
+  .footer-links a:hover { color: #fff; }
+  .footer-bottom { border-top: 1px solid rgba(255, 255, 255, .08); }
+  .footer-bottom-inner {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #736f64;
+  }
+  @media (max-width: 860px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  }
+</style>

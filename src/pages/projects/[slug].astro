@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectDetail from '../../components/ProjectDetail.astro';
+import { getProjectPairs, pickLang } from '../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const pairs = await getProjectPairs();
+  const paths = [];
+  for (const [slug, pair] of pairs) {
+    const picked = pickLang(pair, 'zh');
+    if (!picked) continue;
+    paths.push({ params: { slug }, props: { ...picked } });
+  }
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { entry, fellBack } = Astro.props;
+---
+<BaseLayout lang="zh" title={`${entry.data.title} · Henson`} description={entry.data.oneLiner} canonicalPath={`/projects/${entry.data.key}`}>
+  <ProjectDetail lang="zh" entry={entry} fellBack={fellBack} />
+</BaseLayout>

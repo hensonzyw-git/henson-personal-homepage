@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, localePath, type Lang } from '../lib/i18n';
+import { monoDate } from '../lib/content';
+import Prose from './Prose.astro';
+import EnFallbackNote from './EnFallbackNote.astro';
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<'blog'>;
+  fellBack: boolean;
+}
+const { lang, entry, fellBack } = Astro.props;
+const ui = t(lang);
+const { Content } = await entry.render();
+const d = entry.data;
+---
+<article class="article">
+  <a class="mono back-link" href={localePath(lang, '/blog')}>{ui.backToBlog}</a>
+  <div class="mono article-meta">{monoDate(d.date)} · {ui.readMins(d.readMins)}</div>
+  <h1 class="display article-h1">{d.title}</h1>
+
+  {fellBack && <EnFallbackNote lang={lang} />}
+
+  <div class="article-body">
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
+</article>
+
+<style>
+  .article { max-width: 720px; margin: 0 auto; padding: 48px 40px 40px; }
+  .back-link { font-size: 12px; color: var(--meta); text-decoration: none; display: inline-block; margin-bottom: 34px; }
+  .back-link:hover { color: var(--clay); }
+  .article-meta { font-size: 12px; color: var(--meta); margin-bottom: 16px; }
+  .article-h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; margin: 0; }
+  .article-body { margin-top: 30px; }
+  @media (max-width: 860px) {
+    .article { padding-left: 22px; padding-right: 22px; }
+  }
+</style>

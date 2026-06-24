@@ -1,0 +1,77 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, localePath, type Lang } from '../lib/i18n';
+import Prose from './Prose.astro';
+import EnFallbackNote from './EnFallbackNote.astro';
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<'ai'>;
+  fellBack: boolean;
+}
+const { lang, entry, fellBack } = Astro.props;
+const ui = t(lang);
+const d = entry.data;
+const { Content } = await entry.render();
+
+const labels = lang === 'en'
+  ? { facts: 'Facts', did: 'What', how: 'How', value: 'Value', arch: 'Architecture diagram · placeholder', shots: 'iOS screenshots · placeholder', shotNames: ['Daily digest', 'All shows', 'Preferences', 'Settings'] }
+  : { facts: 'Facts', did: '做了什么', how: '怎么做', value: '价值 / 产出', arch: '架构图 · 待替换', shots: 'iOS 截图 · 待替换', shotNames: ['当日摘要', '全部演出', '偏好管理', '设置'] };
+---
+<article class="article">
+  <a class="mono back-link" href={localePath(lang, '/ai')}>{ui.backToAI}</a>
+  {d.tag && <div class="ai-tag-row"><span class="pill pill-clay">{d.tag}</span></div>}
+  <h1 class="display article-h1">{d.title}</h1>
+  <p class="article-oneliner">{d.oneLiner}</p>
+
+  {fellBack && <EnFallbackNote lang={lang} />}
+
+  {d.facts && (
+    <div class="facts-card">
+      <div class="mono facts-label">{labels.facts}</div>
+      <div class="facts-text">{d.facts}</div>
+    </div>
+  )}
+
+  <div class="rows">
+    {d.did && (<div class="row"><div class="mono row-label">{labels.did}</div><div class="row-text">{d.did}</div></div>)}
+    {d.how && (<div class="row"><div class="mono row-label">{labels.how}</div><div class="row-text">{d.how}</div></div>)}
+    {d.value && (<div class="row"><div class="mono row-label">{labels.value}</div><div class="row-text">{d.value}</div></div>)}
+  </div>
+
+  <div class="article-body"><Prose><Content /></Prose></div>
+
+  <!-- architecture & iOS screenshot placeholders (diagonal hatch, 待替换) -->
+  <div class="hatch arch-band"><span class="mono band-label">{labels.arch}</span></div>
+  <div class="shot-grid grid-4">
+    {labels.shotNames.map((name) => (
+      <div class="hatch shot-band"><span class="mono band-label">{name} · {ui.sample}</span></div>
+    ))}
+  </div>
+</article>
+
+<style>
+  .article { max-width: 760px; margin: 0 auto; padding: 48px 40px 40px; }
+  .back-link { font-size: 12px; color: var(--meta); text-decoration: none; display: inline-block; margin-bottom: 30px; }
+  .back-link:hover { color: var(--clay); }
+  .ai-tag-row { margin-bottom: 14px; }
+  .pill { display: inline-block; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-family: var(--mono); }
+  .pill-clay { color: #fff; background: var(--clay); }
+  .article-h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; margin: 0; }
+  .article-oneliner { font-size: 18px; color: var(--muted); margin: 18px 0 0; line-height: 1.6; }
+  .facts-card { background: var(--dark); color: #e6e2d6; border-radius: 14px; padding: 22px 24px; margin-top: 30px; }
+  .facts-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); margin-bottom: 8px; }
+  .facts-text { font-size: 15px; line-height: 1.7; color: #cfcabd; }
+  .rows { margin-top: 30px; display: flex; flex-direction: column; gap: 20px; }
+  .row-label { font-size: 13px; color: var(--meta); margin-bottom: 5px; }
+  .row-text { font-size: 16px; color: var(--body-2); line-height: 1.6; }
+  .article-body { margin-top: 30px; }
+  .arch-band { height: 220px; border-radius: 14px; margin-top: 36px; }
+  .shot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+  .shot-band { height: 200px; border-radius: 12px; padding: 8px; text-align: center; }
+  .band-label { font-size: 11px; color: var(--meta); }
+  @media (max-width: 860px) {
+    .article { padding-left: 22px; padding-right: 22px; }
+    .shot-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+</style>
