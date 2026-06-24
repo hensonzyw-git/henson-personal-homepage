@@ -23,7 +23,7 @@ export const contactCopy: Record<Lang, { eyebrow: string; title: string; intro: 
     intro: '同行、合作方、招聘方都欢迎。下面三个入口任选其一。',
     copy: '复制',
     copied: '已复制 ✓',
-    open: '打开 →',
+    open: '打开',
   },
   en: {
     eyebrow: 'Contact',
@@ -31,6 +31,6 @@ export const contactCopy: Record<Lang, { eyebrow: string; title: string; intro: 
     intro: 'Peers, collaborators and recruiters all welcome. Pick any of the three below.',
     copy: 'copy',
     copied: 'copied ✓',
-    open: 'open →',
+    open: 'open',
   },
 };
