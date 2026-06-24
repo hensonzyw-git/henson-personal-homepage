@@ -7,6 +7,7 @@ updated: 2026-06-13
 oneLiner: Turns concert listings scattered across ticketing platforms into a personal intel radar you check once a day — a backend continuously scrapes, an LLM scores and classifies, and an iOS app surfaces only what's worth attention and not yet expired, tunable by natural-language feedback.
 tag: personal vibe coding
 featured: true
+repo: https://github.com/hensonzyw-git/show-trace-tool
 facts: ~4 weeks (2026-05-15 → 2026-06-13), 39 commits, ~13.5k net lines; ECS + FastAPI + daily collection + DeepSeek preference scoring + a SwiftUI iOS client.
 did: Multi-source listings → scrape → LLM structuring → dedupe → preference scoring → summary → iOS.
 how: Decouple scraping from extraction with fixtures, wire up the easiest source first, abstract the system as a "data pipeline" not "real-time monitoring", dare to cut the detail page, hybrid cloud/local architecture, write the PRD as a collaboration protocol for AI, and cross-review with multiple models (implement / find faults / re-check).
