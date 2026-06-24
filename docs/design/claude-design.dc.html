@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  ::selection{background:rgba(193,95,60,.18)}
+  ::-webkit-scrollbar{width:11px;height:11px}
+  ::-webkit-scrollbar-thumb{background:#cfc9ba;border-radius:99px;border:3px solid #EEEBE2}
+  @keyframes hsFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="--clay: {{ accentVar }}; --display: {{ displayVar }}; min-height:100vh; background:#EEEBE2; color:#1F1E1B; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','PingFang SC','Helvetica Neue',sans-serif; -webkit-font-smoothing:antialiased; line-height:1.5;">
+
+  <template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#EEEBE2"/><rect x="42" y="42" width="16" height="16" rx="3" fill="#C15F3C" transform="rotate(45 50 50)"/><text x="50" y="78" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="#1F1E1B" text-anchor="middle">Henson</text></svg></template>
+
+  <nav style="position:sticky; top:0; z-index:50; background:rgba(238,235,226,.86); backdrop-filter:blur(12px); border-bottom:1px solid rgba(31,30,27,.1);">
+    <div style="max-width:1180px; margin:0 auto; padding:0 40px; height:66px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <button onClick="{{ goHome }}" style="display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; padding:0;">
+        <span style="width:13px; height:13px; background:var(--clay,#C15F3C); transform:rotate(45deg); display:inline-block; border-radius:2px;"></span>
+        <span style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:21px; font-weight:600; color:#1F1E1B; letter-spacing:.01em;">Henson</span>
+      </button>
+      <div style="display:flex; align-items:center; gap:4px;">
+        <button onClick="{{ goBlog }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:#5C594F; padding:8px 14px; border-radius:8px;" style-hover="background:rgba(31,30,27,.05); color:#1F1E1B;">{{ t.blog }}</button>
+        <button onClick="{{ goAI }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:#5C594F; padding:8px 14px; border-radius:8px;" style-hover="background:rgba(31,30,27,.05); color:#1F1E1B;">{{ t.ai }}</button>
+        <button onClick="{{ goProjects }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:#5C594F; padding:8px 14px; border-radius:8px;" style-hover="background:rgba(31,30,27,.05); color:#1F1E1B;">{{ t.projects }}</button>
+        <button onClick="{{ goResume }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:#5C594F; padding:8px 14px; border-radius:8px;" style-hover="background:rgba(31,30,27,.05); color:#1F1E1B;">{{ t.resume }}</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="display:inline-flex; border:1px solid rgba(31,30,27,.16); border-radius:999px; padding:3px; background:rgba(255,255,255,.4);">
+          <button onClick="{{ setZh }}" style="border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; padding:4px 11px; border-radius:999px; background:{{ zhBtnBg }}; color:{{ zhBtnColor }};">中</button>
+          <button onClick="{{ setEn }}" style="border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; padding:4px 11px; border-radius:999px; background:{{ enBtnBg }}; color:{{ enBtnColor }};">EN</button>
+        </div>
+        <button onClick="{{ goContact }}" style="background:var(--clay,#C15F3C); color:#fff; border:none; cursor:pointer; font-family:inherit; font-weight:600; font-size:14px; padding:10px 18px; border-radius:999px;" style-hover="background:#A94E30;">{{ t.cta }}</button>
+      </div>
+    </div>
+  </nav>
+
+  <sc-if value="{{ isEn }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#26241F; color:#EDEAE0;">
+      <div style="max-width:1180px; margin:0 auto; padding:11px 40px; display:flex; align-items:center; gap:12px; font-size:13.5px;">
+        <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--clay,#C15F3C);">EN · fallback</span>
+        <span style="color:#bdb9ad;">界面文案已切换为英文。正文条目缺失英文版时降级显示中文原文并提示「暂无英文版」(对应 PRD R-L4 / A-1)。</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <main key="{{ page }}">
+
+    <!-- ===================== HOME ===================== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}" data-screen-label="Home">
+    <div>
+      <div style="max-width:1180px; margin:0 auto; padding:0 40px;">
+        <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:18px 0 4px; border-bottom:1px solid rgba(31,30,27,.08);">
+          <span style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8A867B;">设计探索 · 首屏方向</span>
+          <div style="display:inline-flex; gap:4px; border:1px solid rgba(31,30,27,.14); border-radius:999px; padding:4px; background:rgba(255,255,255,.5);">
+            <button onClick="{{ setHeroA }}" style="border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; padding:5px 13px; border-radius:999px; background:{{ haBg }}; color:{{ haColor }};">A · 宣言</button>
+            <button onClick="{{ setHeroB }}" style="border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; padding:5px 13px; border-radius:999px; background:{{ hbBg }}; color:{{ hbColor }};">B · 编辑</button>
+            <button onClick="{{ setHeroC }}" style="border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; padding:5px 13px; border-radius:999px; background:{{ hcBg }}; color:{{ hcColor }};">C · 钩子+最新</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO A · 宣言 -->
+      <sc-if value="{{ heroA }}" hint-placeholder-val="{{ true }}">
+      <section style="max-width:1180px; margin:0 auto; padding:78px 40px 64px;">
+        <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:26px;">AI 时代的产品经理 · 思考 + 实践</div>
+        <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-weight:600; font-size:clamp(40px,6.2vw,78px); line-height:1.06; letter-spacing:-.01em; margin:0; max-width:14ch; text-wrap:balance;">把对 AI 的思考,<br>做成能动手的东西。</h1>
+        <p style="font-size:clamp(18px,2vw,21px); color:#5C594F; max-width:600px; margin:30px 0 0; line-height:1.55;">我是 Henson —— 一名用 AI 重新定义产品工作边界的产品经理。观点写下来,实践做出来,这里是它们沉淀的地方。</p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:38px;">
+          <button onClick="{{ goBlog }}" style="background:var(--clay,#C15F3C); color:#fff; border:none; cursor:pointer; font-family:inherit; font-weight:600; font-size:16px; padding:15px 26px; border-radius:999px;" style-hover="background:#A94E30;">读最新文章 →</button>
+          <button onClick="{{ goAI }}" style="background:transparent; color:#1F1E1B; border:1px solid rgba(31,30,27,.2); cursor:pointer; font-family:inherit; font-weight:600; font-size:16px; padding:15px 26px; border-radius:999px;" style-hover="border-color:#1F1E1B;">看 AI 实践</button>
+        </div>
+        <div style="margin-top:58px;">
+          <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.04em; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-bottom:18px;">示例 · 待替换</span></sc-if>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(31,30,27,.1); border:1px solid rgba(31,30,27,.1); border-radius:14px; overflow:hidden;">
+            <div style="background:#F7F5EF; padding:26px 22px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:34px; font-weight:600; line-height:1;">6 年</div><div style="font-size:14px; color:#65625A; margin-top:8px;">产品经验</div></div>
+            <div style="background:#F7F5EF; padding:26px 22px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:34px; font-weight:600; line-height:1;">AI 落地</div><div style="font-size:14px; color:#65625A; margin-top:8px;">实践方向</div></div>
+            <div style="background:#F7F5EF; padding:26px 22px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:34px; font-weight:600; line-height:1;">0 → 1</div><div style="font-size:14px; color:#65625A; margin-top:8px;">代表叙事</div></div>
+            <div style="background:#F7F5EF; padding:26px 22px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:34px; font-weight:600; line-height:1;">12+</div><div style="font-size:14px; color:#65625A; margin-top:8px;">动手实践</div></div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <!-- HERO B · 编辑 -->
+      <sc-if value="{{ heroB }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:1180px; margin:0 auto; padding:74px 40px 64px; display:grid; grid-template-columns:1.15fr 1fr; gap:64px; align-items:start;">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:24px;">Henson · Product Manager</div>
+          <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-weight:600; font-size:clamp(38px,5vw,66px); line-height:1.08; letter-spacing:-.01em; margin:0; text-wrap:balance;">会动手做 AI,是这一代产品经理的分水岭。</h1>
+          <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:36px;">
+            <button onClick="{{ goBlog }}" style="background:var(--clay,#C15F3C); color:#fff; border:none; cursor:pointer; font-family:inherit; font-weight:600; font-size:16px; padding:15px 26px; border-radius:999px;" style-hover="background:#A94E30;">读最新文章 →</button>
+            <button onClick="{{ goAI }}" style="background:transparent; color:#1F1E1B; border:1px solid rgba(31,30,27,.2); cursor:pointer; font-family:inherit; font-weight:600; font-size:16px; padding:15px 26px; border-radius:999px;" style-hover="border-color:#1F1E1B;">看 AI 实践</button>
+          </div>
+        </div>
+        <div style="background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:32px 30px;">
+          <p style="font-size:17px; color:#3a3833; line-height:1.6; margin:0 0 24px;">把分散在社交平台上的观点,收回到一个自己掌控、能长期沉淀的主场。下面是几个可扫读的判断依据 ——</p>
+          <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.04em; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-bottom:14px;">示例 · 待替换</span></sc-if>
+          <div style="display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:13px 0; border-top:1px solid rgba(31,30,27,.1);"><span style="font-size:15px; color:#65625A;">产品经验</span><span style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:19px; font-weight:600;">6 年 · 0→1 与增长</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:13px 0; border-top:1px solid rgba(31,30,27,.1);"><span style="font-size:15px; color:#65625A;">差异化</span><span style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:19px; font-weight:600;">AI 落地实践</span></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:13px 0; border-top:1px solid rgba(31,30,27,.1);"><span style="font-size:15px; color:#65625A;">动手产出</span><span style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:19px; font-weight:600;">12+ 工具/原型</span></div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <!-- HERO C · 钩子 + 最新 -->
+      <sc-if value="{{ heroC }}" hint-placeholder-val="{{ false }}">
+      <section style="max-width:1180px; margin:0 auto; padding:74px 40px 56px; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start;">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:22px;">在想什么 / 在做什么</div>
+          <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-weight:600; font-size:clamp(32px,4.2vw,54px); line-height:1.1; letter-spacing:-.01em; margin:0; text-wrap:balance;">与其证明履历,不如展示思维密度。</h1>
+          <p style="font-size:18px; color:#5C594F; max-width:440px; margin:24px 0 0; line-height:1.55;">一个以「思考 + AI 实践」为钩子的主场。读得到观点,也看得到我怎么动手。</p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:26px;">
+            <span style="font-size:13px; color:#3a3833; background:rgba(255,255,255,.6); border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:6px 13px;">6 年产品</span>
+            <span style="font-size:13px; color:#3a3833; background:rgba(255,255,255,.6); border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:6px 13px;">AI 落地</span>
+            <span style="font-size:13px; color:#3a3833; background:rgba(255,255,255,.6); border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:6px 13px;">0→1 叙事</span>
+            <span style="font-size:13px; color:#3a3833; background:rgba(255,255,255,.6); border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:6px 13px;">动手实践</span>
+          </div>
+        </div>
+        <div style="background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:8px 26px 12px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:18px 0 14px; border-bottom:1px solid rgba(31,30,27,.1);">
+            <span style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#8A867B;">最新在想</span>
+            <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="font-family:'Space Mono',monospace; font-size:10px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:2px 8px;">示例</span></sc-if>
+          </div>
+          <button onClick="{{ openArticle }}" style="display:block; width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:18px 0; border-bottom:1px solid rgba(31,30,27,.08); font-family:inherit;" style-hover="opacity:.7;">
+            <div style="display:flex; gap:10px; align-items:center; font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:7px;"><span style="color:var(--clay,#C15F3C);">AI 实践</span><span>2026 · 06</span></div>
+            <div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:18px; font-weight:600; line-height:1.3;">用 Claude 把这个网站从 PRD 一路写出来</div>
+          </button>
+          <button onClick="{{ openArticle }}" style="display:block; width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:18px 0; border-bottom:1px solid rgba(31,30,27,.08); font-family:inherit;" style-hover="opacity:.7;">
+            <div style="display:flex; gap:10px; align-items:center; font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:7px;"><span style="color:var(--clay,#C15F3C);">文章</span><span>2026 · 05</span></div>
+            <div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:18px; font-weight:600; line-height:1.3;">AI 时代,PM 的核心差异是什么</div>
+          </button>
+          <button onClick="{{ openArticle }}" style="display:block; width:100%; text-align:left; background:none; border:none; cursor:pointer; padding:18px 0; font-family:inherit;" style-hover="opacity:.7;">
+            <div style="display:flex; gap:10px; align-items:center; font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:7px;"><span style="color:var(--clay,#C15F3C);">文章</span><span>2026 · 04</span></div>
+            <div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:18px; font-weight:600; line-height:1.3;">从需求到决策:一份可复用的判断清单</div>
+          </button>
+        </div>
+      </section>
+      </sc-if>
+
+      <!-- LATEST 最新动态 -->
+      <section style="background:#E7E3D7; border-top:1px solid rgba(31,30,27,.08);">
+        <div style="max-width:1180px; margin:0 auto; padding:64px 40px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:8px;">
+            <h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:30px; font-weight:600; margin:0;">最新动态</h2>
+            <span style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">Blog + AI Practice · 自动取最新</span>
+          </div>
+          <p style="font-size:14px; color:#8A867B; margin:0 0 8px;">混合时间流,按日期倒序自动展示最近条目。</p>
+          <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.04em; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06);">示例 · 待替换</span></sc-if>
+          <div style="margin-top:22px; border-top:1px solid rgba(31,30,27,.12);">
+            <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:160px 1fr auto; gap:28px; align-items:center; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:26px 0; font-family:inherit;" style-hover="background:rgba(255,255,255,.35);">
+              <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;"><span style="display:inline-block; color:#fff; background:var(--clay,#C15F3C); border-radius:999px; padding:2px 9px; font-size:11px; margin-right:8px;">AI 实践</span><br><span style="display:inline-block; margin-top:8px;">2026 · 06 · 11</span></div>
+              <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600; line-height:1.25;">用 Claude 把这个网站从 PRD 一路写出来</div><div style="font-size:15px; color:#5C594F; margin-top:7px; max-width:60ch;">把一份 PRD 喂给模型,边对话边生成 Astro 站点 —— 本站本身就是第一个 AI 实践条目。</div></div>
+              <span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+            </button>
+            <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:160px 1fr auto; gap:28px; align-items:center; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:26px 0; font-family:inherit;" style-hover="background:rgba(255,255,255,.35);">
+              <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;"><span style="display:inline-block; color:#1F1E1B; background:rgba(31,30,27,.1); border-radius:999px; padding:2px 9px; font-size:11px; margin-right:8px;">文章</span><br><span style="display:inline-block; margin-top:8px;">2026 · 05 · 28</span></div>
+              <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600; line-height:1.25;">AI 时代,PM 的核心差异是什么</div><div style="font-size:15px; color:#5C594F; margin-top:7px; max-width:60ch;">当需求文档可以被生成,产品经理真正稀缺的能力发生了什么转移。</div></div>
+              <span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+            </button>
+            <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:160px 1fr auto; gap:28px; align-items:center; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:26px 0; font-family:inherit;" style-hover="background:rgba(255,255,255,.35);">
+              <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;"><span style="display:inline-block; color:#1F1E1B; background:rgba(31,30,27,.1); border-radius:999px; padding:2px 9px; font-size:11px; margin-right:8px;">文章</span><br><span style="display:inline-block; margin-top:8px;">2026 · 04 · 09</span></div>
+              <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600; line-height:1.25;">从需求到决策:一份可复用的判断清单</div><div style="font-size:15px; color:#5C594F; margin-top:7px; max-width:60ch;">把反复用到的产品判断沉淀成清单,减少每次从零开始的决策成本。</div></div>
+              <span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULES 模块导航枢纽 -->
+      <section style="max-width:1180px; margin:0 auto; padding:66px 40px 24px;">
+        <h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:30px; font-weight:600; margin:0 0 28px;">去各个角落</h2>
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px;">
+          <button onClick="{{ goBlog }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:30px 28px; cursor:pointer; font-family:inherit; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+            <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600;">文章 · Writing</div><div style="font-size:15px; color:#5C594F; margin-top:8px; max-width:34ch;">关于 AI、产品与思考方式的长文,按时间倒序。</div></div><span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+          </button>
+          <button onClick="{{ goAI }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:30px 28px; cursor:pointer; font-family:inherit; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+            <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600;">AI 实践 · Practice</div><div style="font-size:15px; color:#5C594F; margin-top:8px; max-width:34ch;">动手做的工具、prompt、自动化与本站本身。核心差异化。</div></div><span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+          </button>
+          <button onClick="{{ goProjects }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:30px 28px; cursor:pointer; font-family:inherit; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+            <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600;">项目 · Projects</div><div style="font-size:15px; color:#5C594F; margin-top:8px; max-width:34ch;">职业产品工作:问题 → 决策 → 结果 → 我的贡献。</div></div><span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+          </button>
+          <button onClick="{{ goResume }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:30px 28px; cursor:pointer; font-family:inherit; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+            <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600;">简历 · Resume</div><div style="font-size:15px; color:#5C594F; margin-top:8px; max-width:34ch;">线性履历与技能,可选 PDF 下载。</div></div><span style="color:var(--clay,#C15F3C); font-size:20px;">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================== BLOG INDEX ===================== -->
+    <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}" data-screen-label="Blog Index">
+    <section style="max-width:1180px; margin:0 auto; padding:64px 40px 40px;">
+      <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:18px;">文章 · Writing</div>
+      <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(34px,4.4vw,52px); font-weight:600; margin:0; max-width:18ch; line-height:1.1;">写下来的思考</h1>
+      <p style="font-size:18px; color:#5C594F; max-width:56ch; margin:20px 0 0;">关于 AI、产品与判断方式的长文,按发布日期倒序。草稿不出现在索引中。</p>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:22px;">示例 · 待替换 · draft 不入索引</span></sc-if>
+      <div style="margin-top:34px; border-top:1px solid rgba(31,30,27,.12);">
+        <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:120px 1fr; gap:32px; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:30px 0; font-family:inherit;" style-hover="opacity:.65;">
+          <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; padding-top:6px;">2026·05·28</div>
+          <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; line-height:1.25;">AI 时代,PM 的核心差异是什么</div><div style="font-size:16px; color:#5C594F; margin-top:9px; max-width:62ch;">当需求文档可以被生成,产品经理真正稀缺的能力发生了什么转移。一篇关于「会动手」的长文。</div></div>
+        </button>
+        <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:120px 1fr; gap:32px; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:30px 0; font-family:inherit;" style-hover="opacity:.65;">
+          <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; padding-top:6px;">2026·04·09</div>
+          <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; line-height:1.25;">从需求到决策:一份可复用的判断清单</div><div style="font-size:16px; color:#5C594F; margin-top:9px; max-width:62ch;">把反复用到的产品判断沉淀成清单,减少每次从零开始的决策成本。</div></div>
+        </button>
+        <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:120px 1fr; gap:32px; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:30px 0; font-family:inherit;" style-hover="opacity:.65;">
+          <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; padding-top:6px;">2026·02·17</div>
+          <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; line-height:1.25;">为什么我把观点搬回自己的主场</div><div style="font-size:16px; color:#5C594F; margin-top:9px; max-width:62ch;">社交平台分散、算法主导、不可沉淀 —— 一个由自己掌控的内容主场意味着什么。</div></div>
+        </button>
+        <button onClick="{{ openArticle }}" style="display:grid; grid-template-columns:120px 1fr; gap:32px; width:100%; text-align:left; background:none; border:none; border-bottom:1px solid rgba(31,30,27,.12); cursor:pointer; padding:30px 0; font-family:inherit;" style-hover="opacity:.65;">
+          <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; padding-top:6px;">2025·12·30</div>
+          <div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; line-height:1.25;">年末复盘:我如何用 AI 改造日常工作流</div><div style="font-size:16px; color:#5C594F; margin-top:9px; max-width:62ch;">从写文档到做原型,一年里把哪些环节交给了模型,效果如何。</div></div>
+        </button>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===================== BLOG DETAIL ===================== -->
+    <sc-if value="{{ isBlogDetail }}" hint-placeholder-val="{{ false }}" data-screen-label="Blog Detail">
+    <article style="max-width:720px; margin:0 auto; padding:48px 40px 40px;">
+      <button onClick="{{ goBlog }}" style="background:none; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; padding:0; margin-bottom:34px;" style-hover="color:var(--clay,#C15F3C);">← 返回文章</button>
+      <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; margin-bottom:16px;">2026 · 05 · 28 · 阅读约 6 分钟</div>
+      <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(32px,4vw,46px); font-weight:600; line-height:1.15; margin:0;">AI 时代,PM 的核心差异是什么</h1>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:22px;">示例正文 · 待替换</span></sc-if>
+      <div style="font-size:18px; line-height:1.75; color:#2b2a26; margin-top:30px;">
+        <p style="margin:0 0 24px;">当一份需求文档可以被模型在几分钟内生成,产品经理的价值就不再停留在「写得出文档」这件事上。真正稀缺的,是判断与品味 —— 知道该做什么、不该做什么,以及为什么。</p>
+        <h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:27px; font-weight:600; margin:40px 0 16px; line-height:1.3;">差异来自「会动手」</h2>
+        <p style="margin:0 0 24px;">过去 PM 与工程的边界很清晰。现在这条线在模糊:能自己拉起一个原型、调一套 prompt、把流程自动化的 PM,迭代速度是另一个量级。</p>
+        <ul style="margin:0 0 24px; padding-left:22px;">
+          <li style="margin-bottom:10px;">把想法直接做成可点击的东西,而不是等排期。</li>
+          <li style="margin-bottom:10px;">用模型压缩调研、撰写、验证之间的距离。</li>
+          <li style="margin-bottom:10px;">在动手中形成对技术边界的真实直觉。</li>
+        </ul>
+        <blockquote style="margin:32px 0; padding:6px 0 6px 22px; border-left:3px solid var(--clay,#C15F3C); font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:21px; color:#1F1E1B; line-height:1.5;">会动手做 AI,是这一代产品经理与上一代的分水岭。</blockquote>
+        <p style="margin:0 0 24px;">下面是一段把判断逻辑写成配置的示意 ——</p>
+        <pre style="margin:0 0 24px; background:#26241F; color:#e6e2d6; border-radius:12px; padding:20px 22px; overflow:auto; font-family:'Space Mono',monospace; font-size:13.5px; line-height:1.6;">decision = rank(options)
+  .by(impact, confidence)
+  .filter(reversible)   // 可逆的先做
+  .first()</pre>
+        <p style="margin:0 0 24px;">这套思路我整理成了一份清单,放在 <button onClick="{{ goBlog }}" style="background:none;border:none;padding:0;cursor:pointer;font:inherit;color:var(--clay,#C15F3C);text-decoration:underline;">另一篇文章</button> 里。</p>
+      </div>
+    </article>
+    </sc-if>
+
+    <!-- ===================== AI PRACTICE ===================== -->
+    <sc-if value="{{ isAI }}" hint-placeholder-val="{{ false }}" data-screen-label="AI Practice">
+    <section style="max-width:1180px; margin:0 auto; padding:64px 40px 40px;">
+      <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:18px;">AI 实践 · Side Projects</div>
+      <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(34px,4.4vw,52px); font-weight:600; margin:0; max-width:20ch; line-height:1.1;">动手做的 AI</h1>
+      <p style="font-size:18px; color:#5C594F; max-width:58ch; margin:20px 0 0;">工具、prompt、自动化,以及本网站自身。比文章更偏「作品 / 实物」—— 这是 AI 时代 PM 的核心差异化载体。</p>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:22px;">示例 · 待替换</span></sc-if>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:34px;">
+        <div style="background:#F7F5EF; border:1px solid var(--clay,#C15F3C); border-radius:16px; overflow:hidden;">
+          <div style="height:150px; background:repeating-linear-gradient(135deg,#E6E2D6,#E6E2D6 11px,#EEEBE2 11px,#EEEBE2 22px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">本站构建截图 · 待替换</span></div>
+          <div style="padding:26px 26px 28px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;"><span style="font-size:11px; color:#fff; background:var(--clay,#C15F3C); border-radius:999px; padding:3px 10px; font-family:'Space Mono',monospace;">自指实践</span></div>
+            <div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:23px; font-weight:600;">这个网站本身</div>
+            <div style="font-size:13px; color:#8A867B; margin:14px 0 4px; font-family:'Space Mono',monospace;">做了什么</div><div style="font-size:15px; color:#3a3833;">用 Astro 搭静态站,内容走 Markdown content collections。</div>
+            <div style="font-size:13px; color:#8A867B; margin:12px 0 4px; font-family:'Space Mono',monospace;">怎么做</div><div style="font-size:15px; color:#3a3833;">把 PRD 喂给模型,边对话边生成结构与组件。</div>
+            <div style="font-size:13px; color:#8A867B; margin:12px 0 4px; font-family:'Space Mono',monospace;">价值 / 产出</div><div style="font-size:15px; color:#3a3833;">一个可长期沉淀的内容主场,也是天然的能力证据。</div>
+          </div>
+        </div>
+        <div style="background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; overflow:hidden;">
+          <div style="height:150px; background:repeating-linear-gradient(135deg,#E6E2D6,#E6E2D6 11px,#EEEBE2 11px,#EEEBE2 22px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">工具截图 · 待替换</span></div>
+          <div style="padding:26px 26px 28px;">
+            <div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:23px; font-weight:600;">需求拆解 Prompt 套件</div>
+            <div style="font-size:13px; color:#8A867B; margin:14px 0 4px; font-family:'Space Mono',monospace;">做了什么</div><div style="font-size:15px; color:#3a3833;">一组把模糊需求拆成可执行任务的 prompt 模板。</div>
+            <div style="font-size:13px; color:#8A867B; margin:12px 0 4px; font-family:'Space Mono',monospace;">怎么做</div><div style="font-size:15px; color:#3a3833;">沉淀真实项目里反复用到的提问结构。</div>
+            <div style="font-size:13px; color:#8A867B; margin:12px 0 4px; font-family:'Space Mono',monospace;">价值 / 产出</div><div style="font-size:15px; color:#3a3833;">把需求澄清时间从示例数字小时压到分钟级。</div>
+          </div>
+        </div>
+        <div style="background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; overflow:hidden;">
+          <div style="height:150px; background:repeating-linear-gradient(135deg,#E6E2D6,#E6E2D6 11px,#EEEBE2 11px,#EEEBE2 22px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">自动化截图 · 待替换</span></div>
+          <div style="padding:26px 26px 28px;">
+            <div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:23px; font-weight:600;">周报自动化流水线</div>
+            <div style="font-size:13px; color:#8A867B; margin:14px 0 4px; font-family:'Space Mono',monospace;">做了什么</div><div style="font-size:15px; color:#3a3833;">把分散数据源汇总成一份结构化周报。</div>
+            <div style="font-size:13px; color:#8A867B; margin:12px 0 4px; font-family:'Space Mono',monospace;">怎么做</div><div style="font-size:15px; color:#3a3833;">脚本拉数据 + 模型生成摘要 + 模板渲染。</div>
+            <div style="font-size:13px; color:#8A867B; margin:12px 0 4px; font-family:'Space Mono',monospace;">价值 / 产出</div><div style="font-size:15px; color:#3a3833;">每周省下示例数字小时的手工整理。</div>
+          </div>
+        </div>
+        <div style="background:#F7F5EF; border:1px dashed rgba(31,30,27,.2); border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:330px; gap:10px; padding:26px;">
+          <span style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">空态 / 占位</span>
+          <span style="font-size:15px; color:#65625A; text-align:center;">条目少时仅有索引卡片,详情页可选。<br>更多实践 · 内容建设中</span>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===================== PROJECTS INDEX ===================== -->
+    <sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}" data-screen-label="Projects Index">
+    <section style="max-width:1180px; margin:0 auto; padding:64px 40px 40px;">
+      <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:18px;">项目 · Projects</div>
+      <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(34px,4.4vw,52px); font-weight:600; margin:0; max-width:20ch; line-height:1.1;">职业产品工作</h1>
+      <p style="font-size:18px; color:#5C594F; max-width:58ch; margin:20px 0 0;">每个项目都按「问题 → 决策 / 取舍 → 结果 → 我的个人贡献」展开,而非「我参与了 X」。</p>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:22px;">示例 · 待替换</span></sc-if>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:34px;">
+        <button onClick="{{ openProject }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:28px 26px; cursor:pointer; font-family:inherit; min-height:200px; display:flex; flex-direction:column; justify-content:space-between;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+          <div><div style="font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:12px;">0 → 1 · B 端</div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600; line-height:1.25;">从零搭一条数据洞察产品线</div><div style="font-size:15px; color:#5C594F; margin-top:10px;">在不确定的市场里,把一个模糊命题做成可付费的产品。</div></div>
+          <span style="color:var(--clay,#C15F3C); font-size:18px; margin-top:18px;">查看详情 →</span>
+        </button>
+        <button onClick="{{ openProject }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:28px 26px; cursor:pointer; font-family:inherit; min-height:200px; display:flex; flex-direction:column; justify-content:space-between;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+          <div><div style="font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:12px;">增长 · C 端</div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600; line-height:1.25;">重做新用户激活流程</div><div style="font-size:15px; color:#5C594F; margin-top:10px;">用一次有取舍的改版,把激活率拉到新台阶。</div></div>
+          <span style="color:var(--clay,#C15F3C); font-size:18px; margin-top:18px;">查看详情 →</span>
+        </button>
+        <button onClick="{{ openProject }}" style="text-align:left; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:16px; padding:28px 26px; cursor:pointer; font-family:inherit; min-height:200px; display:flex; flex-direction:column; justify-content:space-between;" style-hover="border-color:var(--clay,#C15F3C); transform:translateY(-2px);">
+          <div><div style="font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:12px;">平台 · 效率</div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:22px; font-weight:600; line-height:1.25;">把内部工具整合成一个平台</div><div style="font-size:15px; color:#5C594F; margin-top:10px;">在资源受限下决定先合并什么、放弃什么。</div></div>
+          <span style="color:var(--clay,#C15F3C); font-size:18px; margin-top:18px;">查看详情 →</span>
+        </button>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===================== PROJECT DETAIL ===================== -->
+    <sc-if value="{{ isProjectDetail }}" hint-placeholder-val="{{ false }}" data-screen-label="Project Detail">
+    <article style="max-width:760px; margin:0 auto; padding:48px 40px 40px;">
+      <button onClick="{{ goProjects }}" style="background:none; border:none; cursor:pointer; font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; padding:0; margin-bottom:30px;" style-hover="color:var(--clay,#C15F3C);">← 返回项目</button>
+      <div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B; margin-bottom:16px;">0 → 1 · B 端 · 2024 – 2025</div>
+      <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(32px,4vw,46px); font-weight:600; line-height:1.15; margin:0;">从零搭一条数据洞察产品线</h1>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:20px;">示例 · 含示例数字 · 待替换</span></sc-if>
+      <div style="height:200px; margin-top:28px; border-radius:14px; background:repeating-linear-gradient(135deg,#E6E2D6,#E6E2D6 12px,#EEEBE2 12px,#EEEBE2 24px); display:flex; align-items:center; justify-content:center;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">产品截图 · 待替换</span></div>
+      <div style="margin-top:40px; display:flex; flex-direction:column; gap:36px;">
+        <div><div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#fff; background:#1F1E1B; border-radius:999px; padding:4px 11px;">01</span><h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; margin:0;">问题</h2></div><p style="font-size:17px; line-height:1.7; color:#2b2a26; margin:0;">团队手握大量数据,却没有一个能让非技术用户自助拿到洞察的产品。市场命题模糊,谁是付费用户也不清晰。</p></div>
+        <div><div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#fff; background:#1F1E1B; border-radius:999px; padding:4px 11px;">02</span><h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; margin:0;">决策 / 取舍</h2></div><p style="font-size:17px; line-height:1.7; color:#2b2a26; margin:0;">放弃「大而全的 BI」,先押一个高频、痛点明确的垂直场景。砍掉自定义看板,换来更快上线与更清晰的价值证明。</p></div>
+        <div><div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#fff; background:var(--clay,#C15F3C); border-radius:999px; padding:4px 11px;">03</span><h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; margin:0;">结果(含数据)</h2></div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(31,30,27,.1); border:1px solid rgba(31,30,27,.1); border-radius:12px; overflow:hidden; margin-bottom:14px;">
+            <div style="background:#F7F5EF; padding:20px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:28px; font-weight:600;">+ XX%</div><div style="font-size:13px; color:#8A867B; margin-top:6px;">付费转化(示例)</div></div>
+            <div style="background:#F7F5EF; padding:20px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:28px; font-weight:600;">N 家</div><div style="font-size:13px; color:#8A867B; margin-top:6px;">首批客户(示例)</div></div>
+            <div style="background:#F7F5EF; padding:20px;"><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:28px; font-weight:600;">X 周</div><div style="font-size:13px; color:#8A867B; margin-top:6px;">上线周期(示例)</div></div>
+          </div>
+          <p style="font-size:17px; line-height:1.7; color:#2b2a26; margin:0;">垂直切入验证了核心价值,为后续扩展打下叙事基础。</p>
+        </div>
+        <div><div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;"><span style="font-family:'Space Mono',monospace; font-size:12px; color:#fff; background:var(--clay,#C15F3C); border-radius:999px; padding:4px 11px;">04</span><h2 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:25px; font-weight:600; margin:0;">我的个人贡献</h2></div><p style="font-size:17px; line-height:1.7; color:#2b2a26; margin:0;">从 0 定义产品方向与优先级,主导垂直场景的取舍决策,推动跨团队对齐,并亲手做了早期可点击原型用于客户验证。</p></div>
+      </div>
+    </article>
+    </sc-if>
+
+    <!-- ===================== RESUME ===================== -->
+    <sc-if value="{{ isResume }}" hint-placeholder-val="{{ false }}" data-screen-label="Resume">
+    <section style="max-width:820px; margin:0 auto; padding:56px 40px 40px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:14px;">简历 · Resume</div>
+          <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(32px,4vw,46px); font-weight:600; margin:0;">Henson</h1>
+          <p style="font-size:17px; color:#5C594F; margin:12px 0 0;">AI 时代的产品经理 · 0→1 与增长 · 6 年经验</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+          <button disabled="disabled" style="background:rgba(31,30,27,.06); color:#8A867B; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:12px 20px; font-family:inherit; font-weight:600; font-size:14px; cursor:not-allowed;">PDF 即将提供</button>
+          <span style="font-family:'Space Mono',monospace; font-size:10px; color:#8A867B;">PDF-pending · 降级态 · 无死链</span>
+        </div>
+      </div>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:26px;">示例履历 · 待替换</span></sc-if>
+
+      <div style="margin-top:40px;">
+        <h2 style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#8A867B; margin:0 0 18px; padding-bottom:10px; border-bottom:1px solid rgba(31,30,27,.12);">经历</h2>
+        <div style="display:flex; flex-direction:column; gap:26px;">
+          <div style="display:grid; grid-template-columns:130px 1fr; gap:24px;"><div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">2024 — 至今</div><div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">高级产品经理 · 某公司(示例)</div><div style="font-size:15px; color:#5C594F; margin-top:6px;">主导数据洞察产品线 0→1,定义方向与优先级,推动跨团队交付。</div></div></div>
+          <div style="display:grid; grid-template-columns:130px 1fr; gap:24px;"><div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">2021 — 2024</div><div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">产品经理 · 某公司(示例)</div><div style="font-size:15px; color:#5C594F; margin-top:6px;">负责 C 端增长与激活流程改版,把关键指标拉到新台阶。</div></div></div>
+          <div style="display:grid; grid-template-columns:130px 1fr; gap:24px;"><div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">2019 — 2021</div><div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">产品专员 · 某公司(示例)</div><div style="font-size:15px; color:#5C594F; margin-top:6px;">从需求调研做起,逐步承担完整模块。</div></div></div>
+        </div>
+      </div>
+      <div style="margin-top:40px;">
+        <h2 style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#8A867B; margin:0 0 18px; padding-bottom:10px; border-bottom:1px solid rgba(31,30,27,.12);">教育</h2>
+        <div style="display:grid; grid-template-columns:130px 1fr; gap:24px;"><div style="font-family:'Space Mono',monospace; font-size:12px; color:#8A867B;">2015 — 2019</div><div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">某大学 · 某专业(示例)</div></div></div>
+      </div>
+      <div style="margin-top:40px;">
+        <h2 style="font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#8A867B; margin:0 0 18px; padding-bottom:10px; border-bottom:1px solid rgba(31,30,27,.12);">技能</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:9px;">
+          <span style="font-size:14px; color:#3a3833; background:#F7F5EF; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:7px 15px;">产品策略</span>
+          <span style="font-size:14px; color:#3a3833; background:#F7F5EF; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:7px 15px;">0→1</span>
+          <span style="font-size:14px; color:#3a3833; background:#F7F5EF; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:7px 15px;">增长</span>
+          <span style="font-size:14px; color:#3a3833; background:#F7F5EF; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:7px 15px;">AI 应用</span>
+          <span style="font-size:14px; color:#3a3833; background:#F7F5EF; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:7px 15px;">Prompt 工程</span>
+          <span style="font-size:14px; color:#3a3833; background:#F7F5EF; border:1px solid rgba(31,30,27,.12); border-radius:999px; padding:7px 15px;">数据分析</span>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <!-- ===================== CONTACT ===================== -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}" data-screen-label="Contact">
+    <section style="max-width:720px; margin:0 auto; padding:72px 40px 56px;">
+      <div style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay,#C15F3C); margin-bottom:18px;">联系 · Contact</div>
+      <h1 style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:clamp(34px,4.4vw,52px); font-weight:600; margin:0; line-height:1.1;">聊聊 AI 与产品</h1>
+      <p style="font-size:18px; color:#5C594F; max-width:50ch; margin:20px 0 0;">同行、合作方、招聘方都欢迎。下面三个入口任选其一。</p>
+      <sc-if value="{{ showTags }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:11px; color:var(--clay,#C15F3C); border:1px dashed rgba(193,95,60,.5); border-radius:999px; padding:3px 10px; background:rgba(193,95,60,.06); margin-top:22px;">假值占位 · 待替换</span></sc-if>
+      <div style="margin-top:32px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:14px; padding:22px 24px;">
+          <div><div style="font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:5px;">EMAIL</div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">your-email@example.com</div></div>
+          <span style="font-size:13px; color:var(--clay,#C15F3C); font-family:'Space Mono',monospace;">复制</span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:14px; padding:22px 24px;">
+          <div><div style="font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:5px;">LINKEDIN</div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">linkedin.com/in/your-handle</div></div>
+          <span style="font-size:13px; color:var(--clay,#C15F3C); font-family:'Space Mono',monospace;">打开 →</span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; background:#F7F5EF; border:1px solid rgba(31,30,27,.1); border-radius:14px; padding:22px 24px;">
+          <div><div style="font-family:'Space Mono',monospace; font-size:11px; color:#8A867B; margin-bottom:5px;">GITHUB</div><div style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600;">github.com/your-handle</div></div>
+          <span style="font-size:13px; color:var(--clay,#C15F3C); font-family:'Space Mono',monospace;">打开 →</span>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+
+  </main>
+
+  <footer style="background:#26241F; color:#cfcabd; margin-top:40px;">
+    <div style="max-width:1180px; margin:0 auto; padding:56px 40px 40px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;"><span style="width:12px; height:12px; background:var(--clay,#C15F3C); transform:rotate(45deg); display:inline-block; border-radius:2px;"></span><span style="font-family:var(--display,-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif); font-size:20px; font-weight:600; color:#EDEAE0;">Henson</span></div>
+        <p style="font-size:14.5px; color:#9b968a; max-width:34ch; line-height:1.6; margin:0;">AI 时代的产品经理。思考写下来,实践做出来。</p>
+        <p style="font-family:'Space Mono',monospace; font-size:11px; color:#736f64; margin:20px 0 0;">本站由 Astro + AI 协作构建 · 自指的第一个 AI 实践</p>
+      </div>
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#736f64; margin-bottom:14px;">导航</div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <button onClick="{{ goBlog }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">文章</button>
+          <button onClick="{{ goAI }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">AI 实践</button>
+          <button onClick="{{ goProjects }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">项目</button>
+          <button onClick="{{ goResume }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">简历</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#736f64; margin-bottom:14px;">联系</div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <button onClick="{{ goContact }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">your-email@example.com</button>
+          <button onClick="{{ goContact }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">LinkedIn</button>
+          <button onClick="{{ goContact }}" style="background:none; border:none; cursor:pointer; color:#cfcabd; font-family:inherit; font-size:14.5px; text-align:left; padding:0;" style-hover="color:#fff;">GitHub</button>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);"><div style="max-width:1180px; margin:0 auto; padding:18px 40px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-family:'Space Mono',monospace; font-size:11px; color:#736f64;"><span>© 2026 Henson · 示例占位站点</span><span>克制 · 编辑感 · 文字优先</span></div></div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#C15F3C&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;headingStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;serif&quot;,&quot;sans&quot;],&quot;default&quot;:&quot;serif&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sampleTags&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', hero: 'a', lang: 'zh' };
+
+  go(p){ this.setState({ page: p }); if (typeof window!=='undefined') window.scrollTo({top:0}); }
+
+  renderVals(){
+    const ZH = { blog:'文章', ai:'AI 实践', projects:'项目', resume:'简历', contact:'联系', cta:'联系我' };
+    const EN = { blog:'Writing', ai:'AI Practice', projects:'Projects', resume:'Resume', contact:'Contact', cta:'Get in touch' };
+    const lang = this.state.lang, isEn = lang==='en';
+    const page = this.state.page, hero = this.state.hero;
+    const clay = this.props.accent || '#C15F3C';
+    const seg = (on) => on ? '#1F1E1B' : 'transparent';
+    const segC = (on) => on ? '#F7F5EF' : '#65625A';
+    return {
+      page,
+      t: isEn ? EN : ZH,
+      isEn,
+      accentVar: clay,
+      displayVar: "-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC',sans-serif",
+      showTags: this.props.sampleTags !== false,
+      isHome: page==='home', isBlog: page==='blog', isBlogDetail: page==='blogDetail',
+      isAI: page==='ai', isProjects: page==='projects', isProjectDetail: page==='projectDetail',
+      isResume: page==='resume', isContact: page==='contact',
+      heroA: hero==='a', heroB: hero==='b', heroC: hero==='c',
+      // lang toggle visuals
+      zhBtnBg: !isEn ? '#1F1E1B' : 'transparent', zhBtnColor: !isEn ? '#F7F5EF' : '#65625A',
+      enBtnBg: isEn ? '#1F1E1B' : 'transparent', enBtnColor: isEn ? '#F7F5EF' : '#65625A',
+      // hero seg visuals
+      haBg: seg(hero==='a'), haColor: segC(hero==='a'),
+      hbBg: seg(hero==='b'), hbColor: segC(hero==='b'),
+      hcBg: seg(hero==='c'), hcColor: segC(hero==='c'),
+      // handlers
+      goHome: () => this.go('home'), goBlog: () => this.go('blog'), goAI: () => this.go('ai'),
+      goProjects: () => this.go('projects'), goResume: () => this.go('resume'), goContact: () => this.go('contact'),
+      openArticle: () => this.go('blogDetail'), openProject: () => this.go('projectDetail'),
+      setHeroA: () => this.setState({hero:'a'}), setHeroB: () => this.setState({hero:'b'}), setHeroC: () => this.setState({hero:'c'}),
+      setZh: () => this.setState({lang:'zh'}), setEn: () => this.setState({lang:'en'}),
+    };
+  }
+}
+</script>
+</body>
+</html>
