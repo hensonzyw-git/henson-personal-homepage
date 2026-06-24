@@ -53,6 +53,12 @@ export async function getBlogIndex(lang: Lang) {
 }
 
 // ---- AI Practice ----------------------------------------------------------
+
+// Effective last-updated time for an AI entry: explicit `updated`, else `date`.
+export function aiUpdated(entry: CollectionEntry<'ai'>): Date {
+  return entry.data.updated ?? entry.data.date;
+}
+
 export async function getAIPairs() {
   const all = await getCollection('ai');
   return pairByKey(all);
@@ -66,13 +72,8 @@ export async function getAIIndex(lang: Lang) {
     if (!picked) continue;
     rows.push({ slug, ...picked });
   }
-  // featured first, then date-desc
-  rows.sort((a, b) => {
-    const fa = a.entry.data.featured ? 1 : 0;
-    const fb = b.entry.data.featured ? 1 : 0;
-    if (fa !== fb) return fb - fa;
-    return b.entry.data.date.getTime() - a.entry.data.date.getTime();
-  });
+  // newest-updated first (AI entries keep iterating); `updated` falls back to `date`
+  rows.sort((a, b) => aiUpdated(b.entry).getTime() - aiUpdated(a.entry).getTime());
   return rows;
 }
 

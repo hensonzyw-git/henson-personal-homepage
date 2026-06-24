@@ -3,6 +3,7 @@ key: this-site
 lang: en
 title: This website itself
 date: 2026-06-18
+updated: 2026-06-25
 oneLiner: Built as an Astro static site by feeding a PRD to the model and generating structure and components in conversation — this site is the first AI-practice entry.
 tag: self-referential
 featured: true

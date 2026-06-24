@@ -30,6 +30,7 @@ const ai = defineCollection({
     lang: langField,
     title: z.string(),
     date: z.coerce.date(),
+    updated: z.coerce.date().optional(), // last-updated time (AI entries keep iterating); falls back to `date`
     oneLiner: z.string(),
     tag: z.string().optional(),       // e.g. 自指实践
     featured: z.boolean().default(false),
@@ -39,10 +40,14 @@ const ai = defineCollection({
     how: z.string().optional(),
     value: z.string().optional(),
     placeholderLabel: z.string().default('截图 · 待替换'),
+    cardImage: z.string().optional(),          // index-card hero image (public/ path); overrides the hatch band
+    cardImageMode: z.enum(['phone', 'cover']).default('cover'), // 'phone' = narrow device on a backdrop (mobile apps); 'cover' = fill the band
     hasDetail: z.boolean().default(false),
-    // detail-page media placeholders (data-driven, per entry):
-    archDiagram: z.boolean().default(false),   // show the architecture-diagram band
-    screens: z.array(z.string()).default([]),  // screenshot band labels (this lang)
+    // detail-page media (data-driven, per entry):
+    archDiagram: z.boolean().default(false),   // show the architecture-diagram band (placeholder)
+    archImage: z.string().optional(),          // real architecture diagram (public/ path); overrides the placeholder band
+    screens: z.array(z.string()).default([]),  // screenshot labels / captions (this lang)
+    screenImages: z.array(z.string()).default([]), // real screenshot src paths, parallel to `screens`; overrides the placeholder bands
     draftTranslation: z.boolean().default(false),
   }),
 });

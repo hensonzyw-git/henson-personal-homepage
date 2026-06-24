@@ -3,6 +3,7 @@ key: this-site
 lang: zh
 title: 这个网站本身
 date: 2026-06-18
+updated: 2026-06-25
 oneLiner: 用 Astro 搭静态站，把 PRD 喂给模型边对话边生成结构与组件——本站本身就是第一个 AI 实践条目。
 tag: 自指实践
 featured: true
