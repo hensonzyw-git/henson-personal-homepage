@@ -7,6 +7,18 @@
   <slot />
 </div>
 
+<script>
+  // External links in article bodies open in a new tab (internal/anchor links unchanged).
+  for (const a of document.querySelectorAll<HTMLAnchorElement>('.prose a[href]')) {
+    try {
+      if (new URL(a.href, location.href).origin !== location.origin) {
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      }
+    } catch {}
+  }
+</script>
+
 <style is:global>
   .prose { font-size: 18px; line-height: 1.75; color: var(--body); }
   .prose > :first-child { margin-top: 0; }
