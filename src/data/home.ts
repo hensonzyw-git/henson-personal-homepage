@@ -18,13 +18,13 @@ type HomeContent = {
 
 export const home: Record<Lang, HomeContent> = {
   zh: {
-    eyebrow: 'AI 时代的产品经理 · 思考 + 实践',
+    eyebrow: '开放平台产品经理 · AI × 平台生态',
     headline: ['把对 AI 的思考，', '做成能动手的东西。'],
-    sub: '我是 Henson —— 一名用 AI 重新定义产品工作边界的产品经理。观点写下来，实践做出来，这里是它们沉淀的地方。',
+    sub: '我是朱亚威（Henson）—— 一名开放平台产品经理，专注用 AI 重新定义平台与生态产品的边界。观点写下来，实践做出来，这里是它们沉淀的地方。',
     ctaPrimary: '读最新文章 →',
     ctaSecondary: '看 AI 实践',
     stats: [
-      { value: '6 年', label: '产品经验' },
+      { value: '10 年', label: '产品经验' },
       { value: 'AI 落地', label: '实践方向' },
       { value: '0 → 1', label: '代表叙事' },
       { value: '12+', label: '动手实践' },
@@ -39,13 +39,13 @@ export const home: Record<Lang, HomeContent> = {
     ],
   },
   en: {
-    eyebrow: 'Product manager for the AI era · thinking + practice',
+    eyebrow: 'Open Platform Product Manager · AI × platform ecosystems',
     headline: ['Turn thinking about AI', 'into things you can build.'],
-    sub: "I'm Henson — a product manager redrawing the boundaries of product work with AI. Opinions written down, practice built. This is where they accumulate.",
+    sub: "I'm Henson (Zhu Yawei) — an open-platform product manager using AI to redraw the boundaries of platform and ecosystem products. Opinions written down, practice built. This is where they accumulate.",
     ctaPrimary: 'Read the latest →',
     ctaSecondary: 'See AI practice',
     stats: [
-      { value: '6 yrs', label: 'Product experience' },
+      { value: '10 yrs', label: 'Product experience' },
       { value: 'AI in prod', label: 'Practice focus' },
       { value: '0 → 1', label: 'Signature story' },
       { value: '12+', label: 'Hands-on builds' },

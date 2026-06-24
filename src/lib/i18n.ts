@@ -13,11 +13,11 @@ export const UI = {
   zh: {
     nav: { blog: '文章', ai: 'AI 实践', projects: '项目', resume: '简历', contact: '联系', cta: '联系我' },
     footer: {
-      tagline: 'AI 时代的产品经理。思考写下来，实践做出来。',
+      tagline: '开放平台产品经理。用 AI 重新定义平台与生态产品的边界。',
       built: '本站由 Astro + AI 协作构建 · 自指的第一个 AI 实践',
       navLabel: '导航',
       contactLabel: '联系',
-      copyright: '© 2026 Henson · 示例占位站点',
+      copyright: '© 2026 朱亚威 (Henson)',
       motto: '克制 · 编辑感 · 文字优先',
     },
     enBanner: '界面文案已切换为英文。正文条目缺失英文版时降级显示中文原文并提示「暂无英文版」(对应 PRD R-L4 / A-1)。',
@@ -31,11 +31,11 @@ export const UI = {
   en: {
     nav: { blog: 'Writing', ai: 'AI Practice', projects: 'Projects', resume: 'Resume', contact: 'Contact', cta: 'Get in touch' },
     footer: {
-      tagline: 'A product manager for the AI era. Thinking written down, practice built.',
+      tagline: 'Open-platform product manager. Redrawing the boundaries of platform and ecosystem products with AI.',
       built: 'Built with Astro + AI collaboration · the first self-referential AI practice',
       navLabel: 'Navigate',
       contactLabel: 'Contact',
-      copyright: '© 2026 Henson · sample placeholder site',
+      copyright: '© 2026 Henson (Zhu Yawei)',
       motto: 'Restrained · Editorial · Text-first',
     },
     enBanner: 'UI is in English. When an entry has no English body it gracefully falls back to the Chinese original (PRD R-L4 / A-1).',
