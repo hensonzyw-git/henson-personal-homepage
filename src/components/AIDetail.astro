@@ -19,6 +19,8 @@ const labels = lang === 'en'
   ? { facts: 'Facts', did: 'What', how: 'How', value: 'Value', arch: 'Architecture diagram · placeholder', archReal: 'System architecture', updated: 'Updated' }
   : { facts: 'Facts', did: '做了什么', how: '怎么做', value: '价值 / 产出', arch: '架构图 · 待替换', archReal: '系统架构', updated: '最近更新' };
 
+const repoLabel = lang === 'en' ? 'View on GitHub ↗' : '在 GitHub 查看 ↗';
+
 const screens = d.screens ?? [];
 const screenImages = d.screenImages ?? [];
 const screenCols = Math.min((screenImages.length || screens.length) || 1, 4);
@@ -29,6 +31,7 @@ const screenCols = Math.min((screenImages.length || screens.length) || 1, 4);
   <h1 class="display article-h1">{d.title}</h1>
   <div class="mono article-updated">{labels.updated} · {monoDate(aiUpdated(entry))}</div>
   <p class="article-oneliner">{d.oneLiner}</p>
+  {d.repo && <a class="mono repo-link" href={d.repo} target="_blank" rel="noopener">{repoLabel}</a>}
 
   {fellBack && <EnFallbackNote lang={lang} />}
 
@@ -85,6 +88,8 @@ const screenCols = Math.min((screenImages.length || screens.length) || 1, 4);
   .article-h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; margin: 0; }
   .article-updated { font-size: 12px; color: var(--meta); margin-top: 14px; }
   .article-oneliner { font-size: 18px; color: var(--muted); margin: 18px 0 0; line-height: 1.6; }
+  .repo-link { display: inline-block; margin-top: 16px; color: var(--clay); font-size: 14px; text-decoration: none; }
+  .repo-link:hover { text-decoration: underline; }
   .facts-card { background: var(--dark); color: #e6e2d6; border-radius: 14px; padding: 22px 24px; margin-top: 30px; }
   .facts-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); margin-bottom: 8px; }
   .facts-text { font-size: 15px; line-height: 1.7; color: #cfcabd; }

@@ -34,6 +34,7 @@ const ai = defineCollection({
     oneLiner: z.string(),
     tag: z.string().optional(),       // e.g. 自指实践
     featured: z.boolean().default(false),
+    repo: z.string().url().optional(), // public GitHub repo; shown as a link on card + detail
     facts: z.string().optional(),     // facts card line on the detail page
     // index-card rows: 做了什么 / 怎么做 / 价值
     did: z.string().optional(),
