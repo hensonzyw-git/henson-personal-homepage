@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import { t, localePath, type Lang } from '../lib/i18n';
 import { monoDate } from '../lib/content';
 import Prose from './Prose.astro';
@@ -12,7 +12,7 @@ interface Props {
 }
 const { lang, entry, fellBack } = Astro.props;
 const ui = t(lang);
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const d = entry.data;
 ---
 <article class="article">
