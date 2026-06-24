@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import { t, localePath, type Lang } from '../lib/i18n';
 import Prose from './Prose.astro';
 import EnFallbackNote from './EnFallbackNote.astro';
@@ -12,7 +12,7 @@ interface Props {
 const { lang, entry, fellBack } = Astro.props;
 const ui = t(lang);
 const d = entry.data;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const labels = lang === 'en'
   ? { facts: 'Facts', did: 'What', how: 'How', value: 'Value', arch: 'Architecture diagram · placeholder', shots: 'iOS screenshots · placeholder', shotNames: ['Daily digest', 'All shows', 'Preferences', 'Settings'] }

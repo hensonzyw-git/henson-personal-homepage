@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 // Every Blog / AI / Project entry ships BOTH languages (GATE 1: 每条强制中英双份).
 // Convention: one markdown file per language, named `<slug>.<lang>.md`, sharing
@@ -7,7 +8,7 @@ import { defineCollection, z } from 'astro:content';
 const langField = z.enum(['zh', 'en']);
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     key: z.string(),
     lang: langField,
@@ -23,7 +24,7 @@ const blog = defineCollection({
 });
 
 const ai = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/ai' }),
   schema: z.object({
     key: z.string(),
     lang: langField,
@@ -44,7 +45,7 @@ const ai = defineCollection({
 });
 
 const projects = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: z.object({
     key: z.string(),
     lang: langField,
