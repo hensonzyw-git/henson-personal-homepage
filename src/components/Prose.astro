@@ -18,6 +18,7 @@
     margin: 40px 0 16px;
     line-height: 1.3;
     color: var(--ink);
+    scroll-margin-top: 86px;   /* anchor jumps clear the sticky nav */
   }
   .prose h3 {
     font-family: var(--display);
@@ -26,19 +27,41 @@
     margin: 30px 0 12px;
     line-height: 1.35;
     color: var(--ink);
+    scroll-margin-top: 86px;
   }
   .prose ul, .prose ol { margin: 0 0 24px; padding-left: 22px; }
   .prose li { margin-bottom: 10px; }
+  /* tables: render tabular content as real tables, not flat text */
+  .prose table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.55;
+    border: 1px solid var(--line-12);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .prose th, .prose td {
+    padding: 10px 14px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line-12);
+  }
+  .prose thead th { background: var(--band); font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .prose tbody tr:last-child td { border-bottom: none; }
+  .prose td { color: var(--body); }
   .prose strong { font-weight: 700; color: var(--ink); }
   .prose a { color: var(--clay); text-decoration: underline; }
   .prose blockquote {
-    margin: 32px 0;
-    padding: 6px 0 6px 22px;
+    margin: 28px 0;
+    padding: 4px 0 4px 20px;
     border-left: 3px solid var(--clay);
     font-family: var(--display);
-    font-size: 21px;
+    font-size: 18px;          /* match body — callout marked by the clay rule, not size */
     color: var(--ink);
-    line-height: 1.5;
+    line-height: 1.7;
   }
   .prose blockquote p { margin: 0; }
   .prose pre {

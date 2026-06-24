@@ -12,31 +12,130 @@ interface Props {
 }
 const { lang, entry, fellBack } = Astro.props;
 const ui = t(lang);
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const d = entry.data;
+
+// Table of contents: top-level (h2) + one nested level (h3). Astro auto-assigns
+// matching `id`s to the rendered headings, so `#slug` anchors resolve.
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const tocLabel = lang === 'en' ? 'On this page' : '目录';
 ---
-<article class="article">
-  <a class="mono back-link" href={localePath(lang, '/blog')}>{ui.backToBlog}</a>
-  <div class="mono article-meta">{monoDate(d.date)} · {ui.readMins(d.readMins)}</div>
-  <h1 class="display article-h1">{d.title}</h1>
+<div class:list={['article-shell', { 'has-toc': toc.length > 1 }]}>
+  <article class="article">
+    <a class="mono back-link" href={localePath(lang, '/blog')}>{ui.backToBlog}</a>
+    <div class="mono article-meta">{monoDate(d.date)} · {ui.readMins(d.readMins)}</div>
+    <h1 class="display article-h1">{d.title}</h1>
 
-  {fellBack && <EnFallbackNote lang={lang} />}
+    {fellBack && <EnFallbackNote lang={lang} />}
 
-  <div class="article-body">
-    <Prose>
-      <Content />
-    </Prose>
-  </div>
-</article>
+    <div class="article-body">
+      <Prose>
+        <Content />
+      </Prose>
+    </div>
+  </article>
+
+  {toc.length > 1 && (
+    <aside class="toc" aria-label={tocLabel}>
+      <div class="toc-inner">
+        <div class="mono toc-label">{tocLabel}</div>
+        <nav class="toc-list">
+          {toc.map((h) => (
+            <a
+              href={`#${h.slug}`}
+              data-slug={h.slug}
+              class:list={['toc-link', { 'toc-sub': h.depth === 3 }]}
+            >{h.text}</a>
+          ))}
+        </nav>
+      </div>
+    </aside>
+  )}
+</div>
+
+<script>
+  // Scroll-spy: highlight the TOC entry for the section currently near the top,
+  // mirroring Feishu's left outline. Click-to-jump is plain anchor + CSS smooth scroll.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
+  if (links.length) {
+    const bySlug = new Map(links.map((l) => [l.dataset.slug, l]));
+    const targets = links
+      .map((l) => document.getElementById(l.dataset.slug ?? ''))
+      .filter((el): el is HTMLElement => !!el);
+
+    let current: HTMLAnchorElement | null = null;
+    const setActive = (slug?: string) => {
+      const next = slug ? bySlug.get(slug) ?? null : null;
+      if (next === current) return;
+      current?.classList.remove('active');
+      next?.classList.add('active');
+      current = next;
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the visible heading closest to the top trigger line.
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length) setActive(visible[0].target.id);
+      },
+      { rootMargin: '-86px 0px -72% 0px', threshold: 0 },
+    );
+    targets.forEach((t) => observer.observe(t));
+  }
+</script>
 
 <style>
-  .article { max-width: 720px; margin: 0 auto; padding: 48px 40px 40px; }
+  .article-shell {
+    max-width: 1180px;   /* = site --container; TOC + article span the default width */
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .article-shell.has-toc {
+    display: flex;
+    gap: 56px;
+    align-items: flex-start;
+  }
+  .article { flex: 1; min-width: 0; max-width: 900px; padding: 48px 0 40px; }
   .back-link { font-size: 12px; color: var(--meta); text-decoration: none; display: inline-block; margin-bottom: 34px; }
   .back-link:hover { color: var(--clay); }
   .article-meta { font-size: 12px; color: var(--meta); margin-bottom: 16px; }
   .article-h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; margin: 0; }
   .article-body { margin-top: 30px; }
-  @media (max-width: 860px) {
-    .article { padding-left: 22px; padding-right: 22px; }
+
+  /* left outline (TOC) */
+  .toc {
+    order: -1;            /* content-first in DOM, rendered on the left */
+    width: 200px;
+    flex: none;
+    position: sticky;
+    top: 86px;
+    align-self: flex-start;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    padding-top: 52px;
+  }
+  .toc-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--meta); margin-bottom: 14px; }
+  .toc-list { display: flex; flex-direction: column; border-left: 1px solid var(--line-12); }
+  .toc-link {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--muted-2);
+    text-decoration: none;
+    padding: 6px 0 6px 14px;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    transition: color .12s ease, border-color .12s ease;
+  }
+  .toc-link:hover { color: var(--ink); }
+  .toc-link.active { color: var(--clay); border-left-color: var(--clay); }
+  .toc-sub { padding-left: 26px; font-size: 12.5px; color: var(--meta); }
+
+  @media (max-width: 1100px) {
+    /* drop the outline; single centered reading column */
+    .article-shell, .article-shell.has-toc { display: block; max-width: 900px; padding-left: 22px; padding-right: 22px; }
+    .article { max-width: none; }
+    .toc { display: none; }
   }
 </style>

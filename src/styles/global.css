@@ -55,6 +55,8 @@ html {
   /* Always reserve the scrollbar gutter so centered content (nav, eyebrows)
      does not shift horizontally between scrolling and non-scrolling pages. */
   scrollbar-gutter: stable;
+  /* smooth in-page jumps for the article table of contents */
+  scroll-behavior: smooth;
 }
 
 /* sticky footer: short pages (e.g. /contact) still push the footer to the
