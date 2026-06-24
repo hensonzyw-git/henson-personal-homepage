@@ -10,8 +10,6 @@ export type ResumeRow = { period: string; title: string; desc?: string };
 type ResumeContent = {
   name: string;
   role: string;
-  pdfPending: string;
-  pdfNote: string;
   sampleChip: string;
   sections: {
     experience: { label: string; rows: ResumeRow[] };
@@ -24,9 +22,7 @@ export const resume: Record<Lang, ResumeContent> = {
   zh: {
     name: '朱亚威 Henson',
     role: '开放平台产品经理 · AI × 平台生态 · 10 年经验',
-    pdfPending: 'PDF 即将提供',
-    pdfNote: 'PDF-pending · 降级态 · 无死链',
-    sampleChip: '示例履历 · 待替换',
+    sampleChip: '简版 · 完整简历应要求提供',
     sections: {
       experience: {
         label: '经历',
@@ -38,18 +34,18 @@ export const resume: Record<Lang, ResumeContent> = {
           },
           {
             period: '2023 — 2025',
-            title: '产品经理 · 字节跳动（TikTok）',
-            desc: '负责 TikTok 开放平台的数据合规原则与机制设计。',
+            title: '产品经理 · 字节跳动',
+            desc: 'TikTok 开放平台数据开放原则制定与 TikTok Minis 框架冷启动；抖音生活服务服务商平台。',
           },
           {
             period: '2022 — 2023',
             title: '产品经理 · 微软 Microsoft',
-            desc: '负责开发者生态方向的产品。',
+            desc: 'Excel add-in 开发者生态建设与维护。',
           },
           {
             period: '2017 — 2022',
             title: '产品经理 · 字节跳动',
-            desc: '从 0 搭建开放平台框架、拓展行业生态，带 4 人小队。',
+            desc: '字节小程序 0→1（今日头条 / 抖音 SDK 与 API），抖音开放平台重点行业生态（电商 / 本地生活，带 4 人）。',
           },
           {
             period: '2016 — 2017',
@@ -60,7 +56,10 @@ export const resume: Record<Lang, ResumeContent> = {
       },
       education: {
         label: '教育',
-        rows: [{ period: '2015 — 2019', title: '某大学 · 某专业（示例）' }],
+        rows: [
+          { period: '2013 — 2016', title: '武汉邮电科学研究院 · 通信与信息系统 · 硕士' },
+          { period: '2009 — 2013', title: '华中科技大学 · 电子与信息工程 · 本科' },
+        ],
       },
       skills: {
         label: '技能',
@@ -80,9 +79,7 @@ export const resume: Record<Lang, ResumeContent> = {
   en: {
     name: 'Henson · Zhu Yawei',
     role: 'Open Platform Product Manager · AI × platform ecosystems · 10 years',
-    pdfPending: 'PDF coming soon',
-    pdfNote: 'PDF-pending · degraded state · no dead link',
-    sampleChip: 'sample resume · placeholder',
+    sampleChip: 'Short version · full résumé available on request',
     sections: {
       experience: {
         label: 'Experience',
@@ -94,18 +91,18 @@ export const resume: Record<Lang, ResumeContent> = {
           },
           {
             period: '2023 — 2025',
-            title: 'Product Manager · ByteDance (TikTok)',
-            desc: 'Owned data-compliance principles and mechanisms for the TikTok open platform.',
+            title: 'Product Manager · ByteDance',
+            desc: 'Data-openness principles for the TikTok open platform and the cold start of the TikTok Minis framework; Douyin local-services provider platform.',
           },
           {
             period: '2022 — 2023',
             title: 'Product Manager · Microsoft',
-            desc: 'Worked on developer-ecosystem products.',
+            desc: 'Built and maintained the Excel add-in developer ecosystem.',
           },
           {
             period: '2017 — 2022',
             title: 'Product Manager · ByteDance',
-            desc: 'Built the open platform from scratch, grew the industry ecosystem, and led a team of 4.',
+            desc: 'Mini-program platform 0→1 (Toutiao / Douyin SDK & API); key-industry ecosystems on the Douyin open platform (e-commerce / local services, led a team of 4).',
           },
           {
             period: '2016 — 2017',
@@ -116,7 +113,10 @@ export const resume: Record<Lang, ResumeContent> = {
       },
       education: {
         label: 'Education',
-        rows: [{ period: '2015 — 2019', title: 'University · Major (sample)' }],
+        rows: [
+          { period: '2013 — 2016', title: 'Wuhan Research Institute of P&T · Communication & Information Systems · M.S.' },
+          { period: '2009 — 2013', title: 'Huazhong University of Science and Technology · Electronic & Information Engineering · B.S.' },
+        ],
       },
       skills: {
         label: 'Skills',

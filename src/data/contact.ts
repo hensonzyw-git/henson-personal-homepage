@@ -11,17 +11,16 @@ export type ContactItem = {
 };
 
 export const contactItems: ContactItem[] = [
-  { label: 'EMAIL', value: 'your-email@example.com', href: 'mailto:your-email@example.com', action: 'copy' },
-  { label: 'LINKEDIN', value: 'linkedin.com/in/your-handle', href: 'https://linkedin.com/in/your-handle', action: 'open' },
-  { label: 'GITHUB', value: 'github.com/your-handle', href: 'https://github.com/your-handle', action: 'open' },
+  { label: 'EMAIL', value: 'hensonwork@foxmail.com', href: 'mailto:hensonwork@foxmail.com', action: 'copy' },
+  { label: 'LINKEDIN', value: 'linkedin.com/in/yaweizhu-henson', href: 'https://www.linkedin.com/in/yaweizhu-henson', action: 'open' },
+  { label: 'GITHUB', value: 'github.com/hensonzyw-git', href: 'https://github.com/hensonzyw-git', action: 'open' },
 ];
 
-export const contactCopy: Record<Lang, { eyebrow: string; title: string; intro: string; sample: string; copy: string; copied: string; open: string }> = {
+export const contactCopy: Record<Lang, { eyebrow: string; title: string; intro: string; copy: string; copied: string; open: string }> = {
   zh: {
     eyebrow: '联系 · Contact',
     title: '聊聊 AI 与产品',
     intro: '同行、合作方、招聘方都欢迎。下面三个入口任选其一。',
-    sample: '假值占位 · 待替换',
     copy: '复制',
     copied: '已复制 ✓',
     open: '打开 →',
@@ -30,7 +29,6 @@ export const contactCopy: Record<Lang, { eyebrow: string; title: string; intro: 
     eyebrow: 'Contact',
     title: "Let's talk AI & product",
     intro: 'Peers, collaborators and recruiters all welcome. Pick any of the three below.',
-    sample: 'fake placeholder values · to be replaced',
     copy: 'copy',
     copied: 'copied ✓',
     open: 'open →',

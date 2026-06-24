@@ -7,7 +7,7 @@ import type { Lang } from './i18n';
 
 const isProd = import.meta.env.PROD;
 
-type AnyEntry = CollectionEntry<'blog'> | CollectionEntry<'ai'> | CollectionEntry<'projects'>;
+type AnyEntry = CollectionEntry<'blog'> | CollectionEntry<'ai'>;
 
 // Resolve the entry for a given key in the requested language. If the requested
 // language is missing, fall back to the other language and flag it.
@@ -73,24 +73,6 @@ export async function getAIIndex(lang: Lang) {
     if (fa !== fb) return fb - fa;
     return b.entry.data.date.getTime() - a.entry.data.date.getTime();
   });
-  return rows;
-}
-
-// ---- Projects -------------------------------------------------------------
-export async function getProjectPairs() {
-  const all = await getCollection('projects');
-  return pairByKey(all);
-}
-
-export async function getProjectIndex(lang: Lang) {
-  const pairs = await getProjectPairs();
-  const rows = [];
-  for (const [slug, pair] of pairs) {
-    const picked = pickLang(pair, lang);
-    if (!picked) continue;
-    rows.push({ slug, ...picked });
-  }
-  rows.sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime());
   return rows;
 }
 

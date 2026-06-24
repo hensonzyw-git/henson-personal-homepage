@@ -5,7 +5,7 @@ import { resume } from '../data/resume';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const c = resume[lang];
-const eyebrow = lang === 'en' ? 'Resume' : '简历 · Resume';
+const eyebrow = lang === 'en' ? 'About me' : '关于我 · About me';
 ---
 <section class="resume">
   <div class="resume-head">
@@ -13,11 +13,6 @@ const eyebrow = lang === 'en' ? 'Resume' : '简历 · Resume';
       <div class="eyebrow resume-eyebrow">{eyebrow}</div>
       <h1 class="display resume-name">{c.name}</h1>
       <p class="resume-role">{c.role}</p>
-    </div>
-    <div class="resume-pdf">
-      <!-- PDF-pending degraded state: disabled button, no dead link (R-R3 / AC-3) -->
-      <button class="pdf-btn" disabled aria-disabled="true">{c.pdfPending}</button>
-      <span class="mono pdf-note">{c.pdfNote}</span>
     </div>
   </div>
 
@@ -64,19 +59,6 @@ const eyebrow = lang === 'en' ? 'Resume' : '简历 · Resume';
   .resume-eyebrow { margin-bottom: 14px; }
   .resume-name { font-size: clamp(32px, 4vw, 46px); margin: 0; }
   .resume-role { font-size: 17px; color: var(--muted); margin: 12px 0 0; }
-  .resume-pdf { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-  .pdf-btn {
-    background: rgba(31, 30, 27, .06);
-    color: var(--meta);
-    border: 1px solid var(--line-12);
-    border-radius: 999px;
-    padding: 12px 20px;
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 14px;
-    cursor: not-allowed;
-  }
-  .pdf-note { font-size: 10px; color: var(--meta); }
   .resume-sample { margin-top: 26px; }
   .resume-section { margin-top: 40px; }
   .section-label {

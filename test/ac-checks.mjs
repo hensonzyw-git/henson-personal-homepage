@@ -21,8 +21,7 @@ function fileExists(rel) { return existsSync(join(dist, rel)); }
 
 // ---- AC-1: routes ----
 const zhRoutes = [
-  'index.html', 'resume/index.html', 'projects/index.html',
-  'projects/merchant-ai-agent/index.html', 'blog/index.html',
+  'index.html', 'resume/index.html', 'blog/index.html',
   'blog/competitor-gap-signal/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
@@ -63,7 +62,7 @@ ok('AC-6 >=1 AI detail exists', fileExists('ai/show-radar/index.html'), 'no /ai/
 const home = read('index.html') || '';
 ok('AC-2 home has latest/动态 section', /最新/.test(home), 'no latest section heading');
 ok('AC-2 home has module hub links', /href="\/blog"/.test(home) && /href="\/ai"/.test(home)
-   && /href="\/projects"/.test(home) && /href="\/resume"/.test(home), 'missing a module link');
+   && /href="\/resume"/.test(home), 'missing a module link');
 // latest feed: newest 3, date-desc, mixed blog+ai. Pull dates appearing in latest block.
 // dates rendered mono as "YYYY · MM · DD"
 const homeDates = [...home.matchAll(/(\d{4}) · (\d{2}) · (\d{2})/g)].map(m => `${m[1]}-${m[2]}-${m[3]}`);
@@ -79,8 +78,6 @@ const pairs = [
   ['blog/eval-all-zero-signature', 'en/blog/eval-all-zero-signature'],
   ['blog/design-drift-ai-collab', 'en/blog/design-drift-ai-collab'],
   ['ai/show-radar', 'en/ai/show-radar'],
-  ['projects/merchant-ai-agent', 'en/projects/merchant-ai-agent'],
-  ['projects/data-insight-line', 'en/projects/data-insight-line'],
 ];
 for (const [zh, en] of pairs)
   ok(`GATE1 zh+en both exist: ${zh}`, fileExists(`${zh}/index.html`) && fileExists(`${en}/index.html`), 'one side missing');
@@ -93,28 +90,24 @@ const enPost = read('en/blog/competitor-gap-signal/index.html') || '';
 ok('AC-8 en deep page links back to zh counterpart',
    /href="\/blog\/competitor-gap-signal/.test(enPost), 'no link back to zh counterpart');
 
-// ---- AC-3: resume PDF pending, no dead href ----
+// ---- AC-3: resume offers no public PDF download (private; provided on request) ----
 const resume = read('resume/index.html') || '';
-ok('AC-3 resume PDF pending label', /PDF\s*即将提供|即将提供/.test(resume), 'no pending label');
-// no anchor pointing at a .pdf
+// no PDF download entry at all (no button label, no .pdf link)
+ok('AC-3 no PDF download entry', !/PDF/i.test(resume), 'found a PDF reference');
 ok('AC-3 no dead .pdf href', !/href="[^"]*\.pdf"/i.test(resume), 'found a .pdf href');
 
-// ---- AC-4: project detail four-part frame w/ numbered badges ----
-const proj = read('projects/merchant-ai-agent/index.html') || '';
-const fourPart = ['问题', '决策', '结果', '贡献'].every(s => proj.includes(s));
-ok('AC-4 four-part frame present', fourPart, 'missing a section label');
-const badges = ['01', '02', '03', '04'].every(n => proj.includes(n));
-ok('AC-4 numbered badges 01-04 present', badges, 'missing a badge number');
-
-// ---- AC-7: contact 3 entries fake values ----
+// ---- AC-7: contact 3 entries with real values ----
 const contact = read('contact/index.html') || '';
 ok('AC-7 contact has EMAIL/LINKEDIN/GITHUB', /EMAIL/i.test(contact) && /LINKEDIN/i.test(contact) && /GITHUB/i.test(contact), 'missing a channel');
-ok('AC-7 contact has obvious fake value', /example\.com|your-|示例|待替换/i.test(contact), 'no obvious placeholder');
+ok('AC-7 contact real values resolve',
+   /mailto:hensonwork@foxmail\.com/.test(contact) && /linkedin\.com\/in\/yaweizhu-henson/.test(contact) && /github\.com\/hensonzyw-git/.test(contact),
+   'a real channel value is missing');
+ok('AC-7 contact has no placeholder value', !/example\.com|your-/i.test(contact), 'found a placeholder value');
 
-// ---- AC-9: placeholder labels present somewhere ----
-const allHomeProjAi = home + (read('projects/index.html')||'') + (read('ai/index.html')||'') + (read('projects/data-insight-line/index.html')||'');
+// ---- AC-9: placeholder labels present somewhere (AI screenshot placeholders) ----
+const allHomeAi = home + (read('ai/index.html')||'');
 ok('AC-9 placeholder labels visible (示例/待替换/即将提供)',
-   /示例|待替换|即将提供/.test(allHomeProjAi + resume + contact), 'no placeholder labels found');
+   /示例|待替换|即将提供/.test(allHomeAi + resume + contact), 'no placeholder labels found');
 
 console.log(`\n=== ${pass} passed, ${fail} failed ===`);
 if (fails.length) { console.log('FAILURES:'); fails.forEach(f => console.log(' - ' + f)); }

@@ -10,7 +10,6 @@ const c = contactCopy[lang];
   <div class="eyebrow contact-eyebrow">{c.eyebrow}</div>
   <h1 class="display contact-h1">{c.title}</h1>
   <p class="contact-intro">{c.intro}</p>
-  <div class="sample-chip contact-sample">{c.sample}</div>
 
   <div class="contact-list">
     {contactItems.map((item) => (
@@ -62,7 +61,6 @@ const c = contactCopy[lang];
   .contact-eyebrow { margin-bottom: 18px; }
   .contact-h1 { font-size: clamp(34px, 4.4vw, 52px); margin: 0; line-height: 1.1; }
   .contact-intro { font-size: 18px; color: var(--muted); max-width: 50ch; margin: 20px 0 0; }
-  .contact-sample { margin-top: 22px; }
   .contact-list { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
   .contact-card {
     display: flex;

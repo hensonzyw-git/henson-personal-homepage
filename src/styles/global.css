@@ -54,7 +54,10 @@ html {
   line-height: 1.5;
 }
 
-body { min-height: 100vh; background: var(--paper); }
+/* sticky footer: short pages (e.g. /contact) still push the footer to the
+   viewport bottom instead of leaving empty background below it. */
+body { min-height: 100vh; background: var(--paper); display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
 
 ::selection { background: var(--clay-18); }
 ::-webkit-scrollbar { width: 11px; height: 11px; }

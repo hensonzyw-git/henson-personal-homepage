@@ -9,7 +9,7 @@ const c = home[lang];
 const p = (path: string) => localePath(lang, path);
 const latest = await getLatest(lang, 3);
 const moduleHref: Record<string, string> = {
-  blog: '/blog', ai: '/ai', projects: '/projects', resume: '/resume',
+  blog: '/blog', ai: '/ai', resume: '/resume',
 };
 ---
 <!-- HERO A · 宣言 (variant A only; A/B/C toggle stripped per spec) -->
@@ -22,7 +22,7 @@ const moduleHref: Record<string, string> = {
     <a class="btn btn-ghost" href={p('/ai')}>{c.ctaSecondary}</a>
   </div>
   <div class="hero-stats-wrap">
-    <div class="stat-grid grid-4">
+    <div class="stat-grid grid-3">
       {c.stats.map((s) => (
         <div class="stat-tile">
           <div class="display stat-value">{s.value}</div>
@@ -106,7 +106,7 @@ const moduleHref: Record<string, string> = {
   .hero-stats-wrap { margin-top: 58px; }
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     background: var(--line-10);
     border: 1px solid var(--line-10);

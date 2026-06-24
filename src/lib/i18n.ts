@@ -11,7 +11,7 @@ export const DEFAULT_LANG: Lang = 'zh';
 // Nav / UI strings. ZH/EN nav keys come straight from the design source.
 export const UI = {
   zh: {
-    nav: { blog: '文章', ai: 'AI 实践', projects: '项目', resume: '简历', contact: '联系', cta: '联系我' },
+    nav: { blog: '文章', ai: 'AI 实践', resume: '关于我', contact: '联系', cta: '联系我' },
     footer: {
       tagline: '开放平台产品经理。用 AI 重新定义平台与生态产品的边界。',
       built: '本站由 Astro + AI 协作构建 · 自指的第一个 AI 实践',
@@ -22,14 +22,13 @@ export const UI = {
     },
     enBanner: '界面文案已切换为英文。正文条目缺失英文版时降级显示中文原文并提示「暂无英文版」(对应 PRD R-L4 / A-1)。',
     backToBlog: '← 返回文章',
-    backToProjects: '← 返回项目',
     backToAI: '← 返回 AI 实践',
     readMins: (m: number) => `阅读约 ${m} 分钟`,
     fallbackNote: '暂无英文版 · 以下为中文原文',
     sample: '示例 · 待替换',
   },
   en: {
-    nav: { blog: 'Writing', ai: 'AI Practice', projects: 'Projects', resume: 'Resume', contact: 'Contact', cta: 'Get in touch' },
+    nav: { blog: 'Writing', ai: 'AI Practice', resume: 'About me', contact: 'Contact', cta: 'Get in touch' },
     footer: {
       tagline: 'Open-platform product manager. Redrawing the boundaries of platform and ecosystem products with AI.',
       built: 'Built with Astro + AI collaboration · the first self-referential AI practice',
@@ -40,7 +39,6 @@ export const UI = {
     },
     enBanner: 'UI is in English. When an entry has no English body it gracefully falls back to the Chinese original (PRD R-L4 / A-1).',
     backToBlog: '← Back to Writing',
-    backToProjects: '← Back to Projects',
     backToAI: '← Back to AI Practice',
     readMins: (m: number) => `~${m} min read`,
     fallbackNote: 'No English version yet · showing the Chinese original',

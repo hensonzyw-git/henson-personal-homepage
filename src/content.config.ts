@@ -44,27 +44,4 @@ const ai = defineCollection({
   }),
 });
 
-const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-  schema: z.object({
-    key: z.string(),
-    lang: langField,
-    title: z.string(),
-    date: z.coerce.date(),
-    tag: z.string(),                   // mono kicker, e.g. "0 → 1 · B 端"
-    oneLiner: z.string(),
-    period: z.string().optional(),     // e.g. 2024 – 2025
-    sample: z.boolean().default(false),
-    // four-part frame
-    problem: z.string(),
-    decisions: z.string(),
-    result: z.string(),
-    contribution: z.string(),
-    stats: z
-      .array(z.object({ value: z.string(), label: z.string() }))
-      .default([]),
-    draftTranslation: z.boolean().default(false),
-  }),
-});
-
-export const collections = { blog, ai, projects };
+export const collections = { blog, ai };
