@@ -22,7 +22,7 @@ function fileExists(rel) { return existsSync(join(dist, rel)); }
 // ---- AC-1: routes ----
 const zhRoutes = [
   'index.html', 'about/index.html', 'blog/index.html',
-  'blog/competitor-gap-signal/index.html', 'ai/index.html',
+  'blog/traditional-to-ai-open-platform/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
@@ -42,17 +42,14 @@ ok('AC-5 blog index date-descending', JSON.stringify(blogDates) === JSON.stringi
    `order=${JSON.stringify(blogDates)}`);
 
 // markdown rendering in a detail page
-const post = read('blog/eval-all-zero-signature/index.html') || '';
+const post = read('blog/traditional-to-ai-open-platform/index.html') || '';
 ok('AC-5 markdown h2 rendered', /<h2[ >]/.test(post), 'no <h2>');
 ok('AC-5 markdown list rendered', /<ul[ >]|<ol[ >]/.test(post), 'no list');
-const anyPost = (read('blog/competitor-gap-signal/index.html')||'') + post + (read('blog/design-drift-ai-collab/index.html')||'');
-ok('AC-5 markdown blockquote rendered', /<blockquote[ >]/.test(anyPost), 'no blockquote in any post');
-ok('AC-5 markdown link rendered', /<a [^>]*href="https?:/.test(anyPost), 'no link in any post');
-// NOTE: no PUBLISHED blog post contains a fenced/inline code block (only the excluded
-// draft post does), so styled code rendering is unverified in dist. Content gap, not a
-// renderer defect — Astro markdown supports code. Tracked as a soft warning, not a fail.
-const codeRendered = /<code[ >]|<pre[ >]/.test(anyPost);
-if (!codeRendered) console.log('WARN  AC-5 code: no published post exercises a code block (content gap)');
+ok('AC-5 markdown blockquote rendered', /<blockquote[ >]/.test(post), 'no blockquote');
+ok('AC-5 markdown link rendered', /<a [^>]*href="https?:/.test(post), 'no external link');
+ok('AC-5 markdown table rendered', /<table[ >]/.test(post), 'no table');
+const codeRendered = /<code[ >]|<pre[ >]/.test(post);
+if (!codeRendered) console.log('WARN  AC-5 code: post exercises no code element');
 
 // ---- AC-6: AI module independent, index + >=1 detail ----
 ok('AC-6 AI index exists', fileExists('ai/index.html'), 'no /ai');
@@ -74,21 +71,19 @@ ok('AC-2 latest feed is mixed blog+ai', /href="\/ai\//.test(home) && /href="\/bl
 
 // ---- GATE 1: each entry has zh AND en ----
 const pairs = [
-  ['blog/competitor-gap-signal', 'en/blog/competitor-gap-signal'],
-  ['blog/eval-all-zero-signature', 'en/blog/eval-all-zero-signature'],
-  ['blog/design-drift-ai-collab', 'en/blog/design-drift-ai-collab'],
+  ['blog/traditional-to-ai-open-platform', 'en/blog/traditional-to-ai-open-platform'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
 for (const [zh, en] of pairs)
   ok(`GATE1 zh+en both exist: ${zh}`, fileExists(`${zh}/index.html`) && fileExists(`${en}/index.html`), 'one side missing');
 
 // ---- AC-8: language switch preserves page (deep page links to its counterpart) ----
-const zhPost = read('blog/competitor-gap-signal/index.html') || '';
+const zhPost = read('blog/traditional-to-ai-open-platform/index.html') || '';
 ok('AC-8 zh deep page links to /en counterpart',
-   zhPost.includes('/en/blog/competitor-gap-signal'), 'no link to en counterpart');
-const enPost = read('en/blog/competitor-gap-signal/index.html') || '';
+   zhPost.includes('/en/blog/traditional-to-ai-open-platform'), 'no link to en counterpart');
+const enPost = read('en/blog/traditional-to-ai-open-platform/index.html') || '';
 ok('AC-8 en deep page links back to zh counterpart',
-   /href="\/blog\/competitor-gap-signal/.test(enPost), 'no link back to zh counterpart');
+   /href="\/blog\/traditional-to-ai-open-platform/.test(enPost), 'no link back to zh counterpart');
 
 // ---- AC-3: About me offers no public PDF download (private; provided on request) ----
 const resume = read('about/index.html') || '';
