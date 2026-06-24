@@ -1,8 +1,7 @@
 import type { Lang } from '../lib/i18n';
 
-// Public "About me" data source. The route remains /resume for compatibility,
-// but the visible UI is "关于我 / About me". No public PDF download entry is
-// exposed; the full resume is available on request.
+// Public "About me" data source, served at /about (UI: 关于我 / About me).
+// No public PDF download entry is exposed; the full resume is available on request.
 
 export type ResumeRow = { period: string; title: string; desc?: string };
 

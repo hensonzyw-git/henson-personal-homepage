@@ -21,7 +21,7 @@ function fileExists(rel) { return existsSync(join(dist, rel)); }
 
 // ---- AC-1: routes ----
 const zhRoutes = [
-  'index.html', 'resume/index.html', 'blog/index.html',
+  'index.html', 'about/index.html', 'blog/index.html',
   'blog/competitor-gap-signal/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
@@ -62,7 +62,7 @@ ok('AC-6 >=1 AI detail exists', fileExists('ai/show-radar/index.html'), 'no /ai/
 const home = read('index.html') || '';
 ok('AC-2 home has latest/动态 section', /最新/.test(home), 'no latest section heading');
 ok('AC-2 home has module hub links', /href="\/blog"/.test(home) && /href="\/ai"/.test(home)
-   && /href="\/resume"/.test(home), 'missing a module link');
+   && /href="\/about"/.test(home), 'missing a module link');
 // latest feed: newest 3, date-desc, mixed blog+ai. Pull dates appearing in latest block.
 // dates rendered mono as "YYYY · MM · DD"
 const homeDates = [...home.matchAll(/(\d{4}) · (\d{2}) · (\d{2})/g)].map(m => `${m[1]}-${m[2]}-${m[3]}`);
@@ -90,8 +90,8 @@ const enPost = read('en/blog/competitor-gap-signal/index.html') || '';
 ok('AC-8 en deep page links back to zh counterpart',
    /href="\/blog\/competitor-gap-signal/.test(enPost), 'no link back to zh counterpart');
 
-// ---- AC-3: resume offers no public PDF download (private; provided on request) ----
-const resume = read('resume/index.html') || '';
+// ---- AC-3: About me offers no public PDF download (private; provided on request) ----
+const resume = read('about/index.html') || '';
 // no PDF download entry at all (no button label, no .pdf link)
 ok('AC-3 no PDF download entry', !/PDF/i.test(resume), 'found a PDF reference');
 ok('AC-3 no dead .pdf href', !/href="[^"]*\.pdf"/i.test(resume), 'found a .pdf href');
