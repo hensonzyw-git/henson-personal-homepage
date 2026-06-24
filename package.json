@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "@fontsource/space-mono": "^5.2.9",
-    "astro": "^4.16.18"
+    "astro": "^5.18.2"
   }
 }
