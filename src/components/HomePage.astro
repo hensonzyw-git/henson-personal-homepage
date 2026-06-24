@@ -17,19 +17,14 @@ const moduleHref: Record<string, string> = {
   <div class="eyebrow hero-eyebrow">{c.eyebrow}</div>
   <h1 class="display hero-headline" set:html={c.headline.join('<br>')}></h1>
   <p class="hero-sub">{c.sub}</p>
+  <div class="hero-tags">
+    {c.heroTags.map((tag) => (
+      <span class="hero-tag"><span class="hero-tag-dot"></span>{tag}</span>
+    ))}
+  </div>
   <div class="hero-ctas">
     <a class="btn btn-primary" href={p('/blog')}>{c.ctaPrimary}</a>
     <a class="btn btn-ghost" href={p('/ai')}>{c.ctaSecondary}</a>
-  </div>
-  <div class="hero-stats-wrap">
-    <div class="stat-grid grid-3">
-      {c.stats.map((s) => (
-        <div class="stat-tile">
-          <div class="display stat-value">{s.value}</div>
-          <div class="stat-label">{s.label}</div>
-        </div>
-      ))}
-    </div>
   </div>
 </section>
 
@@ -70,7 +65,7 @@ const moduleHref: Record<string, string> = {
 <!-- MODULES 模块导航枢纽 (2×2) -->
 <section class="container modules">
   <h2 class="display modules-title">{c.modulesTitle}</h2>
-  <div class="module-grid grid-2">
+  <div class="module-grid grid-3">
     {c.modules.map((m) => (
       <a class="module-card lift" href={p(moduleHref[m.key])}>
         <div>
@@ -102,20 +97,20 @@ const moduleHref: Record<string, string> = {
     margin: 30px 0 0;
     line-height: 1.55;
   }
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; }
-  .hero-stats-wrap { margin-top: 58px; }
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line-10);
-    border: 1px solid var(--line-10);
-    border-radius: 14px;
-    overflow: hidden;
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: rgba(255, 255, 255, .55);
+    border: 1px solid var(--line-16);
+    border-radius: 999px;
+    padding: 9px 17px;
   }
-  .stat-tile { background: var(--surface); padding: 26px 22px; }
-  .stat-value { font-size: 34px; line-height: 1; }
-  .stat-label { font-size: 14px; color: var(--muted-2); margin-top: 8px; }
+  .hero-tag-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--clay); }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
 
   /* latest */
   .latest { background: var(--band); border-top: 1px solid var(--line-08); }
@@ -160,7 +155,7 @@ const moduleHref: Record<string, string> = {
   /* modules */
   .modules { padding-top: 66px; padding-bottom: 24px; }
   .modules-title { font-size: 30px; margin: 0 0 28px; }
-  .module-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .module-card {
     background: var(--surface);
     border: 1px solid var(--line-10);

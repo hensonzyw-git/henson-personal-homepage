@@ -1,9 +1,10 @@
 import type { Lang } from '../lib/i18n';
 
 // Home page copy. Hero VARIANT A (宣言) only — the A/B/C toggle and "设计探索"
-// bar are design-tool chrome and are not shipped. Stats grid = 3 credible,
-// non-sensitive facts (years / breadth across sectors-stages-international /
-// management + hands-on); company-specific metrics are kept off the public site.
+// bar are design-tool chrome and are not shipped. heroTags = 3 small, credible,
+// non-sensitive credential pills shown inline in the hero (years / breadth across
+// sectors-stages-international / management + hands-on); company-specific metrics
+// are kept off the public site.
 
 type HomeContent = {
   eyebrow: string;
@@ -11,7 +12,7 @@ type HomeContent = {
   sub: string;
   ctaPrimary: string;
   ctaSecondary: string;
-  stats: { value: string; label: string }[];
+  heroTags: string[];
   latest: { title: string; note: string; sub: string };
   modulesTitle: string;
   modules: { key: 'blog' | 'ai' | 'resume'; title: string; desc: string }[];
@@ -24,10 +25,10 @@ export const home: Record<Lang, HomeContent> = {
     sub: '我是朱亚威（Henson）—— 一名开放平台产品经理，专注用 AI 重新定义平台与生态产品的边界。观点写下来，实践做出来，这里是它们沉淀的地方。',
     ctaPrimary: '读最新文章 →',
     ctaSecondary: '看 AI 实践',
-    stats: [
-      { value: '10 年', label: '开放平台产品经验' },
-      { value: '多行业', label: '跨业务阶段 · 含国际化经验' },
-      { value: '管理 + 一线', label: '有管理经验，也保持一线能力' },
+    heroTags: [
+      '10 年开放平台产品',
+      '多行业 · 跨阶段 · 国际化',
+      '管理 + 一线能力',
     ],
     latest: { title: '最新动态', note: 'Blog + AI Practice · 自动取最新', sub: '混合时间流，按日期倒序自动展示最近条目。' },
     modulesTitle: '去各个角落',
@@ -43,10 +44,10 @@ export const home: Record<Lang, HomeContent> = {
     sub: "I'm Henson (Zhu Yawei) — an open-platform product manager using AI to redraw the boundaries of platform and ecosystem products. Opinions written down, practice built. This is where they accumulate.",
     ctaPrimary: 'Read the latest →',
     ctaSecondary: 'See AI practice',
-    stats: [
-      { value: '10 yrs', label: 'Open-platform product experience' },
-      { value: 'Multi-sector', label: 'Across business stages · incl. international' },
-      { value: 'Lead + IC', label: 'Manages a team, also ships hands-on' },
+    heroTags: [
+      '10 yrs in open-platform product',
+      'Multi-sector · multi-stage · international',
+      'Management + hands-on',
     ],
     latest: { title: 'Latest', note: 'Blog + AI Practice · auto, newest first', sub: 'A mixed timeline, newest entries auto-surfaced by date.' },
     modulesTitle: 'Wander around',
