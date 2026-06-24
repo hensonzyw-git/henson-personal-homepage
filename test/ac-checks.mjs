@@ -99,10 +99,11 @@ ok('AC-7 contact real values resolve',
    'a real channel value is missing');
 ok('AC-7 contact has no placeholder value', !/example\.com|your-/i.test(contact), 'found a placeholder value');
 
-// ---- AC-9: screenshot placeholders still visible on AI detail pages (待替换) ----
-const aiDetails = (read('ai/show-radar/index.html')||'') + (read('ai/this-site/index.html')||'');
-ok('AC-9 placeholder labels visible on AI detail (示例/待替换)',
-   /示例|待替换/.test(aiDetails), 'no placeholder labels found on AI detail pages');
+// ---- AC-9: AI detail pages render real media (placeholders replaced) ----
+const aiDetails = (read('ai/show-radar/index.html')||'') + (read('ai/this-site/index.html')||'') + (read('ai/multi-agent-workflow/index.html')||'');
+ok('AC-9 AI detail pages show real media, not placeholders',
+   /<img[^>]+src="\/ai\//.test(aiDetails) && !/示例|待替换/.test(aiDetails),
+   'expected real /ai/ images and no 示例/待替换 placeholder labels');
 
 console.log(`\n=== ${pass} passed, ${fail} failed ===`);
 if (fails.length) { console.log('FAILURES:'); fails.forEach(f => console.log(' - ' + f)); }
