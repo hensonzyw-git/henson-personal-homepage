@@ -3,7 +3,7 @@ key: competitor-gap-signal
 lang: zh
 title: 「竞品都没做」是机会，还是大家都撞了墙
 date: 2026-05-28
-category: 文章
+category: 产品判断
 readMins: 7
 summary: 探索型工作的水平，体现在撞墙的价格上。一条季度级沉没成本换来的方法论：如何在立项前几小时判断一个「空白市场」是机会还是陷阱。
 draft: false

@@ -1,9 +1,8 @@
 import type { Lang } from '../lib/i18n';
 
-// Resume data source. V1 ships clearly-labelled "示例" placeholders; Henson fills
-// real content later. PDF is pending → the download control degrades to a disabled
-// "PDF 即将提供" button (no dead link). Skills are public-safe keywords drawn from
-// content-draft.md.
+// Public "About me" data source. The route remains /resume for compatibility,
+// but the visible UI is "关于我 / About me". No public PDF download entry is
+// exposed; the full resume is available on request.
 
 export type ResumeRow = { period: string; title: string; desc?: string };
 

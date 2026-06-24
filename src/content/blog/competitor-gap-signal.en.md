@@ -3,7 +3,7 @@ key: competitor-gap-signal
 lang: en
 title: "\"No competitor does it\" — opportunity, or everyone hit the wall?"
 date: 2026-05-28
-category: Writing
+category: Product judgment
 readMins: 7
 summary: The quality of exploratory work shows in the price you pay to hit the wall. A methodology bought with a quarter of sunk cost — how to tell, in a few hours before kickoff, whether an "empty market" is an opportunity or a trap.
 draft: false

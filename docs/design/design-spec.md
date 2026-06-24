@@ -1,20 +1,20 @@
-# Design (FINAL, authoritative) — personal-website-cc
+# Design (CURRENT, authoritative) — personal-website-cc
 
-> **This supersedes `design.md`** (the subagent's draft). The accepted design is the one
-> Henson produced himself in **Claude Design**. Source files (read these to match exactly):
-> - `design-source/claude-design.dc.html` — the editable component (x-dc format + `{{ }}` bindings)
-> - `design-source/claude-design-offline.html` — self-contained rendered export (open to view)
-> - `design-source/support.js` — the x-dc runtime (NOT needed in the Astro build)
+> This file is the current implementation contract for the public Astro site.
+> The Claude Design source files are preserved as historical design references:
+> - `docs/design/claude-design.dc.html` — editable x-dc source
+> - `docs/design/claude-design-offline.html` — self-contained rendered export
+> - `docs/design/support.js` — x-dc runtime, not part of production
 >
-> The build must **reproduce this design's look in real Astro**, then populate it with the
-> sanitized real content from `content-draft.md`. Do not invent new visual language.
+> The public site has intentionally diverged from the original design source in a few product
+> decisions: Projects are not public, Resume is named About me, contact values are real, and
+> there is no public PDF download entry.
 
 ## How to read the source
-The `.dc.html` is a single reactive component (Claude Design's `x-dc` format). `<sc-if>`
-blocks are page/route conditionals; `{{ }}` are state bindings; `style-hover="…"` are hover
-styles. In Astro these become **real routes, components, and CSS** — there is no x-dc runtime
-in production. The `renderVals()` script at the bottom defines page state, the zh/en strings,
-and the hero A/B/C toggle.
+The `.dc.html` is a single reactive component (Claude Design's `x-dc` format). It is useful for
+understanding the original visual direction, but not for current routing/content truth. In Astro
+these concepts are represented as real routes, components and CSS. There is no x-dc runtime in
+production.
 
 ## Design tokens (extract verbatim — these ARE the system)
 
@@ -30,15 +30,14 @@ and the hero A/B/C toggle.
 - **Clay accent: `#C15F3C`**, hover `#A94E30`; tints `rgba(193,95,60,.06/.18/.5)`
 - Hairlines: `rgba(31,30,27,.08 / .1 / .12 / .16)`
 
-**Type** (fonts loaded via Google Fonts in the source `<helmet>`)
-- Display / headings: **Newsreader** (serif, latin) + **Noto Serif SC** (中文). Weights 500/600.
-  - NOTE: the source's `--display` var falls back to system fonts, but the helmet loads
-    Newsreader + Noto Serif SC — the build SHOULD wire the real serif stack for the editorial look:
-    `'Newsreader','Noto Serif SC',Georgia,serif`.
-  - `headingStyle` prop default = **serif**. Use serif headings.
-- Body / UI: **Hanken Grotesk** (latin) + **Noto Sans SC** (中文):
-  `'Hanken Grotesk','Noto Sans SC',-apple-system,BlinkMacSystemFont,sans-serif`.
-- Mono / labels / dates / kicker: **Space Mono** — used for eyebrows, dates, tags, meta.
+**Type**
+- Display / headings: system sans stack:
+  `-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', sans-serif`.
+- Body / UI: system sans stack:
+  `-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Helvetica Neue', sans-serif`.
+- Mono / labels / dates / kicker: **Space Mono** — self-hosted via `@fontsource`, used for
+  eyebrows, dates, tags, meta and code.
+- No Google Fonts runtime dependency. Fonts must be bundled same-origin for reliability in China.
 - Headline sizes use `clamp()`: hero `clamp(40px,6.2vw,78px)`; page H1 `clamp(34px,4.4vw,52px)`;
   article H1 `clamp(32px,4vw,46px)`. Line-height 1.06–1.15 on big heads; `-0.01em` tracking.
 - Mono eyebrows: 11–13px, `letter-spacing .08–.1em`, `text-transform:uppercase`, clay or muted.
@@ -49,39 +48,33 @@ and the hero A/B/C toggle.
 - Radius: cards 14–16px, stat tiles 12–14px, pills/buttons 999px, small chips 8px.
 - **No drop shadows.** Depth comes from the paper/surface contrast + hairlines (Anthropic-style).
 - Hover lift on module/cards: `transform:translateY(-2px)` + `border-color:clay`.
-- Logo mark: a 13px clay square rotated 45° + "Henson" in serif.
+- Logo mark: a 13px clay square rotated 45° + "Henson" in display/system sans.
 
-## Pages to build (8 routes + states) — match source `<sc-if>` blocks
+## Public Routes
 
 1. **Home (`/`)** — eyebrow + hero + **Latest** section (`#E7E3D7`, mixed Blog+AI feed, 3 items,
-   date-desc, mono dates + clay/grey category pills) + **Modules hub** (2×2 cards: Writing, AI
-   Practice, Projects, Resume). Hero has **3 variants A/B/C** — build ONE (chosen by Henson, see
-   spec). The in-design A/B/C toggle and the "示例·待替换 / 设计探索" chrome are design-tool
-   scaffolding — **do NOT ship the toggle**; ship the chosen hero only.
-   - Hero A 宣言: centered big headline "把对 AI 的思考，做成能动手的东西。" + sub + 2 CTAs + 4-stat grid.
-   - Hero B 编辑: 2-col, left headline "会动手做 AI，是这一代产品经理的分水岭。" + right evidence card.
-   - Hero C 钩子+最新: 2-col, left headline "与其证明履历，不如展示思维密度。" + right "最新在想" list.
-2. **Blog index (`/blog`)** — eyebrow, H1 "写下来的思考", date-desc list (mono date col + serif
+   date-desc, mono dates + clay/grey category pills) + **Modules hub** (3 cards: Writing, AI
+   Practice, About me). Hero variant A only; the A/B/C toggle and design-exploration chrome are
+   not shipped. Hero evidence is shown as 3 compact credential tags:
+   `10 年开放平台产品`, `多行业 · 跨阶段 · 国际化`, `管理 + 一线能力`.
+2. **Blog index (`/blog`)** — eyebrow, H1 "写下来的思考", date-desc list (mono date col + display
    title + summary). `draft` excluded from production index.
-3. **Blog detail (`/blog/[slug]`)** — 720px, back link, mono date+readtime, serif H1, prose
+3. **Blog detail (`/blog/[slug]`)** — 720px, back link, mono date+readtime, display H1, prose
    (p/h2/ul/blockquote with clay left-border/code block `#26241F`).
 4. **AI Practice index (`/ai`)** — eyebrow, H1 "动手做的 AI", 2-col card grid. Cards have a
-   screenshot placeholder band (diagonal hatch) + 做了什么/怎么做/价值 rows. First card
-   (本站本身 / Show Radar) gets clay border = featured. Includes a dashed **empty-state** tile.
+   screenshot placeholder band (diagonal hatch) + 做了什么/怎么做/价值 rows. Featured cards get
+   a clay border. Includes a dashed **empty-state** tile.
 5. **AI Practice detail (`/ai/[slug]`)** — full detail page (GATE 2 decision). Show Radar:
    facts card + 做了什么/怎么做/价值 + architecture & iOS screenshot placeholders.
-6. **Projects index (`/projects`)** — eyebrow, H1 "职业产品工作", 3-col card grid (mono tag,
-   serif title, one-liner).
-7. **Project detail (`/projects/[slug]`)** — 760px, back link, hero placeholder band, then the
-   **four-part frame** with numbered mono badges: 01 问题 / 02 决策·取舍 / 03 结果(含数据, 3-stat
-   tiles) / 04 我的个人贡献. Badges 01/02 dark `#1F1E1B`, 03/04 clay.
-8. **Resume (`/resume`)** — 820px, header with name + role + **PDF-pending disabled button**
-   ("PDF 即将提供", `cursor:not-allowed`), sections 经历/教育/技能 (mono section labels, timeline
-   grid 130px+1fr, skill pills).
-9. **Contact (`/contact`)** — 720px, H1 "聊聊 AI 与产品", 3 cards (EMAIL/LINKEDIN/GITHUB) with
-   mono labels + serif values + copy/open affordance. Placeholder = obvious fake values.
+6. **About me (`/resume`)** — route remains `/resume` for compatibility, but UI copy is
+   "关于我 / About me". 820px layout, name + role, short-version chip, sections 经历/教育/技能
+   (mono section labels, timeline grid 130px+1fr, skill pills). No public PDF download entry.
+7. **Contact (`/contact`)** — 720px, H1 "聊聊 AI 与产品", 3 cards (EMAIL/LINKEDIN/GITHUB) with
+   mono labels + display values + copy/open affordance. Values are real public contact links.
+8. **404 (`/404.html`)** — simple zh fallback page with home/blog CTAs.
 - **Footer** (all pages): dark `#26241F`, 3-col (brand+tagline / 导航 / 联系), bottom bar
-  "© 2026 Henson" + "克制·编辑感·文字优先". Tagline line: "本站由 Astro + AI 协作构建".
+  "© 2026 朱亚威 (Henson)" + "克制·编辑感·文字优先". Tagline line:
+  "本站由 Astro + AI 协作构建".
 - **EN fallback banner**: when lang=en and an entry lacks an English body, show the dark banner
   "EN · fallback … 暂无英文版" (maps to bilingual downgrade — but note GATE 1 decision is
   **每条强制中英双份**, so for shipped entries both langs exist; keep the banner component for
@@ -90,16 +83,22 @@ and the hero A/B/C toggle.
 ## Bilingual (per GATE 1: every entry zh + en)
 - Nav/UI strings: zh/en maps already in source `renderVals()` (ZH/EN objects). Reuse them.
 - Chinese default at `/`; English mirror at `/en/...` preserving the current page.
-- Every Blog/Project/AI content entry ships BOTH zh and en bodies (en may be a labeled draft
+- Every Blog/AI content entry ships BOTH zh and en bodies (en may be a labeled draft
   translation). No language-incomplete entry in the index.
 
 ## Content
-Visual structure = this design. Substance = `content-draft.md` (sanitized real KB material:
-merchant-agent project, Show Radar, the 3 blog posts, home positioning). The design's demo text
-(e.g. "数据洞察产品线") is generic placeholder — **prefer the richer sanitized real entries** from
-content-draft.md where they map, keeping all privacy sanitization rules.
+Visual structure = this design. Substance lives in:
+- `src/data/home.ts` — home positioning and module navigation
+- `src/data/resume.ts` — public-safe About me timeline, education and skills
+- `src/data/contact.ts` — real public contact links
+- `src/content/blog/*.md` — bilingual writing entries
+- `src/content/ai/*.md` — bilingual AI practice entries
 
-## Placeholder discipline (unchanged ACs)
-Keep every "示例 · 待替换" / "PDF-pending" / empty-state / fake-contact-value labeled as
-placeholder — do not pass placeholders off as real data. Strip only the design-tool-only chrome
-(the A/B/C hero toggle and the "设计探索·首屏方向" bar).
+Work project pages are intentionally removed from the public site. Do not reintroduce `/projects`
+without an explicit product decision.
+
+## Placeholder discipline
+AI screenshots, architecture diagrams, draft practice entries and empty states may keep
+"示例 · 待替换" / `placeholder` labels. Resume PDF and fake contact placeholders are no longer
+part of the public site. Strip design-tool-only chrome such as the A/B/C hero toggle and
+"设计探索·首屏方向" bar.

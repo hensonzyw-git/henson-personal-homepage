@@ -3,7 +3,7 @@ key: eval-all-zero-signature
 lang: zh
 title: eval 全 0 分不是系统全错，是测量层 bug 的签名
 date: 2026-04-09
-category: 文章
+category: Agent 评估
 readMins: 6
 summary: 接手一套测试集，每个 case 都判 0 分，于是整套评估被废弃。但系统天天在用，不可能全错——全 0 分是评分器从头没匹配上的签名。一套 Agent 评估的归因框架。
 draft: false

@@ -52,6 +52,9 @@ html {
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+  /* Always reserve the scrollbar gutter so centered content (nav, eyebrows)
+     does not shift horizontally between scrolling and non-scrolling pages. */
+  scrollbar-gutter: stable;
 }
 
 /* sticky footer: short pages (e.g. /contact) still push the footer to the

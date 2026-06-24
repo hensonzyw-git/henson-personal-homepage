@@ -3,7 +3,7 @@ key: eval-all-zero-signature
 lang: en
 title: "All-zero evals aren't a broken system — they're a measurement-layer bug's signature"
 date: 2026-04-09
-category: Writing
+category: Agent eval
 readMins: 6
 summary: I inherited a test suite where every case scored 0, so the whole eval got abandoned. But the system was in daily use — it can't be all wrong. All-zero is the signature of a scorer that never matched. An attribution framework for agent evals.
 draft: false

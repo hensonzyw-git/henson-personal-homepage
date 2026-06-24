@@ -12,6 +12,8 @@ how: 先用 fixture 解耦抓取与抽取、先打通最易的源、把系统抽
 value: 证明 AI 时代 PM 能把一个真实需求用 AI coworking 推进成可运行、可部署、可讲述的数据产品。最值钱的产出不是代码，是「PM 如何管理 agent 之间的信息传递与质量控制」的实战方法。
 placeholderLabel: iOS 截图 · 待替换
 hasDetail: true
+archDiagram: true
+screens: [当日摘要, 全部演出, 偏好管理, 设置]
 ---
 
 把一个真实的个人需求——「我想知道最近有哪些值得看的演出，但信息散在十几个平台、还经常过期」——用 AI coworking 推到了可运行、可部署、可讲述的程度。

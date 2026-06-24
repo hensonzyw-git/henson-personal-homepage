@@ -40,6 +40,9 @@ const ai = defineCollection({
     value: z.string().optional(),
     placeholderLabel: z.string().default('截图 · 待替换'),
     hasDetail: z.boolean().default(false),
+    // detail-page media placeholders (data-driven, per entry):
+    archDiagram: z.boolean().default(false),   // show the architecture-diagram band
+    screens: z.array(z.string()).default([]),  // screenshot band labels (this lang)
     draftTranslation: z.boolean().default(false),
   }),
 });

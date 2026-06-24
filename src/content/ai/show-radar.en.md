@@ -12,6 +12,8 @@ how: Decouple scraping from extraction with fixtures, wire up the easiest source
 value: Proof that an AI-era PM can push a real need through AI coworking into a runnable, deployable, narratable data product. The most valuable output isn't the code — it's the hands-on method for how a PM manages information flow and quality control between agents.
 placeholderLabel: iOS screenshot · placeholder
 hasDetail: true
+archDiagram: true
+screens: [Daily digest, All shows, Preferences, Settings]
 draftTranslation: true
 ---
 

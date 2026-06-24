@@ -1,11 +1,11 @@
 import type { Lang } from '../lib/i18n';
 
-// Contact entries. V1 uses obvious fake placeholder values, clearly labelled
-// (PRD R-C2 / AC-7). No backend, no form — plain links only.
+// Public contact entries. No backend, no form — plain links only. Email uses
+// progressive-enhancement copy behavior in ContactPage, with mailto as fallback.
 
 export type ContactItem = {
   label: string;       // mono label: EMAIL / LINKEDIN / GITHUB
-  value: string;       // display value (obvious fake)
+  value: string;       // display value
   href: string;        // mailto: / https:
   action: 'copy' | 'open';
 };

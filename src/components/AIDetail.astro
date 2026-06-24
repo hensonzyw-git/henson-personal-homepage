@@ -15,8 +15,11 @@ const d = entry.data;
 const { Content } = await render(entry);
 
 const labels = lang === 'en'
-  ? { facts: 'Facts', did: 'What', how: 'How', value: 'Value', arch: 'Architecture diagram · placeholder', shots: 'iOS screenshots · placeholder', shotNames: ['Daily digest', 'All shows', 'Preferences', 'Settings'] }
-  : { facts: 'Facts', did: '做了什么', how: '怎么做', value: '价值 / 产出', arch: '架构图 · 待替换', shots: 'iOS 截图 · 待替换', shotNames: ['当日摘要', '全部演出', '偏好管理', '设置'] };
+  ? { facts: 'Facts', did: 'What', how: 'How', value: 'Value', arch: 'Architecture diagram · placeholder' }
+  : { facts: 'Facts', did: '做了什么', how: '怎么做', value: '价值 / 产出', arch: '架构图 · 待替换' };
+
+const screens = d.screens ?? [];
+const screenCols = Math.min(screens.length || 1, 4);
 ---
 <article class="article">
   <a class="mono back-link" href={localePath(lang, '/ai')}>{ui.backToAI}</a>
@@ -41,13 +44,15 @@ const labels = lang === 'en'
 
   <div class="article-body"><Prose><Content /></Prose></div>
 
-  <!-- architecture & iOS screenshot placeholders (diagonal hatch, 待替换) -->
-  <div class="hatch arch-band"><span class="mono band-label">{labels.arch}</span></div>
-  <div class="shot-grid grid-4">
-    {labels.shotNames.map((name) => (
-      <div class="hatch shot-band"><span class="mono band-label">{name} · {ui.sample}</span></div>
-    ))}
-  </div>
+  <!-- media placeholders (diagonal hatch, 待替换) — data-driven per entry -->
+  {d.archDiagram && <div class="hatch arch-band"><span class="mono band-label">{labels.arch}</span></div>}
+  {screens.length > 0 && (
+    <div class="shot-grid" style={`grid-template-columns: repeat(${screenCols}, 1fr)`}>
+      {screens.map((name) => (
+        <div class="hatch shot-band"><span class="mono band-label">{name} · {ui.sample}</span></div>
+      ))}
+    </div>
+  )}
 </article>
 
 <style>

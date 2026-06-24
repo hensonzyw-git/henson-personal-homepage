@@ -6,7 +6,7 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const c = contactCopy[lang];
 ---
-<section class="contact">
+<section class="container contact">
   <div class="eyebrow contact-eyebrow">{c.eyebrow}</div>
   <h1 class="display contact-h1">{c.title}</h1>
   <p class="contact-intro">{c.intro}</p>
@@ -57,11 +57,12 @@ const c = contactCopy[lang];
 </script>
 
 <style>
-  .contact { max-width: 720px; margin: 0 auto; padding: 72px 40px 56px; }
+  /* left-aligned within the standard container (eyebrow lines up with nav + Writing) */
+  .contact { padding-top: 64px; padding-bottom: 56px; }
   .contact-eyebrow { margin-bottom: 18px; }
   .contact-h1 { font-size: clamp(34px, 4.4vw, 52px); margin: 0; line-height: 1.1; }
   .contact-intro { font-size: 18px; color: var(--muted); max-width: 50ch; margin: 20px 0 0; }
-  .contact-list { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .contact-list { margin-top: 32px; max-width: 640px; display: flex; flex-direction: column; gap: 12px; }
   .contact-card {
     display: flex;
     align-items: center;
@@ -80,7 +81,6 @@ const c = contactCopy[lang];
   .contact-value { font-size: 20px; }
   .contact-action { font-size: 13px; color: var(--clay); }
   @media (max-width: 860px) {
-    .contact { padding-left: 22px; padding-right: 22px; }
     .contact-value { font-size: 17px; }
   }
 </style>

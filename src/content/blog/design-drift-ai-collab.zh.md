@@ -3,7 +3,7 @@ key: design-drift-ai-collab
 lang: zh
 title: 设计稿带偏实现：AI 协作里 PM 该守的边界
 date: 2026-02-17
-category: 文章
+category: AI 协作
 readMins: 5
 summary: 一次真实事故：设计 agent 补出了没有后端支撑的功能，coding agent 把假入口写成真逻辑，App 崩了。根因不是某个 agent 写错代码，而是协作链路缺少可执行的产品边界。
 draft: false

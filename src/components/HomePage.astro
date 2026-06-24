@@ -35,7 +35,6 @@ const moduleHref: Record<string, string> = {
       <h2 class="display latest-title">{c.latest.title}</h2>
       <span class="mono latest-note">{c.latest.note}</span>
     </div>
-    <p class="latest-sub">{c.latest.sub}</p>
 
     {latest.length === 0 ? (
       <div class="empty-state">{lang === 'en' ? 'Content in progress' : '内容建设中'}</div>
@@ -62,7 +61,7 @@ const moduleHref: Record<string, string> = {
   </div>
 </section>
 
-<!-- MODULES 模块导航枢纽 (2×2) -->
+<!-- MODULES 模块导航枢纽 (3-up) -->
 <section class="container modules">
   <h2 class="display modules-title">{c.modulesTitle}</h2>
   <div class="module-grid grid-3">
@@ -80,7 +79,7 @@ const moduleHref: Record<string, string> = {
 
 <style>
   /* hero */
-  .hero { padding-top: 78px; padding-bottom: 64px; }
+  .hero { padding-top: 64px; padding-bottom: 64px; }
   .hero-eyebrow { margin-bottom: 26px; }
   .hero-headline {
     font-size: clamp(40px, 6.2vw, 78px);
@@ -118,7 +117,6 @@ const moduleHref: Record<string, string> = {
   .latest-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
   .latest-title { font-size: 30px; margin: 0; }
   .latest-note { font-size: 12px; color: var(--meta); }
-  .latest-sub { font-size: 14px; color: var(--meta); margin: 0 0 8px; }
   .latest-list { margin-top: 22px; border-top: 1px solid var(--line-12); }
   .latest-row {
     display: grid;
@@ -126,14 +124,15 @@ const moduleHref: Record<string, string> = {
     gap: 28px;
     align-items: center;
     border-bottom: 1px solid var(--line-12);
-    padding: 26px 0;
+    padding: 26px 18px;
     text-decoration: none;
     color: inherit;
-    transition: background .12s ease;
+    transition: transform .18s cubic-bezier(.2, .7, .3, 1);
+    transform-origin: center;
   }
-  .latest-row:hover { background: rgba(255, 255, 255, .35); }
+  /* hover: no background change — gentle card-select zoom (linked rows only) */
+  .latest-row:not(.latest-row-static):hover { transform: scale(1.018); }
   .latest-row-static { cursor: default; }
-  .latest-row-static:hover { background: transparent; }
   .latest-meta { font-family: var(--mono); font-size: 12px; color: var(--meta); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
   .pill { display: inline-block; border-radius: 999px; padding: 2px 9px; font-size: 11px; font-family: var(--mono); }
   .pill-clay { color: #fff; background: var(--clay); }

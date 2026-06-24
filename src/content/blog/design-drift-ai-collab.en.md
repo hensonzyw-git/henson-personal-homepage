@@ -3,7 +3,7 @@ key: design-drift-ai-collab
 lang: en
 title: "When the design drifts the build: the boundary a PM must hold in AI collaboration"
 date: 2026-02-17
-category: Writing
+category: AI collaboration
 readMins: 5
 summary: A real incident — the design agent invented features with no backend, the coding agent turned fake entry points into real logic, and the app broke. The root cause wasn't one agent's bad code, but a collaboration chain missing an executable product boundary.
 draft: false

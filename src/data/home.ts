@@ -13,7 +13,7 @@ type HomeContent = {
   ctaPrimary: string;
   ctaSecondary: string;
   heroTags: string[];
-  latest: { title: string; note: string; sub: string };
+  latest: { title: string; note: string };
   modulesTitle: string;
   modules: { key: 'blog' | 'ai' | 'resume'; title: string; desc: string }[];
 };
@@ -21,8 +21,8 @@ type HomeContent = {
 export const home: Record<Lang, HomeContent> = {
   zh: {
     eyebrow: '开放平台产品经理 · AI × 平台生态',
-    headline: ['把对 AI 的思考，', '做成能动手的东西。'],
-    sub: '我是朱亚威（Henson）—— 一名开放平台产品经理，专注用 AI 重新定义平台与生态产品的边界。观点写下来，实践做出来，这里是它们沉淀的地方。',
+    headline: ['AI 与开放平台，', '经验和想法的沉淀。'],
+    sub: '我是朱亚威（Henson）—— 一名开放平台产品经理。这里记录我在 AI 和开放平台方向的经验、思考、想法，以及对行业进展的持续跟进。',
     ctaPrimary: '读最新文章 →',
     ctaSecondary: '看 AI 实践',
     heroTags: [
@@ -30,7 +30,7 @@ export const home: Record<Lang, HomeContent> = {
       '多行业 · 跨阶段 · 国际化',
       '管理 + 一线能力',
     ],
-    latest: { title: '最新动态', note: 'Blog + AI Practice · 自动取最新', sub: '混合时间流，按日期倒序自动展示最近条目。' },
+    latest: { title: '最新动态', note: '文章 + AI 实践' },
     modulesTitle: '去各个角落',
     modules: [
       { key: 'blog', title: '文章 · Writing', desc: '关于 AI、产品与思考方式的长文，按时间倒序。' },
@@ -49,7 +49,7 @@ export const home: Record<Lang, HomeContent> = {
       'Multi-sector · multi-stage · international',
       'Management + hands-on',
     ],
-    latest: { title: 'Latest', note: 'Blog + AI Practice · auto, newest first', sub: 'A mixed timeline, newest entries auto-surfaced by date.' },
+    latest: { title: 'Latest', note: 'Blog + AI Practice' },
     modulesTitle: 'Wander around',
     modules: [
       { key: 'blog', title: 'Writing', desc: 'Long-form on AI, product and ways of thinking, newest first.' },
