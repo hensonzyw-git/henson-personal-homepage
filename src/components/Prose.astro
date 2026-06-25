@@ -77,21 +77,23 @@
   }
   .prose blockquote p { margin: 0; }
   .prose pre {
-    /* Shiki `css-variables` theme palette, tuned to the dark code surface. */
-    --astro-code-color-background: var(--dark);
-    --astro-code-color-text: #e6e2d6;
-    --astro-code-token-comment: #8f8a7c;
-    --astro-code-token-keyword: #e0996b;
-    --astro-code-token-string: #b7c79a;
-    --astro-code-token-function: #d8c98a;
-    --astro-code-token-constant: #c9b6e0;
-    --astro-code-token-parameter: #e6e2d6;
-    --astro-code-token-string-expression: #b7c79a;
-    --astro-code-token-punctuation: #b8b3a6;
-    --astro-code-token-link: #e0996b;
+    /* Shiki `css-variables` theme palette, tuned for the light-gray code surface
+       (--band). Dark-on-light tokens kept warm to sit with the clay accent. */
+    --astro-code-color-background: var(--band);
+    --astro-code-color-text: #2b2a26;
+    --astro-code-token-comment: #65625A;
+    --astro-code-token-keyword: #A94E30;
+    --astro-code-token-string: #5f6f2e;
+    --astro-code-token-function: #8a5a2a;
+    --astro-code-token-constant: #6a4d86;
+    --astro-code-token-parameter: #2b2a26;
+    --astro-code-token-string-expression: #5f6f2e;
+    --astro-code-token-punctuation: #8A867B;
+    --astro-code-token-link: #A94E30;
     margin: 0 0 24px;
-    background: var(--dark);
-    color: #e6e2d6;
+    background: var(--band);
+    color: #2b2a26;
+    border: 1px solid var(--line-12);
     border-radius: 12px;
     padding: 20px 22px;
     overflow: auto;
