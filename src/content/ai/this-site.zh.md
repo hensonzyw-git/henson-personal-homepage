@@ -4,7 +4,7 @@ lang: zh
 title: 个人站点
 date: 2026-06-18
 updated: 2026-06-25
-oneLiner: 用 Astro 搭静态站，把 PRD 喂给模型边对话边生成结构与组件——本站本身就是第一个 AI 实践条目。
+oneLiner: "采用多Agent工作流实践的Vibe coding项目，即本站，用于承接后续文章和项目的展现"
 tag: 个人 vibe coding
 featured: true
 repo: https://github.com/hensonzyw-git/henson-personal-homepage

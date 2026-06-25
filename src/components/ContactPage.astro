@@ -17,8 +17,6 @@ const c = contactCopy[lang];
         class="contact-card"
         href={item.href}
         data-action={item.action}
-        data-copy={item.action === 'copy' ? item.value : undefined}
-        data-label-done={item.action === 'copy' ? c.copied : undefined}
         rel={item.action === 'open' ? 'noopener' : undefined}
         target={item.action === 'open' ? '_blank' : undefined}
       >
@@ -26,35 +24,11 @@ const c = contactCopy[lang];
           <div class="mono contact-label">{item.label}</div>
           <div class="display contact-value">{item.value}</div>
         </div>
-        <span class="mono contact-action">{item.action === 'copy' ? c.copy : c.open}</span>
+        <span class="contact-action" aria-hidden="true">→</span>
       </a>
     ))}
   </div>
 </section>
-
-<script>
-  // Progressive enhancement: copy the email to the clipboard on click.
-  // The mailto: href stays as the no-JS fallback (and if the clipboard API
-  // is unavailable, the default link navigation is left intact).
-  for (const card of document.querySelectorAll<HTMLAnchorElement>('.contact-card[data-action="copy"]')) {
-    const value = card.dataset.copy;
-    const doneLabel = card.dataset.labelDone ?? 'copied';
-    const action = card.querySelector<HTMLElement>('.contact-action');
-    if (!value || !navigator.clipboard || !action) continue;
-    const original = action.textContent;
-    card.addEventListener('click', async (e) => {
-      e.preventDefault();
-      try {
-        await navigator.clipboard.writeText(value);
-        action.textContent = doneLabel;
-        window.setTimeout(() => { action.textContent = original; }, 1600);
-      } catch {
-        // Clipboard blocked (e.g. permissions) — fall back to the mailto link.
-        window.location.href = card.href;
-      }
-    });
-  }
-</script>
 
 <style>
   /* left-aligned within the standard container (eyebrow lines up with nav + Writing) */
@@ -79,7 +53,7 @@ const c = contactCopy[lang];
   .contact-card:hover { border-color: var(--clay); }
   .contact-label { font-size: 11px; color: var(--meta); margin-bottom: 5px; }
   .contact-value { font-size: 20px; }
-  .contact-action { font-size: 13px; color: var(--clay); }
+  .contact-action { font-size: 20px; color: var(--clay); }
   @media (max-width: 860px) {
     .contact-value { font-size: 17px; }
   }

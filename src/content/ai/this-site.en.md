@@ -4,7 +4,7 @@ lang: en
 title: Personal site
 date: 2026-06-18
 updated: 2026-06-25
-oneLiner: Built as an Astro static site by feeding a PRD to the model and generating structure and components in conversation — this site is the first AI-practice entry.
+oneLiner: "A vibe coding project built through a multi-agent workflow: this site, made to carry future writing and project showcases."
 tag: personal vibe coding
 featured: true
 repo: https://github.com/hensonzyw-git/henson-personal-homepage
