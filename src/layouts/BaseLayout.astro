@@ -3,7 +3,7 @@ import '../styles/fonts.ts'; // self-hosted webfonts (no Google CDN; see fonts.t
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { htmlLang, type Lang } from '../lib/i18n';
+import { htmlLang, localePath, type Lang } from '../lib/i18n';
 
 interface Props {
   lang: Lang;
@@ -12,6 +12,9 @@ interface Props {
   canonicalPath: string; // canonical (zh) path of the current page
 }
 const { lang, title, description = '', canonicalPath } = Astro.props;
+const siteUrl = 'https://zhuyawei.com';
+const pageUrl = new URL(localePath(lang, canonicalPath), siteUrl).toString();
+const ogImage = `${siteUrl}/og-image.png`;
 ---
 <!DOCTYPE html>
 <html lang={htmlLang(lang)}>
@@ -21,7 +24,17 @@ const { lang, title, description = '', canonicalPath } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     {description && <meta name="description" content={description} />}
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     {/* Fonts are self-hosted via @fontsource (imported in the frontmatter) and bundled
         same-origin — no Google Fonts <link> / preconnect, which is blocked in China. */}
   </head>
