@@ -8,8 +8,8 @@ const p = (path: string) => localePath(lang, path);
 const rows = await getBlogIndex(lang);
 
 const copy = lang === 'en'
-  ? { eyebrow: 'Writing', title: 'Thinking, written down', intro: 'Long-form on AI, product and judgment, newest first. Drafts stay out of the index.', empty: 'Writing starts soon' }
-  : { eyebrow: '文章 · Writing', title: '写下来的思考', intro: '关于 AI、产品与判断方式的长文，按发布日期倒序。草稿不出现在索引中。', empty: '即将开始写作' };
+  ? { eyebrow: 'Writing', title: 'Thinking, written down', intro: 'Long-form on AI, product and judgment.', empty: 'Writing starts soon' }
+  : { eyebrow: '文章 · Writing', title: '写下来的思考', intro: '关于 AI、产品与判断方式的长文。', empty: '即将开始写作' };
 ---
 <section class="container index">
   <div class="eyebrow index-eyebrow">{copy.eyebrow}</div>
