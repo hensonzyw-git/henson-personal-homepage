@@ -20,8 +20,12 @@ npm install
 npm run dev        # 开发服务器
 npm run build      # 构建到 dist/
 npm run preview    # 预览构建产物
+npm run deploy:ecs # 构建、验收并部署到阿里云 ECS
 node test/ac-checks.mjs   # 验收断言自检
 ```
+
+ECS 部署链路已固化在 `scripts/deploy-ecs.mjs`，默认部署到 `zhuyawei.com` 的生产 ECS。
+更多参数见 `docs/deploy-ecs.md`。
 
 ## 结构
 

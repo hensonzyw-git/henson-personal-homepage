@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy:ecs": "node scripts/deploy-ecs.mjs",
     "astro": "astro"
   },
   "dependencies": {
