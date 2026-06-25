@@ -1,6 +1,7 @@
 ---
 import { t, localePath, type Lang } from '../lib/i18n';
 import { contactItems } from '../data/contact';
+import LogoMark from './LogoMark.astro';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -11,7 +12,7 @@ const p = (path: string) => localePath(lang, path);
   <div class="container footer-grid">
     <div>
       <div class="footer-brand">
-        <span class="logo-mark"></span>
+        <LogoMark size={20} />
         <span class="footer-name">Henson</span>
       </div>
       <p class="footer-tagline">{ui.footer.tagline}</p>
@@ -49,7 +50,6 @@ const p = (path: string) => localePath(lang, path);
     gap: 40px;
   }
   .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .footer-brand .logo-mark { width: 12px; height: 12px; background: var(--clay); transform: rotate(45deg); display: inline-block; border-radius: 2px; }
   .footer-name { font-family: var(--display); font-size: 20px; font-weight: 600; color: #EDEAE0; }
   .footer-tagline { font-size: 14.5px; color: #9b968a; max-width: 34ch; line-height: 1.6; margin: 0; }
   .footer-copyright { font-family: var(--mono); font-size: 11px; color: #736f64; margin: 20px 0 0; }

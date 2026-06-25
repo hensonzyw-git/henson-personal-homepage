@@ -1,5 +1,6 @@
 ---
 import { t, localePath, switchLangPath, type Lang } from '../lib/i18n';
+import LogoMark from './LogoMark.astro';
 
 interface Props {
   lang: Lang;
@@ -12,7 +13,7 @@ const p = (path: string) => localePath(lang, path);
 <nav class="nav">
   <div class="container nav-inner">
     <a class="brand" href={p('/')} aria-label="Henson — home">
-      <span class="logo-mark"></span>
+      <LogoMark />
       <span class="brand-name">Henson</span>
     </a>
 
@@ -54,14 +55,6 @@ const p = (path: string) => localePath(lang, path);
     align-items: center;
     gap: 10px;
     text-decoration: none;
-  }
-  .logo-mark {
-    width: 13px;
-    height: 13px;
-    background: var(--clay);
-    transform: rotate(45deg);
-    display: inline-block;
-    border-radius: 2px;
   }
   .brand-name {
     font-family: var(--display);
