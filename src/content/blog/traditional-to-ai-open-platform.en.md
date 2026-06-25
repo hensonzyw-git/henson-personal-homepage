@@ -14,9 +14,9 @@ For a decade, the assumed caller of an open platform was a human developer: some
 
 That caller is changing. More and more integrations aren't written by a person sitting down with the docs, but by handing an Agent a docs URL and asking it to "build the whole integration from this requirement." After actually running an Agent end-to-end on the POIZON Open Platform (Dewu's international open platform, "POP" below), my most direct takeaway is this: many traditional design assumptions don't merely fall a bit short in front of an Agent — they break outright.
 
-To see why, you have to swap one mental model:
+To see why, you have to swap one mental model. By "Agent" here I don't mean every chatbot; I mean the development agent that receives open-platform docs, generates code, calls APIs, and tries to complete an integration task:
 
-> **An Agent is not a "smarter user" — it's a code generator with limited context.** It doesn't infer background knowledge from experience; it can only consume semantics that are explicitly expressed; whatever you didn't write down, it treats as nonexistent; and it has neither the patience nor the context window to "read the whole site before acting."
+> **In the open-platform integration scenario, an Agent should not be treated as a "smarter user" — start by treating it as a code generator with limited context.** It doesn't infer background knowledge from experience; it can only consume semantics that are explicitly expressed; whatever you didn't write down, it treats as nonexistent; and it has neither the patience nor the context window to "read the whole site before acting."
 
 From there: **an Agent's bottleneck isn't "how smart it is," it's "how much it costs, and whether it can — without a human — assemble the correct semantics."** Measure, redesign, verify — all three sections below revolve around that one sentence.
 
@@ -33,7 +33,7 @@ None of this goes stale because AI arrived — it measures "ecosystem health," i
 
 What the AI era genuinely adds is two things.
 
-**First, an "AI-friendliness" dimension.** It sits parallel to the experience metrics but measures how smoothly machines consume the platform: structured-doc coverage (share of endpoints fully covered by an OpenAPI spec), MCP exposure rate, skill-file completeness, machine-parseable error-code rate (does the structure carry `error_code` / `error_type` — an Agent's auto-retry / fallback depends entirely on it). And the sharpest proxy of all: **the gap between Agent call success rate and human call success rate** — that gap is almost exactly "how much of your interface's semantics only a human can supply."
+**First, an "AI-friendliness" dimension.** It sits parallel to the experience metrics but measures how smoothly machines consume the platform: structured-doc coverage (share of endpoints fully covered by an OpenAPI spec), MCP exposure rate, skill-file completeness, machine-parseable error-code rate (does the structure carry `error_code` / `error_type` — an Agent's auto-retry / fallback depends entirely on it). And one sharp proxy: **the gap between Agent call success rate and human call success rate**. When permissions, environment, and task inputs are roughly the same, the larger that gap is, the more it suggests your interface still relies on semantics only a human can supply.
 
 **Second, and more importantly: the headline metric itself is moving.** The traditional headline asks "can a human get it working." The AI era asks —
 
@@ -41,7 +41,7 @@ What the AI era genuinely adds is two things.
 
 I call this new headline TSR (Task Success Rate). It's not the old "call success rate" renamed; each of its three design decisions was beaten out by real runs.
 
-**1) The unit of measurement has to be the end-to-end scenario, not the atomic endpoint.** I paid tuition here: the first time, I scored "can a single endpoint be called given only the docs" — and on POP, signing and the core write endpoints were all 100%. No signal. Because the real difficulty isn't in any single endpoint: it's which of 100+ APIs to pick, whether a field like `skuId` flows correctly across three or four endpoints, whether `price` is in cents or dollars. Those only surface across an end-to-end chain. **A single endpoint working proves almost nothing.**
+**1) The unit of measurement has to be the end-to-end scenario, not the atomic endpoint.** I paid tuition here: the first time, I scored "can a single endpoint be called given only the docs" — and in that doc-only atomic-endpoint test, POP's signing and core write endpoints were all 100%. It looked great and gave almost no signal. Because the real difficulty isn't in any single endpoint: it's which of 100+ APIs to pick, whether a field like `skuId` flows correctly across three or four endpoints, whether `price` is in cents or dollars. Those only surface across an end-to-end chain. **A single endpoint working proves the atomic endpoint is callable; it does not prove an Agent can complete a real integration task.**
 
 **2) Beyond success rate, add a second orthogonal axis: token cost (tokens-to-success).** Easiest to overlook, yet it's the only visible measure of certain improvements. A real example: POP's docs site (open.poizon.com) is a JS-rendered SPA, so an Agent that only does HTTP GET pulls back an empty shell, can't read the parameter tables, and degrades to "screenshot + OCR" — same task, 10× the tokens. Turning the docs into fetchable plain-text endpoints **barely moves the success rate but cuts tokens by an order of magnitude.** If you only watch success rate, that improvement is invisible on your dashboard.
 
@@ -117,7 +117,7 @@ The last layer turns the docs and capabilities into a form machines consume dire
 
 **I first wanted to build a proprietary fetch API** (something like `/docs/api/index.json` + `/docs/api/{id}.md`) so an Agent could pull everything in one GET. I scrapped it — **rather than invent a format only you understand, ride the ecosystem conventions that are already converging.** A homemade format has no discovery mechanism and no existing consumers; aligning with a standard is what gives you network effects.
 
-So POP's direction is now to align with the conventions Stripe has already established:
+So POP's direction is now to align first with the conventions Stripe has already established. This is not about copying Stripe's product shape; it is about reusing entry points and file conventions agents may already recognize, instead of inventing a private format only we understand:
 
 - **Add `.md` mirrors to existing doc pages**: append `.md` to the URL (`apiDetail/170` → `apiDetail/170.md`), auto-generated from the endpoint config. Any Agent that only does GET gets plain text in one shot — no need to build it a bespoke index API.
 - **`llms.txt`** (à la `docs.stripe.com/llms.txt`, served at `open.poizon.com/llms.txt`): the Agent's entry point, registering key paths and the API index, with the API part auto-updating from config.
@@ -168,6 +168,6 @@ Tying the three together: traditional open platforms optimize the experience of 
 - **Redesign**: four layers bottom-up, do the two pure-content P0 items first, then invest engineering — remembering the API is the foundation, not the ceiling.
 - **Verify**: use a behavioral benchmark to turn "did the change help" into a reproducible score, and force out the holes most worth fixing along the way.
 
-But one unromantic reality to close on: **what actually blocks this is usually not technical.** P0 is pure content with zero engineering dependency and still hard to push through — that's an organizational-will problem, a "who owns the KPI for developer experience" problem. And the strongest before/after evidence depends on a real, executable test environment — if the platform doesn't even have a sandbox (which is currently the case for Dewu), that most-convincing curve is blocked at the platform level before you begin.
+But one unromantic reality to close on: **what actually blocks this is usually not technical.** P0 is pure content with zero engineering dependency and can still be hard to push through — that's an organizational-will problem, a "who owns the KPI for developer experience" problem. And the strongest before/after evidence depends on a real, executable test environment; if a platform lacks a stable sandbox, that most-convincing curve is blocked at the platform level before you begin.
 
 Measure, redesign, verify — all three can be written up as methodology; but whether they land comes down, in the end, to whether the organization is willing to invest in a caller it can't see. That's the real watershed for an AI-era open platform.
