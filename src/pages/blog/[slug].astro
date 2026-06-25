@@ -17,6 +17,6 @@ export const getStaticPaths = (async () => {
 
 const { entry, fellBack } = Astro.props;
 ---
-<BaseLayout lang="zh" title={`${entry.data.title} · Henson`} description={entry.data.summary} canonicalPath={`/blog/${entry.data.key}`}>
+<BaseLayout lang="zh" title={`${entry.data.title} · Henson的个人站`} description={entry.data.summary} canonicalPath={`/blog/${entry.data.key}`}>
   <BlogDetail lang="zh" entry={entry} fellBack={fellBack} />
 </BaseLayout>

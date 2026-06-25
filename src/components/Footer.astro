@@ -16,6 +16,7 @@ const p = (path: string) => localePath(lang, path);
       </div>
       <p class="footer-tagline">{ui.footer.tagline}</p>
       <p class="footer-copyright">{ui.footer.copyright}</p>
+      <a class="footer-icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">{ui.footer.icp}</a>
     </div>
 
     <div>
@@ -52,6 +53,7 @@ const p = (path: string) => localePath(lang, path);
   .footer-name { font-family: var(--display); font-size: 20px; font-weight: 600; color: #EDEAE0; }
   .footer-tagline { font-size: 14.5px; color: #9b968a; max-width: 34ch; line-height: 1.6; margin: 0; }
   .footer-copyright { font-family: var(--mono); font-size: 11px; color: #736f64; margin: 20px 0 0; }
+  .footer-icp { display: inline-block; font-family: var(--mono); font-size: 11px; color: #736f64; margin-top: 8px; text-decoration: none; }
   .footer-col-label {
     font-family: var(--mono);
     font-size: 11px;
