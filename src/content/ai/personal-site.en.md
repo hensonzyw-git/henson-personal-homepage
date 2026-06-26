@@ -1,5 +1,5 @@
 ---
-key: this-site
+key: personal-site
 lang: en
 title: Personal site
 date: 2026-06-18
@@ -13,10 +13,10 @@ how: Fed the PRD to the model, generating structure and components in conversati
 value: A content home that accumulates over time, and a natural piece of evidence.
 facts: Astro static site (Chinese default / English mirror), content via Markdown content collections; system fonts + self-hosted Space Mono, no external font CDN. Structure and components generated through PRD + AI collaboration.
 placeholderLabel: site build screenshot · placeholder
-cardImage: /ai/this-site/this-site-home.png
+cardImage: /ai/personal-site/personal-site-home.png
 hasDetail: true
 screens: [Home, AI Practice, About me]
-screenImages: [/ai/this-site/this-site-home.png, /ai/this-site/this-site-ai.png, /ai/this-site/this-site-about.png]
+screenImages: [/ai/personal-site/personal-site-home.png, /ai/personal-site/personal-site-ai.png, /ai/personal-site/personal-site-about.png]
 ---
 
 This site is itself my first AI practice — "turning ideas into something hands-on through AI collaboration," with the site as its own evidence. More than the tech stack, what's worth telling is *how* it got built, and a few judgment calls along the way that AI can't make for you.

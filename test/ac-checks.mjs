@@ -100,7 +100,7 @@ ok('AC-7 contact real values resolve',
 ok('AC-7 contact has no placeholder value', !/example\.com|your-/i.test(contact), 'found a placeholder value');
 
 // ---- AC-9: AI detail pages render real media (placeholders replaced) ----
-const aiDetails = (read('ai/show-radar/index.html')||'') + (read('ai/this-site/index.html')||'') + (read('ai/multi-agent-workflow/index.html')||'');
+const aiDetails = (read('ai/show-radar/index.html')||'') + (read('ai/personal-site/index.html')||'') + (read('ai/multi-agent-workflow/index.html')||'');
 ok('AC-9 AI detail pages show real media, not placeholders',
    /<img[^>]+src="\/ai\//.test(aiDetails) && !/示例|待替换/.test(aiDetails),
    'expected real /ai/ images and no 示例/待替换 placeholder labels');

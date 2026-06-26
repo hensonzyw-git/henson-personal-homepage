@@ -1,5 +1,5 @@
 ---
-key: this-site
+key: personal-site
 lang: zh
 title: 个人站点
 date: 2026-06-18
@@ -13,10 +13,10 @@ how: 把 PRD 喂给模型，边对话边生成结构与组件。
 value: 一个可长期沉淀的内容主场，也是天然的能力证据。
 facts: Astro 静态站（中文默认 / 英文镜像），内容走 Markdown content collections；系统字 + 自托管 Space Mono，无外部字体 CDN。由 PRD + AI 协作边对话边生成结构与组件。
 placeholderLabel: 本站构建截图 · 待替换
-cardImage: /ai/this-site/this-site-home.png
+cardImage: /ai/personal-site/personal-site-home.png
 hasDetail: true
 screens: [首页, AI 实践, 关于我]
-screenImages: [/ai/this-site/this-site-home.png, /ai/this-site/this-site-ai.png, /ai/this-site/this-site-about.png]
+screenImages: [/ai/personal-site/personal-site-home.png, /ai/personal-site/personal-site-ai.png, /ai/personal-site/personal-site-about.png]
 ---
 
 这个站点本身就是我的第一个 AI 实践——「用 AI 协作把想法做成能动手的东西」，它自己就是证据。比起技术栈，更值得说的是它怎么被做出来，以及过程里几个 AI 写不出来的判断。
