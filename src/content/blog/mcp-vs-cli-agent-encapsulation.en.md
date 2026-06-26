@@ -94,7 +94,7 @@ So the three layers are better read this way: **the schema layer exposes atomic 
 
 The CLI also adds a batch of engineering capabilities MCP has none of, all because it works inside a shell + text pipe: output formats (`--format json/csv/table`), auto-pagination (`--page-all`), preview (`--dry-run`), identity switching (`--as user/bot`), and one gap that's near-universal on the MCP side — **dangerous-operation safety**: the CLI marks 70 methods `danger:true`, and destructive commands require an explicit `--yes`.
 
-By here the "mode of consumption determines form" line closes: the model does structured tool-calling in context and can tolerate atomic capabilities → MCP can just go for breadth; the model fires a command string at a shell that can't reason — no pre-execution schema validation on tool choice or arguments, errors surface only at run time → the CLI must use shortcuts and Skills to scrub the friction clean *before* delivery.
+By here the "mode of consumption determines form" line closes: the model does structured tool-calling in context and can tolerate atomic capabilities → MCP can just go for breadth; the model fires a command string at a shell that can't reason, without MCP's host-level structured tool-call schema constraint — commands can of course parse and validate arguments, but many choice errors, chaining errors, and business-semantics errors still surface only after the CLI runs → the CLI must use shortcuts and Skills to scrub as much friction as possible *before* delivery.
 
 ## 4. The real kernel isn't either face — it's the IR underneath
 
