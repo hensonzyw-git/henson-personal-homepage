@@ -1,26 +1,28 @@
 ---
 key: mcp-vs-cli-agent-encapsulation
 lang: en
-title: "\"MCP or CLI\" is the wrong question: tearing apart two agent wrappers of the same API"
+title: "Tearing apart Feishu's two agent connections over the same API: MCP and CLI"
 date: 2026-06-25
 category: Open Platform
 readMins: 18
-summary: "Everyone asks \"MCP or CLI\" as if picking a protocol. I tore apart, source by source, the two agent-facing wrappers Feishu built over the *same* OpenAPI — lark-mcp, 1,271 auto-generated atomic tools, and lark-cli, a dozen hand-curated domains. The takeaway isn't which to pick; it's that the question is posed backwards. They're two points on one \"coverage × quality\" frontier, split apart by who consumes the output. And interestingly, the 20× star gap sends a fairly consistent developer-attention signal — and points to a conclusion that holds for any platform building agent access: the first auto-generated wrapping layer rarely forms a moat."
+summary: "Over the same OpenAPI, Feishu built two agent-facing connection layers: lark-mcp, with 1,271 auto-generated tools, and lark-cli, with a dozen hand-curated domains. After tearing through the source, tool descriptions, REST mappings, and shortcut layer, my takeaway is not that one replaces the other. They occupy two points on the same \"coverage × quality\" frontier: MCP gives broad coverage at low marginal cost; CLI + skills hand-scrubs high-friction tasks. And in Feishu's case, the 20× star gap sends a clear developer-attention signal: the first auto-generated wrapping layer rarely forms a moat on its own."
 draft: false
 draftTranslation: true
 ---
 
-"Should our platform build an MCP?" Over the past six months this is the question I've been asked most — and the one I couldn't answer cleanly myself. It usually arrives dressed up as a technical-selection problem: MCP or CLI, pick one of two protocols.
+I started paying serious attention to Feishu MCP and Feishu CLI not because I wanted to write a technical-selection essay, but because they entered my daily workflow one after another.
 
-Then I tore apart, source by source, two things Feishu had built. Over a single OpenAPI, Feishu had shipped two agent-facing products at once: **lark-mcp**, 1,271 auto-generated atomic tools; and **lark-cli + skills**, a dozen hand-curated domains of commands. After laying out both real codebases on my own machine — together with their line-by-line mapping down to the underlying REST — the biggest thing I walked away with wasn't "which one." It was the realization that the question had been posed backwards from the start.
+At work, smartclaw first connected Feishu MCP, then later connected Feishu CLI. In my personal setup, I also wired both Feishu MCP and CLI into Claude Code and Codex. With MCP alone, the most visceral feeling was how quickly tokens disappeared: once tool definitions grew, a large chunk of context was gone before the agent had really started working. After CLI + skills entered the picture, the experience changed in a very concrete way — I even moved my main battlefield for Feishu-related work from Claude cowork to Claude Code.
+
+That shift made me want to take the two layers apart properly. Over the same OpenAPI, why did Feishu end up with two agent connection forms this different? **lark-mcp** auto-generates 1,271 atomic tools; **lark-cli + skills** hand-curates a dozen high-frequency domains into commands and task-level shortcuts. After laying out both real codebases on my own machine — the tool descriptions, shortcut implementations, and their line-by-line mapping down to the underlying REST — the biggest thing I walked away with wasn't "which one is more advanced." It was why the same API naturally splits into two connection forms when the consumer is an agent.
 
 Let me put the conclusion up front and unpack it layer by layer:
 
 > **MCP and CLI are not two competing protocols. They are two points on one and the same "coverage × quality" frontier.** What splits them apart isn't whose interface design is cleverer — the caller on both sides is in fact the same reasoning model — it's **through what interface the model consumes the capability**: structured tool-calling in context (MCP: the model picks a tool and fills params; the host executes and returns structured results), or acting like an operator at a terminal, firing a command string at a shell that can't reason and reading back text (CLI). Different mode of consumption, different optimum.
 
-And interestingly, public attention was nearly one-sided: a CLI born 11 months *later* pulled **20×** the stars of the MCP — and the MCP repo has gone quiet while the CLI still ships daily. At least from public repo activity, Feishu's investment focus has clearly shifted toward CLI + skills.
+And interestingly, public attention was nearly one-sided: a CLI born 11 months *later* pulled **20×** the stars of Feishu's MCP repo — and that MCP repo has gone quiet while the CLI still ships daily. This comparison is about **Feishu's two concrete wrappers**, not the overall heat of the MCP protocol ecosystem. At least from public repo activity, Feishu's own investment focus has clearly shifted toward CLI + skills.
 
-This piece is that teardown, made legible: what MCP actually is and isn't; where the shared kernel lives; the three reasons behind that 20× gap; and, once you put it back into the real 2026 coordinates of MCP's boom *and* the backlash hitting at the same time, how a platform building agent access should actually place its bets.
+This piece is that teardown, made legible: what Feishu's MCP auto-generates and what it leaves unsolved; where the hand-curated CLI + skills layer is expensive and where it earns that cost; where the shared kernel lives; what that 20× gap does and does not prove in Feishu's case; and what judgment framework falls out once you put the sample back into the real 2026 coordinates of MCP's protocol boom *and* implementation-layer backlash.
 
 ## 1. The two packages, laid out on the table
 
@@ -121,13 +123,13 @@ If the story stopped at §4, it would be a tidy "each has its strengths." But in
 | Created | 2025-04 | 2026-03 (11 months later) |
 | Last commit | 2025-08 (**~10 months quiet**) | 2026-06 (**still daily**) |
 
-Born 11 months later, 20× the stars — and the MCP repo has gone dormant while the CLI is updated daily. From the public maintenance rhythm, **the investment focus at least clearly shifted toward CLI + skills.** I stared at that table for a long time, and the conclusion converged to three points:
+Born 11 months later, 20× the stars — and Feishu's MCP repo has gone dormant while the CLI is updated daily. From the public maintenance rhythm, **Feishu's investment focus at least clearly shifted toward CLI + skills.** I stared at that table for a long time, and the conclusion converged to three points:
 
 1. **Users feel "single-call quality"; they can't feel "coverage breadth."** Nobody experiences the existence of those 731 long-tail APIs; everyone works inside their own dozen domains, and there the CLI is visibly better. Breadth is for the dashboard; quality is for the human.
 2. **The layer users can actually feel as product value is the skills layer.** What developers care about isn't "raw capability" — it's "task-level know-how," the thing that actually lets the agent get the job done. The lesson for a platform like Dewu is direct: opening capabilities to agents, the real work is not only exposing endpoints — it's this know-how layer.
 3. **Scalable quality improvement is an illusory advantage.** In theory MCP's quality gaps "fix the generator once, everyone benefits," which sounds more scalable — but Feishu didn't keep investing. The CLI's quality is piled up by hand, one entry at a time, in theory un-scalable — yet it won the present.
 
-(And let me correct a claim I once believed myself: "CLI can `exec`, so it reaches more environments" doesn't hold — today the usable environments are basically the same, and an environment with no shell can run only MCP; see §6. The 20× isn't a reachability win.)
+(And let me correct a claim I once believed myself: "CLI can `exec`, so it reaches more environments" doesn't hold — in local developer setups and common desktop-agent environments, reachability is roughly the same; once you enter hosted / sandboxed environments with no shell, only MCP can run. See §6. The 20× isn't a reachability win.)
 
 Compress those three into one line, and it's the thing I most want you to remember from this piece:
 
@@ -135,9 +137,9 @@ Compress those three into one line, and it's the thing I most want you to rememb
 
 ## 6. Put it back into 2026: MCP's boom, and the backlash erupting alongside it
 
-But I have to give that conclusion a timestamp and a boundary, or it gets misread as "MCP is useless." It isn't. The real 2026 picture is far more complex than "CLI won."
+But I have to give that conclusion a timestamp and a boundary, or it gets misread as "MCP is useless." It isn't. §5 only says this: **in Feishu's sample, the auto-generated MCP wrapper did not beat the hand-curated CLI + skills layer.** It does not prove that the MCP protocol ecosystem is failing. The real 2026 picture is far more complex than "CLI won."
 
-On one side is MCP's victory at the **protocol** layer: more and more mainstream agent platforms are moving toward MCP compatibility. As "the unified AI-facing integration layer," MCP is becoming the de facto default.
+On one side is MCP's victory at the **protocol** layer: more and more mainstream agent platforms are moving toward MCP compatibility. As "the unified AI-facing integration layer," MCP is becoming the de facto default. In other words, "Feishu's MCP repo has fewer stars" and "the MCP protocol is becoming more popular" are not contradictory: the former measures the product pull of one concrete provider wrapper; the latter measures adoption of a cross-platform integration protocol.
 
 On the other side, the backlash also erupted in 2026 — and this is where the information edge lives:
 
@@ -153,16 +155,16 @@ This matters because it directly rewrites the boundary of §5's conclusion: **as
 
 And MCP is making one more bet, this one unrelated to model capability and purely **structural**: **it doesn't depend on a shell / CLI environment.** There's already a small sample of this today — in a hosted / sandboxed agent environment with no shell (say Claude's cowork sandbox), the CLI binary simply can't `exec`, and only MCP can connect. But the real space is further out: phone apps, smart glasses, even AI devices that don't exist yet — none of them can run a command-line binary, yet all of them can speak a protocol. As agents move off the developer's terminal and onto millions of consumer devices, "protocol-native" turns from a niche perk into a moat the CLI structurally can't follow. **The CLI wins the present, where it lives inside a terminal; MCP is betting on the tomorrow where agents leave the terminal.**
 
-## 7. So how should you actually choose: a framework that doesn't run on faith
+## 7. A Judgment Framework From The Feishu Sample
 
-Having gone the full circle, back to the original question — "should our platform build an MCP" — my answer is no longer to pick a side, but a set of criteria.
+Having gone the full circle, the Feishu sample does not give a "side with MCP or side with CLI" answer. It gives a more transferable set of criteria.
 
 **First cut: by mode of consumption.** This is the spine of the whole piece (note: the caller in both is a reasoning model — what differs is *how* and *in what scenario* it consumes):
 
 - **An uncertain set of services, discovered only at runtime** (a general agent that doesn't even know which services it'll meet) → lean toward MCP's atomic capabilities + runtime discovery.
 - **Deterministic scenarios, agent-in-loop, auditing or confirmation, or high-risk operations** → lean toward the CLI's curation + skills.
 
-And let me puncture a myth I once believed myself: "the CLI reaches more environments" — it doesn't. Today the two have basically the same usable environments; an environment with no shell (a sandbox, and tomorrow mobile / devices) can run only MCP (see §6). So you pick the CLI for the quality of its hand-curated layer, not because it "runs in more places."
+And let me puncture a myth I once believed myself: "the CLI reaches more environments" — it doesn't. In local developer setups and common desktop-agent environments, reachability is roughly the same; an environment with no shell (hosted sandboxes, and tomorrow mobile / devices) can run only MCP (see §6). So you pick the CLI for the quality of its hand-curated layer, not because it "runs in more places."
 
 **Second cut: by "first-party vs third-party."** This is one I'd settled earlier, orthogonal to the above: when your own official agent calls your own internal endpoints, the shortest path is **Function Calling, direct** — you don't need MCP's "service discovery + tool description + model selection" overhead at all. Only when you open capabilities to **any third-party agent**, plugging into the whole ecosystem, does MCP's unified protocol start to pay off. In high-determinism scenarios with few, well-defined services, forcing MCP just adds latency and uncertainty.
 
@@ -178,10 +180,10 @@ And above all of this, don't forget the larger judgment: **the API is always the
 
 ## 8. Closing: the moat isn't at the protocol layer
 
-Tie the circle together: MCP or CLI was never a protocol-selection problem. They are two faces rendered from one IR, forked apart by who the consumer is; and the 20× star gap at least reminds us that **the layer that auto-generates an API into tools — the layer anyone can do — is hard to turn into a moat on its own.**
+Tie the circle together: Feishu's MCP and Feishu's CLI are not mutually exclusive routes. They are two faces rendered from one IR, forked apart by who the consumer is; and the 20× star gap at least reminds us that **the layer that auto-generates an API into tools — the layer anyone can do — is hard to turn into a moat on its own.**
 
 What's actually valuable is the layer above: encoding the human engineer's tacit know-how, entry by entry, into task wrappers where "the friction has been scrubbed clean." And the irony of that layer is — **it's precisely the part that doesn't auto-scale.** Auto-generation has zero marginal cost and no takers; hand-curation costs a fortune and won the present. This runs into the same wall as the ending of my last piece: what finally blocks a thing you can technically build is, more often than not, not the technology.
 
 Further out there may be an endgame: when API docs are sufficiently structured and machine-readable, a doc and an MCP tool definition become the same object — **metadata is the doc, the doc is the interface** — and "API integration" as a concept fades out. But we're not there. At today's moment, the bottleneck is still mundane: who is willing to spend the human labor to smooth that friction layer flat, one entry at a time.
 
-That's the version of "should we build an MCP" that's actually worth asking.
+That is the real value of the Feishu sample: it puts the most expensive, least automated, and easiest-to-underestimate work between "protocol access" and "task usability" directly on the table.
