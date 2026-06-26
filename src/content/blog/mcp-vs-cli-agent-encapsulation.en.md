@@ -39,57 +39,36 @@ Before any conclusion, let's put both npm packages on the table and see what the
 | Relation to API | auto-generated · 1:1 | thin 1:1 ＋ thick 1:N |
 | Scale | 1,271 tools / 52 domains | 120 methods / 9 services ＋ ~126 shortcuts |
 | Default exposure | `preset.default` ≈ 19 | command tree, by domain |
-| Hand-built portion | just 2 composite tools | the whole shortcut layer |
+| Hand-built portion | just 2 composite tools | shortcut layer + Skill playbooks |
 | Shared base | one descriptor IR: name/description/schema/path/method | same (CLI `schema` output *is* the IR) |
 
 ![Architecture: the IR auto-renders the "auto-generated layer" (all 1,271 MCP tools + CLI's thin schema); the CLI's ~126 shortcuts and Skills are a "hand-curated layer" piled on top, where the value is; both serve the Agent](/blog/mcp-vs-cli-agent-encapsulation/architecture.en.svg)
 
-Three numbers to hold onto: **MCP has 1,271 tools but exposes 19 by default**; **CLI has 120 thin commands ＋ ~126 shortcuts**; **both faces share one IR**. The next three steps work out, in turn: what this means MCP actually is, why it splits into these two faces, and why users cast a 20× star vote for the CLI.
+Three numbers to hold onto: **MCP has 1,271 tools but exposes 19 by default**; **CLI has 120 thin commands ＋ ~126 shortcuts**; **both faces share one IR**. The next four steps work out, in turn: what MCP actually is; what CLI + skills actually is; where their shared kernel lives; and why users cast a 20× star vote for the CLI.
 
 ## 2. So what is MCP, actually
 
-Those numbers alone already overturn the two first impressions most people carry about MCP.
+Those numbers overturn one common misconception about MCP, and expose one more important boundary.
 
-**First, "it dumps a thousand-plus tools on the model" — it doesn't.** 1,271 is inventory; only a dozen-ish are exposed by default. Stuffing all 1,271 into context is precisely MCP's most-criticized anti-pattern (I do that math in §6), and Feishu's default config is already dodging it.
+**The misconception: "it dumps a thousand-plus tools on the model" — it doesn't.** 1,271 is inventory; only a dozen-ish are exposed by default. Stuffing all 1,271 into context is precisely MCP's most-criticized anti-pattern (I do that math in §6), and Feishu's default config is already dodging it.
 
-**Second, "the model has to assemble the call out of that pile" — it doesn't either.** Open any tool and it's that pure-data descriptor: a name, a description for the model, a params schema, and — crucially — the REST path and HTTP method **already baked in**. So all the model does is standard function calling: pick a tool, fill the schema; how the path is assembled, whether the method is GET or POST, where the token goes — a roughly 30-line generic handler does that off the descriptor. The model never touches REST.
+**The real boundary: MCP's expectation of the model is tool calling from the start.** Open any tool and it's a pure-data descriptor: a name, a description for the model, a params schema, plus the REST path and HTTP method. For a **single tool call**, what the model does really is choose the tool and fill arguments according to the schema. How the path is assembled, whether the method is GET or POST, where the token goes — a roughly 30-line generic handler does that off the descriptor. The model does not handle REST execution details.
 
-So what does the model still do itself? One thing, and it genuinely is on the model: **chaining multi-step work.** The tools are atomic (one tool = one endpoint); stringing together "look up the ID → call the write endpoint → retry on failure" is nobody's job but the model's. This one I'm not correcting but flagging — because **who you hand "stringing atomic capabilities into a workflow correctly" to is one of the most central decisions in building a platform**, and the real origin of every MCP-vs-CLI fork that follows.
+But that also means the model really does have to assemble the tool-call chain. What it still does itself is **chaining multi-step work.** The tools are atomic (one tool = one endpoint); stringing together "look up the ID → call the write endpoint → retry on failure" is nobody's job but the model's. This is not a misconception; it is the boundary worth flagging — because **who you hand "stringing atomic capabilities into a workflow correctly" to is one of the most central decisions in building a platform**, and the real origin of every MCP-vs-CLI fork that follows.
 
 Put it all together and MCP's true shape is clear: it isn't "a better API" — it's **a unified agent-service interface protocol**. What it actually standardizes is "any agent discovering and invoking any service in the same way," with **runtime tool discovery** at its core (connect to the server, the server announces what tools exist, the agent doesn't have to read docs in advance).
 
 But it carries a congenital weakness, which the teardown only confirmed: **MCP standardizes transport, not semantics.** Every vendor defines its own tool names and parameter structures, so ecosystem fragmentation merely shifts from "fragmented access methods" to "fragmented tool semantics." That hole is the seed for everything later.
 
-## 3. The real kernel isn't either face — it's the IR underneath
+## 3. So what is CLI + skills, actually
 
-§1 already pointed out that the two faces share one descriptor IR. That deserves unpacking on its own — because that IR, not MCP or either face, is the system's real asset. Laid out in full (Feishu's source calls it `McpTool`), it's one piece of **pure data**, not a piece of code:
+If MCP's keywords are **protocol, discovery, and atomic tools**, then CLI + skills is about **curation, task wrapping, and operating procedure**. It is not merely "MCP, but through a command line." Over the same API, it adds two hand-built judgment layers: first wrap high-friction APIs into shortcuts, then write Skills that tell the agent how to use those shortcuts safely.
 
-```ts
-interface McpTool {
-  name: string;          // canonical dotted name: bitable.v1.appTableRecord.create
-  description: string;   // the only natural-language field, fed to the LLM
-  schema: any;           // params (zod), partitioned into data/path/params
-  path?: string;         // REST template with :placeholders
-  httpMethod?: string;
-  accessTokens?: string[]; // ['tenant','user']
-}
-```
+Use the MCP face as the contrast: it is strictly 1:1 with the API, 1,271 tools across 52 domains, marginal cost near zero. The model can reason, so it can consume "atomic capabilities" — even when it has to chain three steps itself. Everything Feishu does on this face is **restraint in picking a default set** + occasionally wrapping a high-frequency fixed flow into a composite tool (e.g. "create doc + pour in content" in one shot).
 
-Two details make it the kernel: natural language is a single field, `description`; everything else is structured metadata. And `path` + `httpMethod` are mandatory — that's exactly the backing for the "callable without depending on the SDK" point from §1. The roughly 30-line generic handler can dispatch all thousand-plus tools precisely because of this: split the dotted name, walk down the SDK object tree level by level; **the moment the SDK hasn't caught up with a new endpoint, fall back to firing raw HTTP straight from the descriptor's `path` + `httpMethod`.**
+CLI + skills takes the other path: **hand-curated, going for quality.** Here's a counterintuitive number: the CLI exposes only about 120 methods. But "120" isn't "poor coverage" — it's **two levels of deliberate narrowing**:
 
-That "`path` fallback escape hatch" is the design I admire most: it **decouples the generation layer (which must cover everything) from the SDK-wrapping layer (which is always half a step behind)** — zero wait for new endpoints. But the bigger lesson is that one line: **make "how to call it" data, not code.** Precisely because capability is data, one IR auto-renders into MCP's 1,271 tools *and* the CLI's thin schema layer; change the spec, regenerate, humans never touch the output. But don't overstate it: what auto-renders is only the "mechanical mirror" layer; CLI's real value — those ~126 thick shortcuts — is hand-piled on top of the IR, precisely **not** part of the auto-generation (the very setup for §5's "scalability is an illusion").
-
-> For a platform building agent access, that's the first transferable conclusion: **the asset you should actually accumulate isn't the MCP server, and isn't the CLI — it's that spec/IR shared by every face underneath.** Only then can a quality improvement "be made once and propagate everywhere," instead of being locked into the hand-maintenance of one particular face.
-
-## 4. The two faces are a fork forced by the mode of consumption
-
-With the shared kernel in view, why the two faces look so different becomes obvious — **because the way the model consumes each face differs, and so does the friction each can absorb.**
-
-**The MCP face: auto-generated, going for breadth.** Strictly 1:1 with the API, 1,271 tools across 52 domains, marginal cost near zero. The model can reason, so it can consume "atomic capabilities" — even when it has to chain three steps itself. Everything Feishu does on this face is **restraint in picking a default set** + occasionally wrapping a high-frequency fixed flow into a composite tool (e.g. "create doc + pour in content" in one shot).
-
-**The CLI face: hand-curated, going for quality.** Here's a counterintuitive number: the CLI exposes only about 120 methods. But "120" isn't "poor coverage" — it's **two levels of deliberate narrowing**:
-
-- **Level one, domain selection (52 → 12):** the CLI admits only the dozen-or-so end-user-facing domains, cutting the other 731 tools — all enterprise-back-office, HR, and PaaS long tail (corehr 218, hire 178, …). Real humans rarely touch these directly, let alone want them in a command line that's supposed to be pleasant.
+- **Level one, domain selection (52 → 12):** the CLI admits only the dozen-or-so end-user-facing domains, cutting the other 731 tools — all enterprise-back-office, HR, and PaaS long tail (corehr 218, hire 178, …). Real humans rarely touch these directly, let alone want them in a command line that's supposed to be pleasant. (The three domain counts don't conflict: schema's 9 services are a subset of these dozen-ish curated domains — some domains have only shortcuts, no 1:1 commands.)
 - **Level two, a three-way split within each domain:** every endpoint either enters the thin schema-command layer (atomic read/write, 1:1), or gets wrapped into a **thick shortcut**, or enters nowhere and is caught by the generic `api` command.
 
 The point is that thick-shortcut layer. Its unit of encapsulation is **a "task," not an "endpoint,"** and its selection criterion is a single one:
@@ -109,9 +88,34 @@ I sorted the frictions Feishu's shortcuts target into six kinds, each correspond
 
 Domains with high friction density get more shortcuts: Base 68 (almost every raw API has a pitfall), Task 12, Mail 11, IM 10. **This layer isn't "wrapping the API again" — it's encoding the human engineer's tacit know-how, explicitly.**
 
+The **Skill layer** needs to be called out separately, otherwise "CLI + skills" sounds like a vague slogan. A Skill is not a third API layer, and not a new execution environment. It is essentially an **agent-facing playbook + routing rules + workflow constraints**: when to use which domain, which reference to read first, which commands must not be called blindly, and when ambiguity requires asking the user. A Base skill, for example, says: in Base scenarios use `lark-cli base +...` shortcuts, do not fall back to raw `api`; read field structure before writing records; formula / lookup fields require their own guides; batch writes have a 200-record limit. A Calendar skill behaves more like a workflow gatekeeper: for scheduling or room search, read the schedule-meeting workflow first; without a concrete time, do not call `+room-find`; before creating an event, show candidate time / room options and wait for confirmation.
+
+So the three layers are better read this way: **the schema layer exposes atomic capabilities; the shortcut layer wraps high-friction APIs into tasks; the Skill layer tells the agent how to safely choose and compose those tasks in real context.** What makes the CLI face feel usable is not merely that commands exist, but that these three layers together remove a lot of guessing from the agent.
+
 The CLI also adds a batch of engineering capabilities MCP has none of, all because it works inside a shell + text pipe: output formats (`--format json/csv/table`), auto-pagination (`--page-all`), preview (`--dry-run`), identity switching (`--as user/bot`), and one gap that's near-universal on the MCP side — **dangerous-operation safety**: the CLI marks 70 methods `danger:true`, and destructive commands require an explicit `--yes`.
 
-By here the "mode of consumption determines form" line closes: the model does structured tool-calling in context and can tolerate atomic capabilities → MCP can just go for breadth; the model fires a one-shot command at a shell that can't reason, with no structured feedback to fall back on → the CLI must scrub the friction clean *before* delivery.
+By here the "mode of consumption determines form" line closes: the model does structured tool-calling in context and can tolerate atomic capabilities → MCP can just go for breadth; the model fires a command string at a shell that can't reason — no pre-execution schema validation on tool choice or arguments, errors surface only at run time → the CLI must use shortcuts and Skills to scrub the friction clean *before* delivery.
+
+## 4. The real kernel isn't either face — it's the IR underneath
+
+§1 already pointed out that the two faces share one descriptor IR. That deserves unpacking on its own — because that IR, not MCP or either face, is the system's real asset. Laid out in full (Feishu's source calls it `McpTool`), it's one piece of **pure data**, not a piece of code:
+
+```ts
+interface McpTool {
+  name: string;          // canonical dotted name: bitable.v1.appTableRecord.create
+  description: string;   // the only natural-language field, fed to the LLM
+  schema: any;           // params (zod), partitioned into data/path/params
+  path?: string;         // REST template with :placeholders
+  httpMethod?: string;
+  accessTokens?: string[]; // ['tenant','user']
+}
+```
+
+Two details make it the kernel: natural language is a single field, `description`; everything else is structured metadata. And `path` + `httpMethod` are mandatory — that's exactly the backing for the "callable without depending on the SDK" point from §2. The roughly 30-line generic handler can dispatch all thousand-plus tools precisely because of this: split the dotted name, walk down the SDK object tree level by level; **the moment the SDK hasn't caught up with a new endpoint, fall back to firing raw HTTP straight from the descriptor's `path` + `httpMethod`.**
+
+That "`path` fallback escape hatch" is the design I admire most: it **decouples the generation layer (which must cover everything) from the SDK-wrapping layer (which is always half a step behind)** — zero wait for new endpoints. But the bigger lesson is that one line: **make "how to call it" data, not code.** Precisely because capability is data, one IR auto-renders into MCP's 1,271 tools *and* the CLI's thin schema layer; change the spec, regenerate, humans never touch the output. But don't overstate it: what auto-renders is only the "mechanical mirror" layer; CLI's real value — those ~126 thick shortcuts — is hand-piled on top of the IR, precisely **not** part of the auto-generation (the very setup for §5's "scalability is an illusion").
+
+> For a platform building agent access, that's the first transferable conclusion: **the asset you should actually accumulate isn't the MCP server, and isn't the CLI — it's that spec/IR shared by every face underneath.** Only then can a quality improvement "be made once and propagate everywhere," instead of being locked into the hand-maintenance of one particular face.
 
 ## 5. Then developer attention sent a signal — 20×
 
@@ -126,10 +130,10 @@ If the story stopped at §4, it would be a tidy "each has its strengths." But in
 Born 11 months later, 20× the stars — and Feishu's MCP repo has gone dormant while the CLI is updated daily. From the public maintenance rhythm, **Feishu's investment focus at least clearly shifted toward CLI + skills.** I stared at that table for a long time, and the conclusion converged to three points:
 
 1. **Users feel "single-call quality"; they can't feel "coverage breadth."** Nobody experiences the existence of those 731 long-tail APIs; everyone works inside their own dozen domains, and there the CLI is visibly better. Breadth is for the dashboard; quality is for the human.
-2. **The layer users can actually feel as product value is the skills layer.** What developers care about isn't "raw capability" — it's "task-level know-how," the thing that actually lets the agent get the job done. The lesson for a platform like Dewu is direct: opening capabilities to agents, the real work is not only exposing endpoints — it's this know-how layer.
-3. **Scalable quality improvement is an illusory advantage.** In theory MCP's quality gaps "fix the generator once, everyone benefits," which sounds more scalable — but Feishu didn't keep investing. The CLI's quality is piled up by hand, one entry at a time, in theory un-scalable — yet it won the present.
+2. **The layer users can actually feel as product value is the skills layer.** What developers care about isn't "raw capability" — it's "task-level know-how," the thing that actually lets the agent get the job done. The lesson for any platform opening capabilities to agents is direct: the real work is not only exposing endpoints — it's this know-how layer.
+3. **Scalable quality improvement is a layered illusion.** What can "fix the generator once, everyone benefits" is only the description-quality layer (§6's "writing tools = writing a prompt"); the friction removal and multi-step orchestration that actually move the experience aren't in the generator at all — they can only be piled up by hand, one entry at a time. MCP holds the former and sounds more scalable, yet Feishu didn't keep investing; the CLI chewed through that un-scalable hard part, and won the present.
 
-(And let me correct a claim I once believed myself: "CLI can `exec`, so it reaches more environments" doesn't hold — in local developer setups and common desktop-agent environments, reachability is roughly the same; once you enter hosted / sandboxed environments with no shell, only MCP can run. See §6. The 20× isn't a reachability win.)
+(One distractor to clear first: the 20× isn't won by "the CLI reaches more environments" — reachability is roughly even on both sides, and a shell-less environment can run only MCP. I unpack this in §7.)
 
 Compress those three into one line, and it's the thing I most want you to remember from this piece:
 
@@ -168,7 +172,7 @@ And let me puncture a myth I once believed myself: "the CLI reaches more environ
 
 **Second cut: by "first-party vs third-party."** This is one I'd settled earlier, orthogonal to the above: when your own official agent calls your own internal endpoints, the shortest path is **Function Calling, direct** — you don't need MCP's "service discovery + tool description + model selection" overhead at all. Only when you open capabilities to **any third-party agent**, plugging into the whole ecosystem, does MCP's unified protocol start to pay off. In high-determinism scenarios with few, well-defined services, forcing MCP just adds latency and uncertainty.
 
-**Third cut: if you can only invest in one, which first.** My lean: **build CLI + skills first to capture quality and adoption, with MCP as the protocol-native backfill.** The former directly produces value users can feel; the latter is table stakes and loses nothing by arriving later. Doing both is, in essence, a hedge — MCP holds breadth + protocol-native, CLI + skills holds depth + experience.
+**Third cut: if you can only invest in one, which first.** My lean: **build CLI + skills first to capture present quality and adoption, with MCP following.** But split MCP into two things here: the auto-wrapping layer is table stakes — anyone can do it, and it loses nothing by arriving later; the "protocol-native, reaches beyond the terminal" bet (§6), however, is a longer structural one — building CLI first is sequencing, not a claim that bet is unimportant. Doing both is, in essence, a hedge — MCP holds breadth + protocol-native reach, CLI + skills holds depth + experience.
 
 Three more conclusions that fell out of this teardown and hold broadly for platform building:
 
@@ -178,7 +182,7 @@ Three more conclusions that fell out of this teardown and hold broadly for platf
 
 And above all of this, don't forget the larger judgment: **the API is always the foundation, never the ceiling.** Whether the layer above is a CLI, an MCP, or the agent reading docs itself, what gets called in the end is the same set of atomic APIs; the interface form is still converging, but the quality of the atomic API is an investment that never goes out of date.
 
-## 8. Closing: the moat isn't at the protocol layer
+## 8. Closing: the moat isn't in the auto-wrapping layer
 
 Tie the circle together: Feishu's MCP and Feishu's CLI are not mutually exclusive routes. They are two faces rendered from one IR, forked apart by who the consumer is; and the 20× star gap at least reminds us that **the layer that auto-generates an API into tools — the layer anyone can do — is hard to turn into a moat on its own.**
 
