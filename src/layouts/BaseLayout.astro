@@ -10,10 +10,17 @@ interface Props {
   title: string;
   description?: string;
   canonicalPath: string; // canonical (zh) path of the current page
+  noindex?: boolean;
 }
-const { lang, title, description = '', canonicalPath } = Astro.props;
+const { lang, title, description = '', canonicalPath, noindex = false } = Astro.props;
 const siteUrl = 'https://zhuyawei.com';
-const pageUrl = new URL(localePath(lang, canonicalPath), siteUrl).toString();
+const absoluteUrl = (path: string) => {
+  const clean = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+  return new URL(clean, siteUrl).toString();
+};
+const pageUrl = absoluteUrl(localePath(lang, canonicalPath));
+const zhUrl = absoluteUrl(localePath('zh', canonicalPath));
+const enUrl = absoluteUrl(localePath('en', canonicalPath));
 const ogImage = `${siteUrl}/wechat-share-v2.png`;
 ---
 <!DOCTYPE html>
@@ -25,6 +32,10 @@ const ogImage = `${siteUrl}/wechat-share-v2.png`;
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={pageUrl} />}
+    {!noindex && <link rel="alternate" hreflang="zh-CN" href={zhUrl} />}
+    {!noindex && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={zhUrl} />}
     {description && <meta name="description" content={description} />}
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
