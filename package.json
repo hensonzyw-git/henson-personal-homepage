@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "deploy:ecs": "node scripts/deploy-ecs.mjs",
+    "sync:kb": "node scripts/sync-kb.mjs",
     "astro": "astro"
   },
   "dependencies": {

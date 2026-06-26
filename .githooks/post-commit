@@ -1,0 +1,5 @@
+#!/bin/sh
+# Mirror published site content into the knowledge base (searchable corpus).
+# The sync script skips silently when $KB_DIR is absent, so this is a no-op
+# on machines / CI without the KB checkout. See scripts/sync-kb.mjs.
+node "$(git rev-parse --show-toplevel)/scripts/sync-kb.mjs"

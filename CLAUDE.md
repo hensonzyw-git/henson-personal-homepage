@@ -30,7 +30,16 @@ npm run dev                # dev server (astro dev)
 npm run build              # build to dist/
 npm run preview            # preview the build
 node test/ac-checks.mjs    # acceptance-criteria self-check — run AFTER build, against dist/
+npm run sync:kb            # mirror PUBLISHED content (zh) → knowledge base published/ corpus
 ```
+
+The `published/` mirror in the knowledge base is a **read-only, grep-able corpus** of shipped
+content — the site repo stays the single source of truth (`scripts/sync-kb.mjs` regenerates the
+mirror from scratch each run; never hand-edit the mirror). It runs automatically via a committed
+`.githooks/post-commit` hook. **On each machine, enable the hook once:**
+`git config core.hooksPath .githooks`. The script resolves the KB via `$KB_DIR`
+(default `/Users/admin/henson-knowledge-base`) and skips silently if the KB isn't present, so
+commits never break on a machine/CI without it.
 
 There is no linter/formatter/unit-test runner configured. The **only** automated gate is
 `test/ac-checks.mjs`, which asserts against built HTML in `dist/`. After any change that could
