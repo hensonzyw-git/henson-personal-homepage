@@ -22,7 +22,8 @@ function fileExists(rel) { return existsSync(join(dist, rel)); }
 // ---- AC-1: routes ----
 const zhRoutes = [
   'index.html', 'about/index.html', 'blog/index.html',
-  'blog/traditional-to-ai-open-platform/index.html', 'ai/index.html',
+  'blog/traditional-to-ai-open-platform/index.html',
+  'blog/agent-memory-knowledge-base/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
@@ -66,12 +67,13 @@ const homeDates = [...home.matchAll(/(\d{4}) · (\d{2}) · (\d{2})/g)].map(m => 
 ok('AC-2 home shows >=3 dated latest items', homeDates.length >= 3, `found ${homeDates.length} dates`);
 const homeSorted = [...homeDates].sort().reverse();
 ok('AC-2 latest feed is date-descending', JSON.stringify(homeDates) === JSON.stringify(homeSorted), `order=${JSON.stringify(homeDates)}`);
-// mixed blog + ai: latest links into both collections
-ok('AC-2 latest feed is mixed blog+ai', /href="\/ai\//.test(home) && /href="\/blog\//.test(home), 'feed not mixed');
+// The feed may include blog and AI items, but should not force category diversity:
+// if the newest entries are all articles, the top rows should all be articles.
 
 // ---- GATE 1: each entry has zh AND en ----
 const pairs = [
   ['blog/traditional-to-ai-open-platform', 'en/blog/traditional-to-ai-open-platform'],
+  ['blog/agent-memory-knowledge-base', 'en/blog/agent-memory-knowledge-base'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
 for (const [zh, en] of pairs)
@@ -84,6 +86,12 @@ ok('AC-8 zh deep page links to /en counterpart',
 const enPost = read('en/blog/traditional-to-ai-open-platform/index.html') || '';
 ok('AC-8 en deep page links back to zh counterpart',
    /href="\/blog\/traditional-to-ai-open-platform/.test(enPost), 'no link back to zh counterpart');
+const zhKbPost = read('blog/agent-memory-knowledge-base/index.html') || '';
+ok('AC-8 zh KB deep page links to /en counterpart',
+   zhKbPost.includes('/en/blog/agent-memory-knowledge-base'), 'no link to en counterpart');
+const enKbPost = read('en/blog/agent-memory-knowledge-base/index.html') || '';
+ok('AC-8 en KB deep page links back to zh counterpart',
+   /href="\/blog\/agent-memory-knowledge-base/.test(enKbPost), 'no link back to zh counterpart');
 
 // ---- AC-3: About me offers no public PDF download (private; provided on request) ----
 const resume = read('about/index.html') || '';

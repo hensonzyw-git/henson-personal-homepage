@@ -24,6 +24,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - AI Practice / Side Projects: tools, prompts, automation, and the site itself.
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
+- Published content: `agent-memory-knowledge-base` (zh/en) about externalizing Agent memory into a personal knowledge-base + project-git context layer.
 
 ## Current Boundaries
 
@@ -34,4 +35,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-No build was run for this context-sync update; this is documentation-only.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-06-28 with the Agent-memory article included in production routes.
