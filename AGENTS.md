@@ -8,6 +8,22 @@ tokens, and conventions below verbatim — do not invent new patterns, colors, o
 
 ---
 
+## 0. Cross-machine context
+
+Read `PROJECT_STATE.md` before making changes. This repo is Henson's personal homepage,
+not the GitHub profile README repo (`hensonzyw-git/hensonzyw-git`).
+
+Context files:
+- Current state: `PROJECT_STATE.md`
+- Durable decisions: `docs/DECISIONS.md`
+- Milestone log: `docs/PROJECT_LOG.md`
+- Next-agent handoff: `docs/HANDOFF.md`
+- Design references: `docs/design/`
+
+When wrapping up work, update `PROJECT_STATE.md`; record durable choices in
+`docs/DECISIONS.md`; record milestones in `docs/PROJECT_LOG.md`; and keep
+`docs/HANDOFF.md` accurate for the next machine/agent.
+
 ## 1. What this is
 
 A bilingual (Chinese default / English mirror) **static personal site** for Henson (朱亚威),

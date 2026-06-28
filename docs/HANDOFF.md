@@ -1,0 +1,26 @@
+# Handoff — Personal Homepage
+
+Start here after `AGENTS.md`.
+
+## Read First
+
+1. `PROJECT_STATE.md`
+2. `README.md`
+3. `docs/DECISIONS.md`
+4. `docs/design/README.md`
+
+## Before Editing
+
+- Check whether the request is public-site content, private career material, or design/system work.
+- Keep bilingual pairing in mind for route/content changes.
+- Do not publish private work project content unless explicitly requested.
+- Preserve the existing design direction unless the user provides a newer approved design artifact.
+
+## Verification
+
+- Run `npm run build` for code/content changes that affect the generated site.
+- For documentation-only context updates, no build is required.
+
+## Closeout
+
+Update `PROJECT_STATE.md`, `docs/DECISIONS.md`, `docs/PROJECT_LOG.md`, and `docs/HANDOFF.md` when project direction or current state changes.
