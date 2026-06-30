@@ -1,5 +1,14 @@
 # Project Log — Personal Homepage
 
+## 2026-07-01 — Article: Agent as Service Caller
+
+- Added and published a bilingual blog entry `agent-as-service-caller-open-platform`:
+  - Chinese: `src/content/blog/agent-as-service-caller-open-platform.zh.md`
+  - English mirror draft: `src/content/blog/agent-as-service-caller-open-platform.en.md`
+- Article thesis: open platforms already know how to manage admission, permission, environment, and runtime boundaries; when agents become service callers, the platform also needs a verifiable per-action execution boundary for high-risk operations.
+- Added AC route, pairing, and language-switch coverage for the new article.
+- Validation: `npm run build && node test/ac-checks.mjs` passed with 49 checks.
+
 ## 2026-06-28 — Article: Agent Memory + Personal Knowledge Base
 
 - Added and published a bilingual blog entry `agent-memory-knowledge-base`:

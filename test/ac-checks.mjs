@@ -23,7 +23,8 @@ function fileExists(rel) { return existsSync(join(dist, rel)); }
 const zhRoutes = [
   'index.html', 'about/index.html', 'blog/index.html',
   'blog/traditional-to-ai-open-platform/index.html',
-  'blog/agent-memory-knowledge-base/index.html', 'ai/index.html',
+  'blog/agent-memory-knowledge-base/index.html',
+  'blog/agent-as-service-caller-open-platform/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
@@ -74,6 +75,7 @@ ok('AC-2 latest feed is date-descending', JSON.stringify(homeDates) === JSON.str
 const pairs = [
   ['blog/traditional-to-ai-open-platform', 'en/blog/traditional-to-ai-open-platform'],
   ['blog/agent-memory-knowledge-base', 'en/blog/agent-memory-knowledge-base'],
+  ['blog/agent-as-service-caller-open-platform', 'en/blog/agent-as-service-caller-open-platform'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
 for (const [zh, en] of pairs)
@@ -92,6 +94,12 @@ ok('AC-8 zh KB deep page links to /en counterpart',
 const enKbPost = read('en/blog/agent-memory-knowledge-base/index.html') || '';
 ok('AC-8 en KB deep page links back to zh counterpart',
    /href="\/blog\/agent-memory-knowledge-base/.test(enKbPost), 'no link back to zh counterpart');
+const zhAgentCallerPost = read('blog/agent-as-service-caller-open-platform/index.html') || '';
+ok('AC-8 zh Agent-caller deep page links to /en counterpart',
+   zhAgentCallerPost.includes('/en/blog/agent-as-service-caller-open-platform'), 'no link to en counterpart');
+const enAgentCallerPost = read('en/blog/agent-as-service-caller-open-platform/index.html') || '';
+ok('AC-8 en Agent-caller deep page links back to zh counterpart',
+   /href="\/blog\/agent-as-service-caller-open-platform/.test(enAgentCallerPost), 'no link back to zh counterpart');
 
 // ---- AC-3: About me offers no public PDF download (private; provided on request) ----
 const resume = read('about/index.html') || '';
