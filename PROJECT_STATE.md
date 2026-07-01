@@ -24,7 +24,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - AI Practice / Side Projects: tools, prompts, automation, and the site itself.
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
-- Published content: `agent-as-service-caller-open-platform` (zh/en draft mirror) about Agent-safe execution boundaries for open platforms, plus `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
+- Published content: `agent-as-service-caller-open-platform` (zh/en draft mirror, revised to emphasize opaque third-party execution channels, a simulated pending-action flow, and first-party vs third-party Agent execution boundaries), plus `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
 
 ## Current Boundaries
 
@@ -35,4 +35,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-07-01 with `agent-as-service-caller-open-platform` included in production routes.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-07-01 after the `agent-as-service-caller-open-platform` revision.

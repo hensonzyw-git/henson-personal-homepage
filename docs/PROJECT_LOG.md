@@ -6,8 +6,13 @@
   - Chinese: `src/content/blog/agent-as-service-caller-open-platform.zh.md`
   - English mirror draft: `src/content/blog/agent-as-service-caller-open-platform.en.md`
 - Article thesis: open platforms already know how to manage admission, permission, environment, and runtime boundaries; when agents become service callers, the platform also needs a verifiable per-action execution boundary for high-risk operations.
+- Revised the article after editorial review:
+  - compressed repeated OAuth/scope and trusted-confirmation framing;
+  - added a clearly simulated price-change vignette to ground the opaque-channel problem;
+  - preserved the first-party vs third-party Agent competition-boundary judgment as a core strategic claim;
+  - clarified the relationship between capability tiering, pending action, and server-side risk control.
 - Added AC route, pairing, and language-switch coverage for the new article.
-- Validation: `npm run build && node test/ac-checks.mjs` passed with 49 checks.
+- Validation: `npm run build && node test/ac-checks.mjs` passed with 49 checks after the revision.
 
 ## 2026-06-28 — Article: Agent Memory + Personal Knowledge Base
 

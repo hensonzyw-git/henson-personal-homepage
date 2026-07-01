@@ -4,21 +4,21 @@ lang: en
 title: "When an open platform's target agent stops being a developer and becomes a service caller"
 date: 2026-07-01
 category: Open Platform
-readMins: 12
-summary: "Open platforms used to focus on who can call which APIs. Once agents start calling MCP tools, CLIs, or APIs on behalf of users to execute real service operations, platforms need another boundary: whether this specific high-risk action went through a platform-verifiable and accountable per-action confirmation. From the intersection of AI-agent execution and open-platform governance, my bet is that trusted confirmation will eventually become a de facto standard led by industry leaders."
+readMins: 10
+summary: "When agents start executing high-risk service operations on behalf of users, open platforms need more than permission control: they need platform-verifiable per-action intent. The core issue is not that OAuth stops working, but that a third-party agent's execution surface becomes an opaque channel for the platform."
 draft: false
 draftTranslation: true
 ---
 
 In "[From traditional open platforms to the AI era: when the caller changes from human to agent](/en/blog/traditional-to-ai-open-platform/)," I wrote about how an open platform can become AI-friendly: how a coding agent can read the docs, understand business semantics, find the right APIs, and generate integration code that actually runs.
 
-That kind of agent is still an extension of the developer. It is integrating, developing, and debugging. The platform problem is whether the docs are readable, the APIs are self-describing, the error codes are machine-parsable, and the scenario playbooks are clear enough.
+That kind of agent is still an extension of the developer. It is integrating, developing, and debugging. The platform problem is whether the docs are readable, the APIs are self-describing, the error codes are machine-parsable, and the scenario guidance is clear enough.
 
-So the core question in the first essay was context: how should a platform expose its capabilities, terminology, APIs, constraints, and error-handling patterns in a form that an agent can consume?
+So the core question in the first essay was AI-friendly context: how should a platform express its capabilities, terminology, APIs, constraints, and error-handling patterns as context that an agent can understand, select from, and call?
 
 But the problem changes when an agent is no longer only a developer, and instead starts calling the platform's MCP tools, CLI, or APIs directly on behalf of a user.
 
-This shift is already visible in some platform tooling. In "[Dissecting Feishu's two agent connection layers for the same API: MCP and CLI](/en/blog/mcp-vs-cli-agent-encapsulation/)," I looked at Feishu's lark-mcp and lark-cli: the same OpenAPI surface is wrapped into two agent-callable entry points, one optimized for broad coverage and the other for curated high-frequency tasks and shortcuts.
+This shift is already visible in some platform tooling. In "[Dissecting Feishu's two agent connection layers for the same API: MCP and CLI](/en/blog/mcp-vs-cli-agent-encapsulation/)," I looked at Feishu's lark-mcp and lark-cli: the same OpenAPI surface is wrapped into two agent-callable entry points, one optimized for broad coverage and the other for curated high-frequency tasks.
 
 Feishu is a useful case for "how agents obtain and call tools," but it is not the core risk case in this essay. Its currently exposed capabilities are mostly around collaboration, documents, messages, and tables, rather than high-risk execution such as price changes, refunds, funds, or fulfillment. This essay asks what happens one step later: when an agent is not merely calling tools, but executing service operations with real-world consequences on behalf of a user.
 
@@ -33,9 +33,9 @@ I now prefer to split open-platform agent scenarios into two categories instead 
 | Agent identity | What it does | Platform question |
 |---|---|---|
 | Developer agent | Reads docs, writes code, generates an integration app | AI-friendly context: can it understand, integrate, and run? |
-| Service-caller agent | Calls tools or APIs directly on behalf of a user | Agent-safe execution: can it execute safely, with audit trails and confirmation? |
+| Service-caller agent | Calls tools or APIs directly on behalf of a user | Agent-safe execution: can it execute under confirmation, risk-control, and audit constraints? |
 
-The first category is the AI-friendly transformation of an open platform. The platform optimizes documentation structure, OpenAPI specs, MCP/CLI wrappers, llms.txt, playbooks, error codes, examples, and benchmarks.
+The first category is the AI-friendly transformation of an open platform. The platform optimizes documentation structure, OpenAPI specs, MCP/CLI wrappers, llms.txt, error codes, examples, and evaluations.
 
 The second category is the agent as a service caller. The platform question is no longer "can the agent call the API?" It becomes:
 
@@ -47,7 +47,9 @@ If we mix them together, it is easy to make overly broad claims such as "OAuth i
 
 A more precise formulation is:
 
-**Open platforms used to focus on "who is allowed to call the API." When agents become service callers, platforms also need to know whether this specific high-risk call went through a platform-verifiable and accountable per-action confirmation.**
+**Open platforms used to focus on "who is allowed to call the API." When agents become service callers, platforms also need to know whether this specific high-risk call carries platform-verifiable per-action intent proof.**
+
+Agent-safe execution is not simply adding another button for agents. It is making sure that when an agent executes actions with real-world consequences, the action is still constrained by confirmation, permissions, risk control, and audit trails.
 
 ## 2. Existing open-platform boundaries
 
@@ -55,21 +57,18 @@ Open platforms did not start managing risk only after agents appeared.
 
 Traditional platform governance already has mature boundary design: which data can be opened, which capabilities can be opened, who can call them, how scopes should be split, when identity verification is required, how sandbox and production environments are separated, and whether sensitive data can be accessed.
 
-These old boundaries can be compressed into four types.
+These older boundaries can be compressed into four types:
 
-The first is the admission boundary: who can come in. Developer registration, company verification, application creation, app review, business qualifications, category admission, and AppKey / AppSecret issuance all sit here. A common pattern is that identity requirements appear at the first action with real-world consequences. Sandboxes and test stores can stay low-friction; actions that touch real users, real content, real money, or real fulfillment move verification earlier.
-
-The second is the permission boundary: what you can do after admission. A good scope design usually does not map one endpoint to one permission. It is organized around resource and action: `order:read`, `order:write`, `inventory:read`, `bidding:write`. Sensitive fields such as price, PII, funds, and risk-control data may be split into additional sensitive permissions.
-
-The third is the environment boundary: when there are no real-world consequences yet. Test keys and live keys, sandbox data, test stores, whitelisted testers, and disabled sensitive scopes in test mode are all ways to let developers experiment without accidentally sending those experiments into the real world.
-
-The fourth is the runtime boundary: how calls are governed after they happen. Rate limits, quotas, request logs, anomaly review, risk-control rules, bans, idempotency, rollback, compensation, version sunset, and audit trails answer the question: even if you have permission, is the behavior still reasonable?
+- Admission boundary: developer registration, company verification, app review, business qualifications, category admission, and AppKey / AppSecret issuance answer "who can come in."
+- Permission boundary: scopes, permission bundles, and sensitive-field splits answer "what can they do after admission."
+- Environment boundary: test keys and live keys, sandbox data, test stores, and disabled sensitive scopes in test mode answer "when there are no real-world consequences yet."
+- Runtime boundary: rate limits, quotas, request logs, anomaly review, risk controls, bans, idempotency, rollback, compensation, and audit trails answer "even if you have permission, is the behavior still reasonable?"
 
 These four boundaries show one thing: open platforms have always been in the business of boundary design.
 
 But those boundaries used to revolve around who can integrate, what they can do, when they enter production, and how calls are governed after the fact. They often assumed that the key interface for high-risk execution still lived in the platform UI, in the developer's app, or in an accountable business system.
 
-The agent era does not overturn all of this. It adds a new question on top: when real execution happens inside a third-party agent surface, can the platform still verify that this action went through confirmation the user could understand and be held accountable for?
+The agent era does not overturn these boundaries. It adds a new question on top: when real execution happens inside a third-party agent surface, can the platform still obtain a trustworthy confirmation record for this specific action?
 
 ## 3. OAuth scope and per-action intent
 
@@ -96,7 +95,11 @@ So the issue is not that third-party agents are necessarily malicious. The issue
 
 More fundamentally, the execution surface of a third-party agent is an opaque channel for the platform. The platform sees parameters relayed by a third-party system, not the confirmation behavior itself. As long as confirmation does not happen inside the platform's trusted domain, `user_confirmed`, click records, screenshots, or logs saying "the user confirmed" are confirmation claims, not tamper-proof intent proof.
 
-I am not arguing that this immediately requires a cryptographic protocol. The point is to name the problem clearly: trusted confirmation requires the platform to independently verify who confirmed which parameters in which context, and whether final execution still matches what was confirmed.
+A simulated scenario makes the problem concrete.
+
+Assume a merchant tells a third-party operations agent: "Lower the prices of SKU-A through SKU-Z by 20%, effective at 8 p.m. tonight." The agent generates a plan, calls the platform's pricing API, and passes `user_confirmed=true`. From the platform's point of view, it has received a batch price-change request and a confirmation claim. It does not know whether the user saw a preview saying "26 SKUs will all be lowered by 20%," whether the user understood the margin and campaign-price impact, or whether the parameters finally submitted by the agent match what the user saw.
+
+If the platform turns this into a pending action, the flow changes. The third-party agent can only submit a pending price-change proposal. The platform generates its own confirmation page, showing affected SKUs, price changes, estimated risk, and effective time. The user returns to a trusted platform surface to confirm. The platform then executes against that confirmed object and writes the initiator, confirmer, confirmed parameters, and execution result into the audit trail. The flow can be lightweight or heavy depending on risk level. The important point is the same: the platform trusts a confirmation behavior inside its own trusted domain, not a third-party field saying "confirmed."
 
 That is the new problem for open platforms when agents become service callers:
 
@@ -116,13 +119,11 @@ So the platform cannot only ask "can this API be opened?" It also needs to ask:
 
 **If this API is executed directly by an agent, does the platform still have enough control points?**
 
-This is why I do not want to frame the essay as "OAuth is no longer enough." OAuth and scopes are still necessary. They mainly govern eligibility to call. When agents become service callers, the platform must also govern execution intent and execution consequences.
-
 And when this faster, more autonomous, and less predictable caller identity grows in the market, the platform is not only facing a security-boundary problem. It is also entering a contest for ecosystem leverage between its own agent and external agents.
 
 ## 5. Competition boundaries between first-party and third-party agents
 
-This creates a competitive relationship.
+Trusted execution boundaries directly change the competitive relationship between first-party and third-party agents.
 
 First-party platform agents and third-party agents may call the same underlying APIs, but they are not in the same position when executing high-risk operations.
 
@@ -148,7 +149,7 @@ But for high-risk actions, the platform's own agent has a natural advantage. The
 
 That does not mean third-party agents have no opportunity. They may become the cross-platform intent collection and plan-generation layer: helping users compare, plan, and draft executable proposals, then submitting high-risk actions back to each platform for trusted confirmation.
 
-Further out, if some open cross-domain trusted-confirmation standard emerges, third-party agents may try to turn today's opaque confirmation channel into intent proof that platforms can verify. Until such standards exist, however, the rational platform choice will often be to pull high-risk execution back into its own interface. This is why the agent ecosystem may oscillate between open joint standards and stronger walled gardens.
+Further out, if an open cross-domain trusted-confirmation standard emerges, third-party agents may turn today's opaque confirmation channel into intent proof that platforms can verify. Until such standards exist, however, the rational platform choice will often be to pull high-risk execution back into its own interface. This is why the agent ecosystem may oscillate between open joint standards and stronger walled gardens.
 
 A possible division of labor looks like this:
 
@@ -183,21 +184,21 @@ Instead of dividing capabilities into "open" and "not open," a platform can divi
 
 This tiering is more actionable than simply saying "high-risk actions require human confirmation." It answers the real product decision for an open platform: for each capability, should a third-party agent execute it directly, submit a draft, return to the platform for confirmation, or not be given execution at all?
 
-Within these five tiers, the real governance deep water is "draft submission" and "platform-confirmed execution." Both admit the same fact: a third-party agent may be excellent at understanding intent, generating plans, and organizing context, but once a high-risk action is about to land, the platform needs a new mechanism to hold the pending operation.
+Within these five tiers, the real governance deep water is "draft submission" and "platform-confirmed execution." Both admit the same fact: a third-party agent may be excellent at understanding intent, generating plans, and organizing context, but once a high-risk action is about to land, the platform needs a mechanism to hold the pending operation.
 
 ## 7. Platform confirmation as a new boundary
 
-If a platform wants to support third-party agents initiating high-risk operations, one mechanism worth discussing is a pending action.
+If a platform wants to support third-party agents initiating high-risk operations, pending action is a more realistic product shape.
 
-I do not want to present this as a complete solution, because the industry has not reached a stable consensus. The more important point is the question: a third-party agent should not be able to attach a confirmation claim to a final write API and expect the platform to trust that a real user confirmed it.
+It is not a separate solution next to the five tiers in section 6. It is the implementation of the "platform-confirmed execution" tier: a third-party agent does not call the final write API directly, but first submits a platform-verifiable pending object.
 
-If confirmation is to be trusted by the platform, it cannot be merely a boolean. It likely needs to become some platform-verifiable pending object: who initiated this action, on whose behalf, which resources are affected, what the key parameters are, what risk level the platform calculated, what preview the user saw, whether the confirmation expired, and whether final execution matches what was confirmed. In other words, it turns the confirmation claim from section 3 into trusted confirmation that the platform can verify, audit, and assign accountability to.
+That object should at least say who initiated the action, on whose behalf, which resources are affected, what the key parameters are, what risk level the platform calculated, what preview the user saw, whether the confirmation expired, and whether final execution matches what was confirmed. In other words, it turns the confirmation claim from section 3 into trusted confirmation that the platform can verify, audit, and assign accountability to.
 
 This does not mean every operation should become heavy. Reading docs, querying status, and generating drafts can stay low-friction. The real question is the first action that creates real-world consequences. For price changes, refunds, shipping, or payments, should the platform require the agent to submit a draft and return the user to a trusted platform surface for confirmation?
 
 That question matters more right now than the exact field design.
 
-**From the intersection of AI-agent cross-platform execution and open-platform governance, my bet is this will not remain a world where every platform invents its own confirmation field. Once third-party agents really start executing sensitive operations across platforms, leading platforms or protocol ecosystems will try to turn trusted confirmation into a de facto standard, and other service providers will follow. This essay is not about specifying that standard. It is about raising and clarifying the execution-boundary problem open platforms must face before the standard takes shape.**
+**This will not remain a world where every platform invents its own confirmation field. Once third-party agents really start executing sensitive operations across platforms, leading platforms or protocol ecosystems will try to turn trusted confirmation into a de facto standard, and other service providers will follow.**
 
 ## 8. The baseline role of server-side risk control
 
@@ -232,7 +233,7 @@ If open platforms treat agents only as a new kind of developer, the transformati
 
 All of that matters, but it serves integration.
 
-Once agents become service callers, the platform faces a different problem: when the execution surface is no longer in the platform's hands, how can the platform prove that this operation went through confirmation the user could understand and be held accountable for?
+Once agents become service callers, the platform faces a different problem: when the execution surface is no longer in the platform's hands, how can the platform prove that this operation is not merely a confirmation claim relayed by a third-party system?
 
 MCP makes tools callable. OAuth makes identity authorizable. Scope makes permissions expressible.
 
