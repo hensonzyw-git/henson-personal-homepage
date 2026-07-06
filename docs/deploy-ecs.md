@@ -17,6 +17,7 @@ The script does the full production path:
 5. `nginx -t`
 6. `systemctl reload nginx`
 7. verify key public URLs
+8. verify `/llms.txt` is served as `text/plain; charset=utf-8`
 
 Defaults are wired to the current production host:
 
@@ -43,3 +44,5 @@ npm run deploy:ecs -- --skip-checks
 ```
 
 `www.zhuyawei.com` is handled on the server by Nginx and redirects to the apex domain. The Let's Encrypt certificate for `zhuyawei.com` includes both `zhuyawei.com` and `www.zhuyawei.com`.
+
+The `zhuyawei.com` Nginx server block must include `charset utf-8;` so generated plain-text files such as `/llms.txt` render Chinese correctly in browsers. Without the charset header, browsers may mis-detect the text encoding even though the file bytes are valid UTF-8.

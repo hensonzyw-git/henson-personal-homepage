@@ -61,6 +61,7 @@ function main() {
     for (const verifyPath of config.verifyPaths) {
       verifyUrl(new URL(verifyPath, config.siteUrl).toString());
     }
+    verifyUtf8Text(new URL('/llms.txt', config.siteUrl).toString());
   } else {
     note('Dry run complete. Remote files and Nginx were not changed.');
   }
@@ -102,6 +103,31 @@ function verifyUrl(url) {
   note(`verify ${url} -> ${code}`);
   if (!['200', '301', '404'].includes(code)) {
     fail(`Unexpected status for ${url}: ${code}`);
+  }
+}
+
+function verifyUtf8Text(url) {
+  const result = spawnSync('curl', [
+    '-s',
+    '-D',
+    '-',
+    '-o',
+    '/dev/null',
+    '--max-time',
+    '15',
+    url,
+  ], { encoding: 'utf8' });
+
+  if (result.status !== 0) {
+    fail(`Header verification request failed: ${url}`);
+  }
+
+  const contentType = result.stdout
+    .split('\n')
+    .find((line) => line.toLowerCase().startsWith('content-type:')) ?? '';
+  note(`verify ${url} content-type -> ${contentType.replace(/^content-type:\s*/i, '').trim()}`);
+  if (!/text\/plain/i.test(contentType) || !/charset=utf-8/i.test(contentType)) {
+    fail(`Expected text/plain; charset=utf-8 for ${url}`);
   }
 }
 
