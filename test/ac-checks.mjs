@@ -30,6 +30,7 @@ const zhRoutes = [
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
 for (const r of [...zhRoutes, ...enRoutes]) ok(`AC-1 route exists: ${r}`, fileExists(r), 'missing in dist');
 ok('AC-1 404 page exists', fileExists('404.html'), 'missing 404.html');
+ok('AC-1 llms.txt exists', fileExists('llms.txt'), 'missing llms.txt');
 
 // ---- AC-5: draft excluded ----
 ok('AC-5 draft post absent from dist', !fileExists('blog/draft-workflow-rework/index.html'), 'draft page was built');
@@ -52,6 +53,16 @@ ok('AC-5 markdown link rendered', /<a [^>]*href="https?:/.test(post), 'no extern
 ok('AC-5 markdown table rendered', /<table[ >]/.test(post), 'no table');
 const codeRendered = /<code[ >]|<pre[ >]/.test(post);
 if (!codeRendered) console.log('WARN  AC-5 code: post exercises no code element');
+
+// ---- GEO: AI/search-readable metadata ----
+ok('GEO article page has JSON-LD', /<script type="application\/ld\+json">/.test(post), 'missing JSON-LD script');
+ok('GEO article JSON-LD includes BlogPosting/Person/BreadcrumbList',
+   /"@type":"BlogPosting"/.test(post) && /"@type":"Person"/.test(post) && /"@type":"BreadcrumbList"/.test(post),
+   'missing one schema type');
+const llms = read('llms.txt') || '';
+ok('GEO llms.txt lists site and articles',
+   /Henson's Personal Site/.test(llms) && /Key Articles - Chinese/.test(llms) && /agent-as-service-caller-open-platform/.test(llms),
+   'llms.txt missing expected content');
 
 // ---- AC-6: AI module independent, index + >=1 detail ----
 ok('AC-6 AI index exists', fileExists('ai/index.html'), 'no /ai');

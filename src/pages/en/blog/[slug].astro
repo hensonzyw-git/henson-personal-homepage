@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BlogDetail from '../../../components/BlogDetail.astro';
 import { getBlogPairs, pickLang } from '../../../lib/content';
+import { blogPostJsonLd } from '../../../lib/seo';
 
 export const getStaticPaths = (async () => {
   const pairs = await getBlogPairs();
@@ -16,7 +17,8 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { entry, fellBack } = Astro.props;
+const structuredData = blogPostJsonLd(entry, 'en');
 ---
-<BaseLayout lang="en" title={`${entry.data.title} · Henson's Personal Site`} description={entry.data.summary} canonicalPath={`/blog/${entry.data.key}`}>
+<BaseLayout lang="en" title={`${entry.data.title} · Henson's Personal Site`} description={entry.data.summary} canonicalPath={`/blog/${entry.data.key}`} structuredData={structuredData}>
   <BlogDetail lang="en" entry={entry} fellBack={fellBack} />
 </BaseLayout>

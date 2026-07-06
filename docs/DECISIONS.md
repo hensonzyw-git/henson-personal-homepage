@@ -19,3 +19,7 @@ Blog and AI practice content should be managed through Markdown content collecti
 ## D5 — Design Direction Comes From Existing Design Artifacts
 
 Preserve the design direction in `docs/design/` unless a newer approved design artifact is provided.
+
+## D6 — GEO Metadata Is Generated From Existing Content Data
+
+AI/search discoverability metadata should be generated from the canonical content collections and shared layout helpers. Blog detail pages emit JSON-LD (`BlogPosting`, `Person`, `BreadcrumbList`), and `/llms.txt` is generated at build time from the bilingual blog index rather than hand-maintained.

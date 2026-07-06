@@ -1,6 +1,6 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-07-01
+Last updated: 2026-07-06
 
 ## Current Status
 
@@ -25,6 +25,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
 - Published content: `agent-as-service-caller-open-platform` (zh/en draft mirror, revised to emphasize opaque third-party execution channels, a simulated pending-action flow, and first-party vs third-party Agent execution boundaries), plus `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
+- GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`; `/llms.txt` is generated from the bilingual blog index as the LLM-oriented site entrypoint.
 
 ## Current Boundaries
 
@@ -35,4 +36,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-07-01 after the `agent-as-service-caller-open-platform` revision.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-07-06 after adding blog JSON-LD and `/llms.txt` GEO support.

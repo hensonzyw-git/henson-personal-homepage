@@ -26,7 +26,7 @@ ECS_SSH_HOST=8.153.84.10
 ECS_SSH_KEY=~/.ssh/henson_aliyun_ecs
 ECS_REMOTE_DIR=/var/www/zhuyawei.com/current
 SITE_URL=https://zhuyawei.com
-VERIFY_PATHS=/,/blog/,/en/,/logo.svg
+VERIFY_PATHS=/,/blog/,/en/,/logo.svg,/llms.txt
 ```
 
 Override any value with environment variables:

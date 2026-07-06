@@ -20,6 +20,7 @@ Start here after `AGENTS.md`.
 
 - Run `npm run build` for code/content changes that affect the generated site.
 - For documentation-only context updates, no build is required.
+- GEO checks now cover blog JSON-LD and `/llms.txt`.
 - Current newest article: `agent-as-service-caller-open-platform` is published in zh/en draft mirror, revised to reduce repetition and add a simulated pending-action flow, and covered by AC route checks.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 

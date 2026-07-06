@@ -1,5 +1,13 @@
 # Project Log — Personal Homepage
 
+## 2026-07-06 — GEO Metadata And llms.txt
+
+- Added JSON-LD support to `BaseLayout` and blog detail pages.
+- Blog article pages now emit a schema graph with `BlogPosting`, `Person`, and `BreadcrumbList` nodes for AI/search-readable metadata.
+- Added a generated `/llms.txt` endpoint that lists the site's core topics, Chinese articles, English article mirrors, and key pages.
+- Added AC checks for `/llms.txt` and article JSON-LD.
+- Validation: `npm run build && node test/ac-checks.mjs` passed with 53 checks.
+
 ## 2026-07-01 — Article: Agent as Service Caller
 
 - Added and published a bilingual blog entry `agent-as-service-caller-open-platform`:
