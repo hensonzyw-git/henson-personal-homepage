@@ -2,7 +2,7 @@
 
 ## 2026-07-10 — GEO Freshness, Navigation, And Measurement
 
-- Added optional truthful blog revision dates and wired them into visible metadata, JSON-LD `dateModified`, Article Open Graph metadata, and sitemap `lastmod`.
+- Added optional truthful blog revision dates and wired them into JSON-LD `dateModified`, Article Open Graph metadata, sitemap `lastmod`, and `/llms.txt`; the visible article header intentionally remains publication date + reading time.
 - Added bilingual related-reading paths to blog details and expanded generated `/llms.txt` coverage to AI-practice entries, repositories, and content dates.
 - Date-stamped the MCP/CLI repository comparison and linked the two official repositories; replaced an unsourced context-cost percentage with Anthropic's published example and linked the relevant first-party tool-design guidance.
 - Extended tracker-free Nginx reporting with named AI/search crawlers, crawler routes and status codes, and AI referrer domains.

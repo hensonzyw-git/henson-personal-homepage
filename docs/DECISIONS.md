@@ -22,7 +22,7 @@ Preserve the design direction in `docs/design/` unless a newer approved design a
 
 ## D6 — GEO Metadata Is Generated From Existing Content Data
 
-AI/search discoverability metadata should be generated from the canonical content collections and shared layout helpers. Blog detail pages emit JSON-LD (`BlogPosting`, `Person`, `BreadcrumbList`) and Article Open Graph metadata. Real content revisions use optional frontmatter `updated` values, which drive visible update labels, `dateModified`, and sitemap `lastmod`; build time must not impersonate content freshness. `/llms.txt` is generated at build time from the bilingual blog and AI-practice indexes rather than hand-maintained. The site remains a single-author personal blog, so no redundant visible byline, RSS feed, or expanded entity-graph layer is added solely for GEO.
+AI/search discoverability metadata should be generated from the canonical content collections and shared layout helpers. Blog detail pages emit JSON-LD (`BlogPosting`, `Person`, `BreadcrumbList`) and Article Open Graph metadata. Real content revisions use optional frontmatter `updated` values, which drive machine-readable `dateModified`, Article modified time, sitemap `lastmod`, and `/llms.txt`; build time must not impersonate content freshness. The visible article header remains publication date + reading time to avoid metadata noise. `/llms.txt` is generated at build time from the bilingual blog and AI-practice indexes rather than hand-maintained. The site remains a single-author personal blog, so no redundant visible byline, RSS feed, or expanded entity-graph layer is added solely for GEO.
 
 ## D7 — Basic Traffic Stats Come From Server Logs
 
