@@ -1,5 +1,14 @@
 # Project Log — Personal Homepage
 
+## 2026-07-10 — Local Draft: Prompt, Context, Harness, And Loop Engineering
+
+- Added a bilingual, development-only blog draft at `prompt-context-loop-engineering` for editorial review.
+- The Chinese article explains Loop Engineering through verifier quality, coding-loop suitability, product-work boundaries, scheduled automation, and an iCloud-to-Xiaohongshu personal workflow.
+- Clarified that a timer is only a trigger: repeated execution becomes a loop only when observed outcomes affect the next decision.
+- Added clearly labelled, falsifiable pre-run hypotheses for the iCloud-to-Xiaohongshu loop, including expected failure modes and four post-run metrics; none are represented as completed results.
+- Kept the article at `draft: true`, so production routes, the public blog index, sitemap, and `/llms.txt` remain unchanged.
+- Validation: `npm run build && node test/ac-checks.mjs` passed with 57 checks; browser QA passed at 1440px and 390px without overflow or console errors.
+
 ## 2026-07-10 — GEO Freshness, Navigation, And Measurement
 
 - Added optional truthful blog revision dates and wired them into JSON-LD `dateModified`, Article Open Graph metadata, sitemap `lastmod`, and `/llms.txt`; the visible article header intentionally remains publication date + reading time.
