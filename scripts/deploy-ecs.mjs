@@ -15,7 +15,7 @@ const config = {
   sshKey: expandHome(env.ECS_SSH_KEY || '~/.ssh/henson_aliyun_ecs'),
   remoteDir: env.ECS_REMOTE_DIR || '/var/www/zhuyawei.com/current',
   siteUrl: env.SITE_URL || 'https://zhuyawei.com',
-  verifyPaths: (env.VERIFY_PATHS || '/,/blog/,/en/,/logo.svg,/llms.txt').split(',').filter(Boolean),
+  verifyPaths: (env.VERIFY_PATHS || '/,/blog/,/en/,/logo.svg,/llms.txt,/rss.xml,/en/rss.xml').split(',').filter(Boolean),
 };
 
 const sshTarget = `${config.sshUser}@${config.sshHost}`;

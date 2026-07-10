@@ -53,6 +53,7 @@ const ogImage = `${siteUrl}/wechat-share-v2.png`;
     {!noindex && <link rel="alternate" hreflang="en" href={enUrl} />}
     {!noindex && <link rel="alternate" hreflang="x-default" href={zhUrl} />}
     {description && <meta name="description" content={description} />}
+    <link rel="alternate" type="application/rss+xml" title={lang === 'en' ? 'Writing · Henson Personal Site' : '文章 · Henson的个人站'} href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content={ogType} />

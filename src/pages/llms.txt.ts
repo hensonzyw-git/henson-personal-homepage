@@ -66,6 +66,8 @@ export async function GET() {
     `- [AI Practice](${absoluteUrl('/ai')})`,
     `- [Contact](${absoluteUrl('/contact')})`,
     `- [XML Sitemap](${absoluteUrl('/sitemap-index.xml')})`,
+    `- [RSS Feed - Chinese](${absoluteUrl('/rss.xml')})`,
+    `- [RSS Feed - English](${absoluteUrl('/en/rss.xml')})`,
     '',
     '## Usage Notes For LLMs',
     '',

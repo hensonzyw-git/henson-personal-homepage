@@ -75,6 +75,19 @@ ok('GEO llms.txt lists site and articles',
 ok('GEO llms.txt lists AI practice and content dates',
    /AI Practice - Chinese/.test(llms) && /ai\/show-radar/.test(llms) && /Published: 2026-/.test(llms),
    'llms.txt missing projects or dates');
+const rssZh = read('rss.xml') || '';
+const rssEn = read('en/rss.xml') || '';
+ok('GEO zh RSS feed exists with blog items',
+   /<rss/.test(rssZh) && /<item>/.test(rssZh) && /zhuyawei\.com\/blog\/traditional-to-ai-open-platform\//.test(rssZh),
+   'rss.xml missing or has no blog items');
+ok('GEO en RSS feed exists with blog items',
+   /<rss/.test(rssEn) && /<item>/.test(rssEn) && /zhuyawei\.com\/en\/blog\//.test(rssEn),
+   'en/rss.xml missing or has no blog items');
+ok('GEO RSS excludes drafts', !/prompt-context-loop-engineering/.test(rssZh + rssEn), 'draft post leaked into feed');
+ok('GEO pages advertise RSS autodiscovery',
+   /type="application\/rss\+xml"[^>]*href="\/rss\.xml"/.test(read('index.html') || '')
+   && /type="application\/rss\+xml"[^>]*href="\/en\/rss\.xml"/.test(read('en/index.html') || ''),
+   'home <head> missing RSS alternate link');
 const sitemap = read('sitemap-0.xml') || '';
 ok('GEO sitemap has content-derived lastmod',
    /traditional-to-ai-open-platform\/<\/loc><lastmod>2026-06-25/.test(sitemap)
