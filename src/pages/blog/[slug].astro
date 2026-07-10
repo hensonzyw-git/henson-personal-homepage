@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogDetail from '../../components/BlogDetail.astro';
-import { getBlogPairs, pickLang } from '../../lib/content';
+import { blogUpdated, getBlogPairs, pickLang } from '../../lib/content';
 import { blogPostJsonLd } from '../../lib/seo';
 
 export const getStaticPaths = (async () => {
@@ -19,6 +19,15 @@ export const getStaticPaths = (async () => {
 const { entry, fellBack } = Astro.props;
 const structuredData = blogPostJsonLd(entry, 'zh');
 ---
-<BaseLayout lang="zh" title={`${entry.data.title} · Henson的个人站`} description={entry.data.summary} canonicalPath={`/blog/${entry.data.key}`} structuredData={structuredData}>
+<BaseLayout
+  lang="zh"
+  title={`${entry.data.title} · Henson的个人站`}
+  description={entry.data.summary}
+  canonicalPath={`/blog/${entry.data.key}`}
+  structuredData={structuredData}
+  ogType="article"
+  publishedTime={entry.data.date}
+  modifiedTime={blogUpdated(entry)}
+>
   <BlogDetail lang="zh" entry={entry} fellBack={fellBack} />
 </BaseLayout>

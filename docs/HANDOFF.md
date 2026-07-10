@@ -20,7 +20,9 @@ Start here after `AGENTS.md`.
 
 - Run `npm run build` for code/content changes that affect the generated site.
 - For documentation-only context updates, no build is required.
-- GEO checks now cover blog JSON-LD and `/llms.txt`.
+- GEO checks cover blog JSON-LD, Article publish/modified metadata, related reading, content-derived sitemap `lastmod`, and the blog + AI-practice `/llms.txt` index.
+- Blog `updated` is optional and means a real content revision. Do not set it to build or deploy time.
+- Basic traffic stats are server-log based via `npm run stats:traffic`; do not add a frontend analytics script unless that boundary is explicitly changed.
 - Current newest article: `agent-as-service-caller-open-platform` is published in zh/en draft mirror, revised to reduce repetition and add a simulated pending-action flow, and covered by AC route checks.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 

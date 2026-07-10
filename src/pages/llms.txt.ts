@@ -1,10 +1,16 @@
-import { getBlogIndex } from '../lib/content';
+import { aiUpdated, blogUpdated, getAIIndex, getBlogIndex } from '../lib/content';
 import { absoluteUrl } from '../lib/seo';
 
 export const prerender = true;
 
 export async function GET() {
-  const [zhPosts, enPosts] = await Promise.all([getBlogIndex('zh'), getBlogIndex('en')]);
+  const [zhPosts, enPosts, zhProjects, enProjects] = await Promise.all([
+    getBlogIndex('zh'),
+    getBlogIndex('en'),
+    getAIIndex('zh'),
+    getAIIndex('en'),
+  ]);
+  const isoDate = (date: Date) => date.toISOString().slice(0, 10);
 
   const lines = [
     "# Henson's Personal Site",
@@ -24,6 +30,7 @@ export async function GET() {
     '',
     ...zhPosts.flatMap(({ entry }) => [
       `- [${entry.data.title}](${absoluteUrl(`/blog/${entry.data.key}`)})`,
+      `  Published: ${isoDate(entry.data.date)}${entry.data.updated ? `; Updated: ${isoDate(blogUpdated(entry))}` : ''}`,
       `  Summary: ${entry.data.summary}`,
     ]),
     '',
@@ -31,7 +38,26 @@ export async function GET() {
     '',
     ...enPosts.flatMap(({ entry }) => [
       `- [${entry.data.title}](${absoluteUrl(`/en/blog/${entry.data.key}`)})`,
+      `  Published: ${isoDate(entry.data.date)}${entry.data.updated ? `; Updated: ${isoDate(blogUpdated(entry))}` : ''}`,
       `  Summary: ${entry.data.summary}`,
+    ]),
+    '',
+    '## AI Practice - Chinese',
+    '',
+    ...zhProjects.flatMap(({ entry }) => [
+      `- [${entry.data.title}](${absoluteUrl(entry.data.hasDetail ? `/ai/${entry.data.key}` : '/ai')})`,
+      `  Updated: ${isoDate(aiUpdated(entry))}`,
+      `  What it demonstrates: ${entry.data.value || entry.data.oneLiner}`,
+      ...(entry.data.repo ? [`  Repository: ${entry.data.repo}`] : []),
+    ]),
+    '',
+    '## AI Practice - English',
+    '',
+    ...enProjects.flatMap(({ entry }) => [
+      `- [${entry.data.title}](${absoluteUrl(entry.data.hasDetail ? `/en/ai/${entry.data.key}` : '/en/ai')})`,
+      `  Updated: ${isoDate(aiUpdated(entry))}`,
+      `  What it demonstrates: ${entry.data.value || entry.data.oneLiner}`,
+      ...(entry.data.repo ? [`  Repository: ${entry.data.repo}`] : []),
     ]),
     '',
     '## Other Important Pages',
@@ -39,6 +65,7 @@ export async function GET() {
     `- [About Henson](${absoluteUrl('/about')})`,
     `- [AI Practice](${absoluteUrl('/ai')})`,
     `- [Contact](${absoluteUrl('/contact')})`,
+    `- [XML Sitemap](${absoluteUrl('/sitemap-index.xml')})`,
     '',
     '## Usage Notes For LLMs',
     '',

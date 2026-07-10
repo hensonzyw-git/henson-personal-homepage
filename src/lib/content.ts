@@ -52,6 +52,25 @@ export async function getBlogIndex(lang: Lang) {
   return rows;
 }
 
+// Effective last-updated time for a blog entry. `updated` is intentionally
+// optional: publication date remains the truthful fallback for untouched posts.
+export function blogUpdated(entry: CollectionEntry<'blog'>): Date {
+  return entry.data.updated ?? entry.data.date;
+}
+
+// Related reading is intentionally strict: only same-category posts qualify.
+// Do not fill empty slots with unrelated recent posts just to populate the UI.
+export async function getRelatedBlogEntries(
+  entry: CollectionEntry<'blog'>,
+  lang: Lang,
+  limit = 2,
+) {
+  return (await getBlogIndex(lang))
+    .filter((row) => row.slug !== entry.data.key && row.entry.data.category === entry.data.category)
+    .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
+    .slice(0, limit);
+}
+
 // ---- AI Practice ----------------------------------------------------------
 
 // Effective last-updated time for an AI entry: explicit `updated`, else `date`.

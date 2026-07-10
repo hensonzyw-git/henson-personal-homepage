@@ -3,6 +3,7 @@ key: mcp-vs-cli-agent-encapsulation
 lang: en
 title: "Tearing apart Feishu's two agent connections over the same API: MCP and CLI"
 date: 2026-06-25
+updated: 2026-07-10
 category: Open Platform
 readMins: 18
 summary: "Over the same OpenAPI, Feishu built two agent-facing connection layers: lark-mcp, with 1,271 auto-generated tools, and lark-cli, with a dozen hand-curated domains. After tearing through the source, tool descriptions, REST mappings, and shortcut layer, my takeaway is not that one replaces the other. They occupy two points on the same \"coverage × quality\" frontier: MCP gives broad coverage at low marginal cost; CLI + skills hand-scrubs high-friction tasks. And in Feishu's case, the 20× star gap sends a clear developer-attention signal: the first auto-generated wrapping layer rarely forms a moat on its own."
@@ -119,9 +120,9 @@ That "`path` fallback escape hatch" is the design I admire most: it **decouples 
 
 ## 5. Then developer attention sent a signal — 20×
 
-If the story stopped at §4, it would be a tidy "each has its strengths." But interestingly, the public-attention numbers don't line up with that tidy conclusion. Stars are not usage, and not retention, but they do tell you which entry point developers are willing to watch, save, and share. I put the two repos' real data side by side (a snapshot from the teardown day, June 2026):
+If the story stopped at §4, it would be a tidy "each has its strengths." But interestingly, the public-attention numbers don't line up with that tidy conclusion. Stars are not usage, and not retention, but they do tell you which entry point developers are willing to watch, save, and share. I put the two repos' real data side by side (**a snapshot from the teardown day, 2026-06-25**):
 
-| | lark-openapi-mcp | lark-cli |
+| | [lark-openapi-mcp](https://github.com/larksuite/lark-openapi-mcp) | [lark-cli](https://github.com/larksuite/cli) |
 |---|--:|--:|
 | Stars | 742 | **14,552 (≈20×)** |
 | Created | 2025-04 | 2026-03 (11 months later) |
@@ -147,13 +148,13 @@ On one side is MCP's victory at the **protocol** layer: more and more mainstream
 
 On the other side, the backlash also erupted in 2026 — and this is where the information edge lives:
 
-- **Context cost out of control.** Reports note that before the agent does any real work, tool definitions alone eat 40–50% of the context window. The 1,271 tools I saw in Feishu's setup are the extreme form of this problem — which is exactly why it opens only 19 by default, no accident.
-- **It isn't only Feishu's users voting with their feet.** In March 2026, Perplexity's CTO publicly announced a move to "traditional API + CLI tools," abandoning MCP, for reasons highly aligned with what I tore out: high token consumption, auth friction, and agent autonomy that actually *dropped*.
+- **Context cost out of control.** In [Anthropic's published example](https://www.anthropic.com/engineering/advanced-tool-use), definitions for 50+ MCP tools consumed about 72K tokens when loaded upfront. The 1,271 tools I saw in Feishu's setup are the extreme form of this problem — which is exactly why it opens only 19 by default, no accident.
+- **It isn't only Feishu's users voting with their feet.** In March 2026, Perplexity's CTO said in a public developer discussion that the team was moving internally from MCP toward "traditional API + CLI tools," citing token consumption, authentication friction, and reduced agent autonomy ([summary of the public discussion](https://www.descope.com/blog/post/mcp-vs-cli)).
 
 More worth fully absorbing are the two answers Anthropic itself offered, because they point at where the frontier is moving:
 
-- **"Writing tools for an agent" is writing a prompt for the agent.** Tiny improvements in tool descriptions yield huge effects — interface quality is, in essence, description quality. That's the same thing I saw in the CLI layer ("encode tacit know-how explicitly"), said two ways.
-- **Let the agent write code to call tools, instead of stuffing all tools into context.** Expose MCP tools as an explorable filesystem and have the agent read specific modules on demand — that's **progressive disclosure**: don't preload all capabilities; let the agent explore layer by layer and fetch context as needed.
+- **"Writing tools for an agent" is writing a prompt for the agent.** Anthropic's [tool-design guidance](https://www.anthropic.com/engineering/writing-tools-for-agents) explicitly treats tool-description work as prompt engineering, where small refinements can materially improve performance. That's the same thing I saw in the CLI layer ("encode tacit know-how explicitly"), said two ways.
+- **Let the agent write code to call tools, instead of stuffing all tools into context.** Anthropic's [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) exposes MCP tools as an explorable filesystem and has the agent read specific modules on demand — that's **progressive disclosure**: don't preload all capabilities; let the agent explore layer by layer and fetch context as needed.
 
 This matters because it directly rewrites the boundary of §5's conclusion: **as models' tool-retrieval and orchestration abilities strengthen, MCP's "breadth + zero marginal cost" advantage may reclaim the long tail back from the CLI's hand-curation.** Feishu's MCP actually already buries a `recall` meta-tool — "search in natural language for which API to call," essentially RAG over tools — aimed squarely at that future. So "CLI won" is a conclusion about the **present**, not the **endgame**. That frontier line is still moving.
 

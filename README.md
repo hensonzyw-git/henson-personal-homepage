@@ -21,11 +21,13 @@ npm run dev        # 开发服务器
 npm run build      # 构建到 dist/
 npm run preview    # 预览构建产物
 npm run deploy:ecs # 构建、验收并部署到阿里云 ECS
+npm run stats:traffic # 从 ECS / Nginx 日志查看基础访问量
 node test/ac-checks.mjs   # 验收断言自检
 ```
 
 ECS 部署链路已固化在 `scripts/deploy-ecs.mjs`，默认部署到 `zhuyawei.com` 的生产 ECS。
 更多参数见 `docs/deploy-ecs.md`。
+基础访问统计不使用前端 tracker，直接读取服务器 Nginx 访问日志；更多参数见 `docs/traffic-stats.md`。
 
 ## 结构
 

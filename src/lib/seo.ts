@@ -5,7 +5,9 @@ export const siteUrl = 'https://zhuyawei.com';
 export const siteImage = `${siteUrl}/wechat-share-v2.png`;
 
 export function absoluteUrl(path: string): string {
-  const clean = path === '/' ? '/' : `${path.replace(/\/$/, '')}/`;
+  const withoutSlash = path.replace(/\/$/, '');
+  const isFile = /\/[^/]+\.[^/]+$/.test(withoutSlash);
+  const clean = path === '/' ? '/' : isFile ? withoutSlash : `${withoutSlash}/`;
   return new URL(clean, siteUrl).toString();
 }
 
@@ -72,7 +74,7 @@ export function blogPostJsonLd(entry: CollectionEntry<'blog'>, lang: Lang) {
         headline: entry.data.title,
         description: entry.data.summary,
         datePublished: entry.data.date.toISOString(),
-        dateModified: entry.data.date.toISOString(),
+        dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
         author: { '@id': person['@id'] },
         publisher: { '@id': person['@id'] },
         mainEntityOfPage: pageUrl,

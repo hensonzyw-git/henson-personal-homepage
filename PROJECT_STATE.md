@@ -1,6 +1,6 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-07-06
+Last updated: 2026-07-10
 
 ## Current Status
 
@@ -25,7 +25,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
 - Published content: `agent-as-service-caller-open-platform` (zh/en draft mirror, revised to emphasize opaque third-party execution channels, a simulated pending-action flow, and first-party vs third-party Agent execution boundaries), plus `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
-- GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`; `/llms.txt` is generated from the bilingual blog index as the LLM-oriented site entrypoint.
+- GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`, plus truthful publish/modified metadata and related-reading paths. `/llms.txt` is generated from the bilingual blog and AI-practice indexes. Content-detail sitemap entries carry frontmatter-derived `lastmod` values.
 
 ## Current Boundaries
 
@@ -33,7 +33,8 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - Keep career project material private by default; README notes the public site currently does not expose a career project page.
 - Avoid adding placeholder-heavy content to public navigation.
 - Preserve bilingual content pairing when adding pages or content collections.
+- Basic traffic stats use ECS/Nginx access logs via `npm run stats:traffic`; the public frontend remains free of analytics trackers.
 
 ## Validation State
 
-Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-07-06 after adding blog JSON-LD and `/llms.txt` GEO support.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed on 2026-07-10 after the GEO metadata/content-navigation pass. A stdin sample also verified named AI/search crawler, crawler-route/status, and AI-referrer reporting in `scripts/traffic-stats.mjs`.

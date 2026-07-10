@@ -59,10 +59,27 @@ ok('GEO article page has JSON-LD', /<script type="application\/ld\+json">/.test(
 ok('GEO article JSON-LD includes BlogPosting/Person/BreadcrumbList',
    /"@type":"BlogPosting"/.test(post) && /"@type":"Person"/.test(post) && /"@type":"BreadcrumbList"/.test(post),
    'missing one schema type');
+ok('GEO article metadata has truthful publish/modified dates',
+   /<meta property="og:type" content="article">/.test(post)
+   && /article:published_time" content="2026-06-24/.test(post)
+   && /article:modified_time" content="2026-06-25/.test(post)
+   && /"dateModified":"2026-06-25/.test(post),
+   'missing or inconsistent article dates');
+ok('GEO article has related-reading paths',
+   /相关阅读/.test(post) && /href="\/blog\/mcp-vs-cli-agent-encapsulation/.test(post),
+   'missing related reading');
 const llms = read('llms.txt') || '';
 ok('GEO llms.txt lists site and articles',
    /Henson's Personal Site/.test(llms) && /Key Articles - Chinese/.test(llms) && /agent-as-service-caller-open-platform/.test(llms),
    'llms.txt missing expected content');
+ok('GEO llms.txt lists AI practice and content dates',
+   /AI Practice - Chinese/.test(llms) && /ai\/show-radar/.test(llms) && /Published: 2026-/.test(llms),
+   'llms.txt missing projects or dates');
+const sitemap = read('sitemap-0.xml') || '';
+ok('GEO sitemap has content-derived lastmod',
+   /traditional-to-ai-open-platform\/<\/loc><lastmod>2026-06-25/.test(sitemap)
+   && /mcp-vs-cli-agent-encapsulation\/<\/loc><lastmod>2026-07-10/.test(sitemap),
+   'missing truthful content lastmod');
 
 // ---- AC-6: AI module independent, index + >=1 detail ----
 ok('AC-6 AI index exists', fileExists('ai/index.html'), 'no /ai');

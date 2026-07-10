@@ -1,7 +1,7 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import { t, localePath, type Lang } from '../lib/i18n';
-import { monoDate } from '../lib/content';
+import { getRelatedBlogEntries, monoDate } from '../lib/content';
 import Prose from './Prose.astro';
 import EnFallbackNote from './EnFallbackNote.astro';
 
@@ -14,11 +14,13 @@ const { lang, entry, fellBack } = Astro.props;
 const ui = t(lang);
 const { Content, headings } = await render(entry);
 const d = entry.data;
+const related = await getRelatedBlogEntries(entry, lang);
 
 // Table of contents: top-level (h2) + one nested level (h3). Astro auto-assigns
 // matching `id`s to the rendered headings, so `#slug` anchors resolve.
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const tocLabel = lang === 'en' ? 'On this page' : '目录';
+const relatedLabel = lang === 'en' ? 'Related reading' : '相关阅读';
 ---
 <div class:list={['article-shell', { 'has-toc': toc.length > 1 }]}>
   <article class="article">
@@ -33,6 +35,20 @@ const tocLabel = lang === 'en' ? 'On this page' : '目录';
         <Content />
       </Prose>
     </div>
+
+    {related.length > 0 && (
+      <section class="related" aria-labelledby="related-title">
+        <h2 id="related-title" class="mono related-label">{relatedLabel}</h2>
+        <div class="related-list">
+          {related.map((row) => (
+            <a class="related-link" href={localePath(lang, `/blog/${row.slug}`)}>
+              <span class="display related-title">{row.entry.data.title}</span>
+              <span class="mono related-date">{monoDate(row.entry.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </article>
 
   {toc.length > 1 && (
@@ -103,6 +119,13 @@ const tocLabel = lang === 'en' ? 'On this page' : '目录';
   .article-meta { font-size: 12px; color: var(--meta); margin-bottom: 16px; }
   .article-h1 { font-size: clamp(32px, 4vw, 46px); line-height: 1.15; margin: 0; }
   .article-body { margin-top: 30px; }
+  .related { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--line-12); }
+  .related-label { margin: 0 0 12px; color: var(--meta); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .related-list { display: flex; flex-direction: column; }
+  .related-link { display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; border-bottom: 1px solid var(--line-10); color: inherit; text-decoration: none; }
+  .related-link:hover .related-title { color: var(--clay); }
+  .related-title { font-size: 17px; line-height: 1.4; transition: color .12s ease; }
+  .related-date { flex: none; padding-top: 3px; color: var(--meta); font-size: 11px; }
 
   /* left outline (TOC) */
   .toc {
@@ -137,5 +160,8 @@ const tocLabel = lang === 'en' ? 'On this page' : '目录';
     .article-shell, .article-shell.has-toc { display: block; max-width: 900px; padding-left: 22px; padding-right: 22px; }
     .article { max-width: none; }
     .toc { display: none; }
+  }
+  @media (max-width: 860px) {
+    .related-link { flex-direction: column; gap: 5px; }
   }
 </style>

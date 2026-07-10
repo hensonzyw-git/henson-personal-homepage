@@ -1,5 +1,20 @@
 # Project Log — Personal Homepage
 
+## 2026-07-10 — GEO Freshness, Navigation, And Measurement
+
+- Added optional truthful blog revision dates and wired them into visible metadata, JSON-LD `dateModified`, Article Open Graph metadata, and sitemap `lastmod`.
+- Added bilingual related-reading paths to blog details and expanded generated `/llms.txt` coverage to AI-practice entries, repositories, and content dates.
+- Date-stamped the MCP/CLI repository comparison and linked the two official repositories; replaced an unsourced context-cost percentage with Anthropic's published example and linked the relevant first-party tool-design guidance.
+- Extended tracker-free Nginx reporting with named AI/search crawlers, crawler routes and status codes, and AI referrer domains.
+- Deliberately skipped redundant visible author labels, expanded person/entity markup, RSS, IndexNow, FAQ conversion, and broad citation rewrites because the site's near-term purpose is a concise personal portfolio and judgment sample.
+
+## 2026-07-06 — Server-Side Traffic Stats
+
+- Added `scripts/traffic-stats.mjs` and `npm run stats:traffic` for basic visit reporting from ECS/Nginx access logs.
+- Kept the public site frontend tracker-free; the script reports page views, approximate IP-based unique visitors, top pages, referrer domains, status codes, and daily page views, while filtering static assets, common bots, and non-site probe paths.
+- Documented the operational workflow in `docs/traffic-stats.md` and linked it from the deploy docs and README.
+- Recorded the decision that basic traffic stats come from server logs rather than frontend analytics scripts.
+
 ## 2026-07-06 — GEO Metadata And llms.txt
 
 - Added JSON-LD support to `BaseLayout` and blog detail pages.

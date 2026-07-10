@@ -14,6 +14,7 @@ const blog = defineCollection({
     lang: langField,
     title: z.string(),
     date: z.coerce.date(),
+    updated: z.coerce.date().optional(), // meaningful content revision; omit when unchanged since publication
     summary: z.string(),
     category: z.string().default('文章'),
     readMins: z.number().default(6),

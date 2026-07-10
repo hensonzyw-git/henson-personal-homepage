@@ -3,6 +3,7 @@ key: mcp-vs-cli-agent-encapsulation
 lang: zh
 title: 拆开飞书同一份 API 的两套 Agent 连接方式：MCP 与 CLI
 date: 2026-06-25
+updated: 2026-07-10
 category: 开放平台
 readMins: 18
 summary: 飞书在同一份 OpenAPI 之上，同时做了两套面向 Agent 的连接方式：自动生成 1271 个工具的 lark-mcp，和人工策展十几个域的 lark-cli。我把两套源码、工具描述、REST 映射和 shortcut 层逐段拆开看完之后，结论不是谁替代谁，而是它们分别站在同一条「覆盖 × 质量」前沿的两个位置：MCP 负责低边际成本的广覆盖，CLI + skills 负责高摩擦任务的人工消解。而有趣的是，在飞书这个样本里，20 倍的 star 差距给出了一个清晰的开发者注意力信号：第一层自动封装很难单独形成护城河。
@@ -118,9 +119,9 @@ interface McpTool {
 
 ## 5. 然后，开发者注意力给了一个信号——20 倍
 
-如果故事停在第 4 节，它只是一个工整的"两者各有所长"。但有趣的是，公开关注度给出的数字，和这个工整的结论并不在一条线上。Star 不是使用量，也不是留存率，但它至少代表开发者愿意关注、收藏、传播哪一个入口。我把两个仓库的真实数据并排放（拆解当天，2026 年 6 月的快照）：
+如果故事停在第 4 节，它只是一个工整的"两者各有所长"。但有趣的是，公开关注度给出的数字，和这个工整的结论并不在一条线上。Star 不是使用量，也不是留存率，但它至少代表开发者愿意关注、收藏、传播哪一个入口。我把两个仓库的真实数据并排放（**2026-06-25 拆解当天的快照**）：
 
-| | lark-openapi-mcp | lark-cli |
+| | [lark-openapi-mcp](https://github.com/larksuite/lark-openapi-mcp) | [lark-cli](https://github.com/larksuite/cli) |
 |---|--:|--:|
 | Stars | 742 | **14,552（≈20×）** |
 | 创建时间 | 2025-04 | 2026-03（晚 11 个月） |
@@ -146,13 +147,13 @@ interface McpTool {
 
 另一边，反思也在 2026 年集中爆发，而这部分才是信息差所在：
 
-- **上下文成本失控。** 有报告指出，MCP 在 Agent 真正干活之前，光是工具定义就吃掉 40–50% 的上下文窗口。我在飞书这套上看到的 1271 个工具，正是这个问题的极端形态——所以它默认只开 19 个，不是偶然。
-- **用脚投票的不止飞书用户。** 2026 年 3 月，Perplexity 的 CTO 公开宣布转向"传统 API + CLI 工具"、放弃 MCP，理由和我拆出来的高度一致：token 消耗居高不下、鉴权摩擦、Agent 自主性反而下降。
+- **上下文成本失控。** [Anthropic 公开的样例](https://www.anthropic.com/engineering/advanced-tool-use)里，50+ 个 MCP 工具的定义预加载就占用了约 72K tokens。我在飞书这套上看到的 1271 个工具，正是这个问题的极端形态——所以它默认只开 19 个，不是偶然。
+- **用脚投票的不止飞书用户。** 2026 年 3 月，Perplexity 的 CTO 在一次公开分享中说团队内部正从 MCP 转向“传统 API + CLI 工具”，理由和我拆出来的高度一致：token 消耗、鉴权摩擦、Agent 自主性下降（[公开分享摘要](https://www.descope.com/blog/post/mcp-vs-cli)）。
 
 更值得吃透的，是 Anthropic 自己给出的两个解法，因为它们指向了前沿正在往哪移：
 
-- **「给 Agent 写工具」就是给 Agent 写 prompt。** 工具描述的微小改进能带来巨大效果——接口质量，本质就是描述质量。这跟我在 CLI 那层看到的"把隐性 know-how 显式编码"，是同一件事的两种说法。
-- **让 Agent 写代码来调工具，而不是把工具全塞进上下文。** 把 MCP 工具暴露成一个可探索的文件系统，Agent 按需读取特定模块——这就是**渐进式披露**：不预加载全部能力，让 Agent 逐层探索、按需取用。
+- **「给 Agent 写工具」就是给 Agent 写 prompt。** Anthropic 在[工具设计实践](https://www.anthropic.com/engineering/writing-tools-for-agents)中直接将工具描述视为 prompt engineering，微小改进也可能带来显著效果。这跟我在 CLI 那层看到的"把隐性 know-how 显式编码"，是同一件事的两种说法。
+- **让 Agent 写代码来调工具，而不是把工具全塞进上下文。** Anthropic 的 [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) 把 MCP 工具暴露成一个可探索的文件系统，Agent 按需读取特定模块——这就是**渐进式披露**：不预加载全部能力，让 Agent 逐层探索、按需取用。
 
 这条很重要，因为它直接改写了第 5 节的结论边界：**当模型的工具检索与编排能力变强，MCP 那个"广度 + 零边际成本"的优势，有可能在长尾上重新反超 CLI 的人肉策展。** 飞书 MCP 里其实已经埋了一个 `recall` 元工具——"用自然语言检索该调哪个 API"，本质是 RAG over tools，就是冲着这个未来去的。所以"CLI 赢了"是**当下**的结论，不是**终局**的结论。前沿这条线，还在移动。
 
