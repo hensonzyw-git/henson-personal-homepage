@@ -4,7 +4,7 @@ lang: en
 title: "Why I moved my agents' memory out of the chat window"
 date: 2026-06-28
 category: AI Collaboration
-readMins: 14
+readMins: 12
 summary: "After moving from Claude Chat to Claude Cowork, Claude Code, and then a Codex + Claude dual setup, I became convinced that the real asset is not an agent product's private memory. It is an external, portable, auditable context layer that every agent can read. My current setup splits facts into two systems: the knowledge base for long-term context, and project git for execution context."
 draft: false
 draftTranslation: true

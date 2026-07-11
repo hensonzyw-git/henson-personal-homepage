@@ -4,7 +4,7 @@ lang: en
 title: "When an open platform's target agent stops being a developer and becomes a service caller"
 date: 2026-07-01
 category: Open Platform
-readMins: 10
+readMins: 15
 summary: "When agents start executing high-risk service operations on behalf of users, open platforms need more than permission control: they need platform-verifiable per-action intent. The core issue is not that OAuth stops working, but that a third-party agent's execution surface becomes an opaque channel for the platform."
 draft: false
 draftTranslation: true

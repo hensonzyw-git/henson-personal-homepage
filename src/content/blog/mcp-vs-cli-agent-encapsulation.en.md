@@ -5,7 +5,7 @@ title: "Tearing apart Feishu's two agent connections over the same API: MCP and 
 date: 2026-06-25
 updated: 2026-07-10
 category: Open Platform
-readMins: 18
+readMins: 21
 summary: "Over the same OpenAPI, Feishu built two agent-facing connection layers: lark-mcp, with 1,271 auto-generated tools, and lark-cli, with a dozen hand-curated domains. After tearing through the source, tool descriptions, REST mappings, and shortcut layer, my takeaway is not that one replaces the other. They occupy two points on the same \"coverage × quality\" frontier: MCP gives broad coverage at low marginal cost; CLI + skills hand-scrubs high-friction tasks. And in Feishu's case, the 20× star gap sends a clear developer-attention signal: the first auto-generated wrapping layer rarely forms a moat on its own."
 draft: false
 draftTranslation: true

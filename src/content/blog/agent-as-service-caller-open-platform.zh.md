@@ -4,7 +4,7 @@ lang: zh
 title: "当开放平台面对的 Agent，从开发者变成服务调用方"
 date: 2026-07-01
 category: 开放平台
-readMins: 10
+readMins: 15
 summary: "当 Agent 开始代表用户直接执行高风险服务操作时，开放平台要补上的不只是权限控制，而是平台可验证的本次意图确认。本文讨论的核心不是 OAuth 失效，而是第三方 Agent 的执行界面对平台变成了不透明信道。"
 draft: false
 ---

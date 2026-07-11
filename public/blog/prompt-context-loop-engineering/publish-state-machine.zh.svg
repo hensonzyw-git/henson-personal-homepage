@@ -1,0 +1,63 @@
+<svg width="700" height="672" viewBox="0 0 700 672" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="iCloud 到小红书发布循环的状态机">
+  <defs>
+    <marker id="sarr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5C594F"/>
+    </marker>
+    <marker id="sarr-clay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/>
+    </marker>
+    <marker id="sarr-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8A867B"/>
+    </marker>
+  </defs>
+  <style>
+    .state { fill: #E7E3D7; }
+    .sname { font: 600 15px ui-monospace, "SF Mono", Menlo, monospace; fill: #1F1E1B; text-anchor: middle; }
+    .cond { font: 13px -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; fill: #5C594F; }
+    .cond-clay { font: 600 13px -apple-system, "PingFang SC", sans-serif; fill: #C15F3C; }
+    .cond-muted { font: 12px -apple-system, "PingFang SC", sans-serif; fill: #8A867B; }
+    .flow { stroke: #5C594F; stroke-width: 1.5; fill: none; }
+    .flow-clay { stroke: #C15F3C; stroke-width: 2; fill: none; }
+    .flow-back { stroke: #8A867B; stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+    .badge { font: 700 11px ui-monospace, "SF Mono", Menlo, monospace; fill: #F7F5EF; text-anchor: middle; }
+  </style>
+  <rect x="1" y="1" width="698" height="670" rx="14" fill="#F7F5EF" stroke="#1F1E1B" stroke-opacity=".12"/>
+
+  <rect class="state" x="40" y="28" width="300" height="46" rx="12"/>
+  <text class="sname" x="190" y="57">collecting</text>
+  <line class="flow" x1="190" y1="74" x2="190" y2="118" marker-end="url(#sarr)"/>
+  <text class="cond" x="360" y="101">素材稳定且完整</text>
+
+  <rect class="state" x="40" y="122" width="300" height="46" rx="12"/>
+  <text class="sname" x="190" y="151">ready_for_draft</text>
+  <line class="flow" x1="190" y1="168" x2="190" y2="212" marker-end="url(#sarr)"/>
+  <text class="cond" x="360" y="195">草稿校验通过</text>
+
+  <rect class="state" x="40" y="216" width="300" height="46" rx="12"/>
+  <text class="sname" x="190" y="245">ready_for_upload</text>
+  <line class="flow" x1="190" y1="262" x2="190" y2="306" marker-end="url(#sarr)"/>
+  <text class="cond" x="360" y="289">前台显式开始，先落状态再开发布页</text>
+
+  <rect class="state" x="40" y="310" width="300" height="46" rx="12"/>
+  <text class="sname" x="176" y="339">upload_started</text>
+  <rect x="258" y="300" width="76" height="22" rx="11" fill="#C15F3C"/>
+  <text class="badge" x="296" y="315">one-shot</text>
+  <line class="flow" x1="190" y1="356" x2="190" y2="400" marker-end="url(#sarr)"/>
+  <text class="cond" x="360" y="383">页面字段与图片验证通过</text>
+
+  <rect class="state" x="40" y="404" width="300" height="46" rx="12"/>
+  <text class="sname" x="190" y="433">ready_for_final_review</text>
+  <line class="flow-clay" x1="190" y1="450" x2="190" y2="494" marker-end="url(#sarr-clay)"/>
+  <text class="cond-clay" x="360" y="477">我点击发布 · 人工闸门</text>
+
+  <rect class="state" x="40" y="498" width="300" height="46" rx="12"/>
+  <text class="sname" x="190" y="527">kb_sync_pending</text>
+  <line class="flow" x1="190" y1="544" x2="190" y2="588" marker-end="url(#sarr)"/>
+  <text class="cond" x="360" y="571">知识库页面、索引、日志验证通过</text>
+
+  <rect x="40" y="592" width="300" height="46" rx="12" fill="#26241F"/>
+  <text class="sname" x="190" y="621" style="fill:#F7F5EF">archived</text>
+
+  <path class="flow-back" d="M340,250 L640,250 L640,156 L344,156" marker-end="url(#sarr-muted)"/>
+  <text class="cond-muted" x="425" y="238">素材变化则退回，旧正文不配新素材</text>
+</svg>

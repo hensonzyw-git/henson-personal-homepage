@@ -46,15 +46,11 @@ Prompts and context mainly improve what the agent has before it begins. Loop Eng
 
 ## Loop Engineering is feedback design
 
-A normal LLM call is linear:
+A normal LLM call is linear: input, reasoning, output, done. However complete the prompt or context may be, the call ends when the output appears. The model does not naturally know whether the result was accepted, whether the code runs, whether a file was uploaded, or whether a user agrees with the proposal.
 
-> Input → reasoning → output
+A loop adds feedback around that call: after acting, the system observes the result, verifies it, revises when needed, and enters the next turn.
 
-However complete the prompt or context may be, the call ends when the output appears. The model does not naturally know whether the result was accepted, whether the code runs, whether a file was uploaded, or whether a user agrees with the proposal.
-
-A loop adds feedback around that call:
-
-> Act → observe → verify → revise → act again
+![A single call versus a feedback loop](/blog/prompt-context-loop-engineering/loop-vs-single-call.en.svg)
 
 It does not raise the model's single-turn capability ceiling. It makes existing capability more likely to turn into a completed result through directed iteration.
 
@@ -82,15 +78,13 @@ Compilation, tests, type checks, schemas, and runtime behavior can all become ve
 - most changes are reversible;
 - repeated attempts have a low marginal cost.
 
-This lets a coding agent enter a relatively autonomous cycle:
-
-> Change code → build and test → read failures → change again → enter review
+This lets a coding agent enter a relatively autonomous cycle: change the code, build and test, read the failures, change again, and enter review once everything passes.
 
 A human does not need to supervise every step. The important work is supplying the right tests, product constraints, and exit conditions, then keeping a final gate before merge or release.
 
 But the presence of hard verifiers does not make an engineering loop inherently reliable.
 
-When I automated a workflow in which Codex implemented, Claude Code reviewed, and Codex arbitrated the review, I encountered two false greens.
+When I [automated a workflow](/en/ai/multi-agent-workflow/) in which Codex implemented, Claude Code reviewed, and Codex arbitrated the review, I encountered two false greens.
 
 In one run, the agent had not actually executed, but the loop still declared convergence. In another, the task changed iOS code while the gate ran Python tests. Every test passed, but the changed code had never been compiled. Worse, the agent removed existing behavior to make the error disappear, and the reviewer accepted it because the PRD was missing from its context.
 
@@ -145,9 +139,7 @@ I have many scheduled tasks at work: fetch data at a fixed time, run a script, u
 
 If the task is only “time arrives → run script → write result → stop,” it is a scheduled pipeline. Running it for a year still means executing the same linear process many times.
 
-If the task verifies freshness and completeness, retries retrieval, chooses a fallback, blocks a bad update, asks for human judgment, and only updates downstream systems after verification, it has become a feedback loop:
-
-> Trigger → act → observe → verify → choose the next action → converge or exit
+If the task verifies freshness and completeness, retries retrieval, chooses a fallback, blocks a bad update, asks for human judgment, and only updates downstream systems after verification — trigger, act, observe, verify, choose the next action, converge or exit — it has become a feedback loop.
 
 The simplest test is: **does the result of the last action become an input to the next decision?**
 
@@ -171,19 +163,9 @@ With Context Engineering, the agent can also read the photos, raw note, previous
 
 But after generation, the system still does not know what comes next or whether its output actually reached the publishing page.
 
-The workflow changes only when it becomes a loop:
+The workflow changes only when it becomes a loop. The system checks the iCloud folder once a day: nothing new means a normal exit, and incomplete material stays in `collecting` until the next scan. Once the material is complete, the task advances along a chain of persistent states, Computer Use handles the upload and form filling, and everything stops at the final confirmation page to wait for me:
 
-> Check the iCloud folder once a day  
-> → exit normally when there is nothing new  
-> → keep incomplete material in `collecting`  
-> → move complete material to `ready_for_draft`, then generate copy and normalize topics  
-> → move to `ready_for_upload` once the draft passes validation  
-> → enter the one-shot `upload_started` state, then use Computer Use to upload images and fill the fields<br>
-> → verify image count, title, body, and topics on the page  
-> → move to `ready_for_final_review` and stop at final confirmation<br>
-> → I publish  
-> → move to `kb_sync_pending`, record the result, and verify the knowledge-base page, index, and log<br>
-> → move to `archived` only after that verification succeeds
+![State machine of the publish loop](/blog/prompt-context-loop-engineering/publish-state-machine.en.svg)
 
 The material does not lose value if it waits a few hours. Scanning iCloud every five minutes would add retries, partial-sync states, and accidental triggers without creating meaningful value. Once a day is enough.
 
@@ -205,7 +187,7 @@ Admittedly, the responsibility in this personal scenario is light: I answer for 
 
 ### What the first real run disproved
 
-In July 2026, I completed the first end-to-end run with real material from a restaurant visit. The workflow selected and ordered nine images from fifteen originals, then verified that the title, a 539-character body, and seven topics were all in place on the page. After I made the final publish decision, the system archived the source material and synchronized the publication record to a knowledge-base page, index, and operation log.
+In July 2026, I completed the first end-to-end run with real material from a restaurant visit. The workflow selected and ordered nine images from fifteen originals, then verified that the title, a 539-character body, and seven topics were all in place on the page. After I made the final publish decision, the system archived the source material and synchronized the publication record to a [knowledge-base](/en/blog/agent-memory-knowledge-base/) page, index, and operation log.
 
 One run is not enough to prove stability, and it cannot support claims about minutes saved per post or failure rates. It did, however, reveal several things that were more useful than a clean demo.
 

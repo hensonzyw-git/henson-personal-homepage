@@ -66,6 +66,9 @@ ok('GEO article metadata has truthful publish/modified dates',
    && /article:modified_time" content="2026-06-25/.test(post)
    && /"dateModified":"2026-06-25/.test(post),
    'missing or inconsistent article dates');
+ok('GEO visible date matches frontmatter regardless of build TZ',
+   post.includes('2026 · 06 · 24'),
+   'monoDate shifted the day — check UTC accessors in content.ts');
 ok('GEO article has related-reading paths',
    /相关阅读/.test(post) && /href="\/blog\/mcp-vs-cli-agent-encapsulation/.test(post),
    'missing related reading');

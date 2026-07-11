@@ -1,0 +1,49 @@
+<svg width="700" height="330" viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A single call versus a feedback loop">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5C594F"/>
+    </marker>
+    <marker id="arr-clay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C15F3C"/>
+    </marker>
+  </defs>
+  <style>
+    .box { fill: #E7E3D7; }
+    .node { font: 600 15px -apple-system, "Helvetica Neue", sans-serif; fill: #1F1E1B; text-anchor: middle; }
+    .eyebrow { font: 700 12px ui-monospace, "SF Mono", Menlo, monospace; fill: #C15F3C; letter-spacing: .12em; }
+    .note { font: 13px -apple-system, sans-serif; fill: #8A867B; }
+    .loop-label { font: 600 13px -apple-system, sans-serif; fill: #C15F3C; text-anchor: middle; }
+    .flow { stroke: #5C594F; stroke-width: 1.5; fill: none; }
+    .flow-clay { stroke: #C15F3C; stroke-width: 2; fill: none; }
+  </style>
+  <rect x="1" y="1" width="698" height="328" rx="14" fill="#F7F5EF" stroke="#1F1E1B" stroke-opacity=".12"/>
+
+  <text class="eyebrow" x="28" y="42">SINGLE CALL</text>
+  <rect class="box" x="28" y="58" width="120" height="44" rx="10"/>
+  <text class="node" x="88" y="85">Input</text>
+  <line class="flow" x1="148" y1="80" x2="192" y2="80" marker-end="url(#arr)"/>
+  <rect class="box" x="196" y="58" width="120" height="44" rx="10"/>
+  <text class="node" x="256" y="85">Reason</text>
+  <line class="flow" x1="316" y1="80" x2="360" y2="80" marker-end="url(#arr)"/>
+  <rect class="box" x="364" y="58" width="120" height="44" rx="10"/>
+  <text class="node" x="424" y="85">Output</text>
+  <line class="flow" x1="484" y1="80" x2="528" y2="80" marker-end="url(#arr)"/>
+  <text class="note" x="538" y="85">call ends</text>
+
+  <line x1="28" y1="138" x2="672" y2="138" stroke="#1F1E1B" stroke-opacity=".1"/>
+
+  <text class="eyebrow" x="28" y="172">FEEDBACK LOOP</text>
+  <rect class="box" x="28" y="188" width="120" height="44" rx="10"/>
+  <text class="node" x="88" y="215">Act</text>
+  <line class="flow" x1="148" y1="210" x2="192" y2="210" marker-end="url(#arr)"/>
+  <rect class="box" x="196" y="188" width="120" height="44" rx="10"/>
+  <text class="node" x="256" y="215">Observe</text>
+  <line class="flow" x1="316" y1="210" x2="360" y2="210" marker-end="url(#arr)"/>
+  <rect class="box" x="364" y="188" width="120" height="44" rx="10"/>
+  <text class="node" x="424" y="215">Verify</text>
+  <line class="flow" x1="484" y1="210" x2="528" y2="210" marker-end="url(#arr)"/>
+  <rect class="box" x="532" y="188" width="120" height="44" rx="10"/>
+  <text class="node" x="592" y="215">Correct</text>
+  <path class="flow-clay" d="M592,232 L592,276 L88,276 L88,238" marker-end="url(#arr-clay)"/>
+  <text class="loop-label" x="340" y="296">act again</text>
+</svg>

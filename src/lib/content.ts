@@ -148,15 +148,17 @@ export async function getLatest(lang: Lang, limit = 3): Promise<LatestItem[]> {
 }
 
 // Format a date as the mono "2026 · 06 · 11" style used throughout the design.
+// Frontmatter dates are date-only values coerced to UTC midnight, so read them
+// with UTC accessors — local getters shift the day on build machines west of UTC.
 export function monoDate(d: Date, sep = ' · '): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(d.getUTCDate()).padStart(2, '0');
   return [y, m, day].join(sep);
 }
 
 export function monoDateShort(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const y = d.getUTCFullYear();
+  const m = String(d.getUTCMonth() + 1).padStart(2, '0');
   return `${y} · ${m}`;
 }

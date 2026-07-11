@@ -5,7 +5,7 @@ title: "From traditional to AI-era open platforms: when your caller stops being 
 date: 2026-06-24
 updated: 2026-06-25
 category: Open Platform
-readMins: 16
+readMins: 14
 summary: "For a decade, open platforms optimized for how an experienced human would use them. When the caller becomes an Agent, what you measure, what you design, and how you verify all change. Three shifts learned by actually putting an Agent end-to-end on the POIZON Open Platform — plus an unromantic conclusion: the real bar isn't technical."
 draft: false
 draftTranslation: true

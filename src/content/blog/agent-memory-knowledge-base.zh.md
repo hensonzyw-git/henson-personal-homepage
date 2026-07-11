@@ -4,7 +4,7 @@ lang: zh
 title: 我为什么把 Agent 的记忆搬出聊天窗口
 date: 2026-06-28
 category: AI 协作
-readMins: 14
+readMins: 12
 summary: 从 Claude Chat、Claude Cowork、Claude Code 到 Codex 双持之后，我越来越确信：Agent 时代真正需要沉淀的不是某个产品里的“记忆”，而是一套可迁移、可审计、可被不同 Agent 共同读取的个人上下文基础设施。我的做法是把知识库和项目 git 拆成两个事实源：知识库负责长期上下文，git 负责执行上下文。
 draft: false
 ---

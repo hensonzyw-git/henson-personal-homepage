@@ -5,7 +5,7 @@ title: 从传统开放平台到 AI 时代：当调用方从人变成 Agent
 date: 2026-06-24
 updated: 2026-06-25
 category: 开放平台
-readMins: 16
+readMins: 14
 summary: 开放平台过去十年都在优化「一个有经验的人会怎么用」。当调用方从开发者变成 Agent，衡量什么、设计什么、怎么验证都要换一套。这是在得物国际开放平台（POIZON Open Platform）上，把 Agent 真正放上去端到端跑过之后，踩出来的三段转换——以及一个不浪漫的结论：真正的门槛不在技术。
 draft: false
 ---

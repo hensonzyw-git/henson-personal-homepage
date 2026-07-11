@@ -5,7 +5,7 @@ title: 拆开飞书同一份 API 的两套 Agent 连接方式：MCP 与 CLI
 date: 2026-06-25
 updated: 2026-07-10
 category: 开放平台
-readMins: 18
+readMins: 21
 summary: 飞书在同一份 OpenAPI 之上，同时做了两套面向 Agent 的连接方式：自动生成 1271 个工具的 lark-mcp，和人工策展十几个域的 lark-cli。我把两套源码、工具描述、REST 映射和 shortcut 层逐段拆开看完之后，结论不是谁替代谁，而是它们分别站在同一条「覆盖 × 质量」前沿的两个位置：MCP 负责低边际成本的广覆盖，CLI + skills 负责高摩擦任务的人工消解。而有趣的是，在飞书这个样本里，20 倍的 star 差距给出了一个清晰的开发者注意力信号：第一层自动封装很难单独形成护城河。
 draft: false
 ---
