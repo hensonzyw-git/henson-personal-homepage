@@ -1,5 +1,28 @@
 # Project Log — Personal Homepage
 
+## 2026-07-11 — Publish Loop Engineering Article
+
+- Published `prompt-context-loop-engineering` (zh + en): set `date: 2026-07-11`, removed `updated` and `draft: true` from both language files.
+- Final content pass before publication: the workflow diagram now includes `ready_for_draft` with draft validation; added the landed two-tier trigger structure (a low-cost model runs the read-only daily scan and dispatches a stronger model only when a draft or upload is pending, always stopping before the publish click) and the material-change rollback rule. Both languages stay in sync.
+- Privacy pass: removed the restaurant name and spend amount from the first-run evidence in both languages; workflow counts (15→9 images, 539-character body, 7 topics) are retained as process evidence.
+- AC coverage: added the bilingual routes and GATE1 pair, asserted the published post appears in both RSS feeds, and kept a draft-exclusion guard. `npm run build && node test/ac-checks.mjs` → 65 passed.
+- Deployed to ECS via `npm run deploy:ecs` with post-deploy path verification.
+
+## 2026-07-11 — Public Social Media Loop Repository
+
+- Added the privacy-scrubbed `hensonzyw-git/social-media-publish-loop` implementation link to both language versions of the local Loop Engineering article.
+- Documented that the public repository contains only the reusable state machine, CLI, tests, and generic setup guidance; personal configuration, runtime state, images, drafts, publication evidence, browser data, and knowledge-base content remain local.
+- Kept both article files at `draft: true`; no site publication or deployment was performed.
+
+## 2026-07-11 — First Real Social Media Loop Run
+
+- Replaced the Loop Engineering article's pre-run Xiaohongshu hypotheses with evidence from the first real run, `2026-7 遇外滩`, while keeping multi-run reliability metrics explicitly unproven.
+- Recorded the verified page result: 9 ordered images, title “遇外滩，四人 8836”, a 539-character body, and 7 topics; Henson retained and completed the final public-publish decision.
+- Added the operational failure that dominated the run: Chrome was not foregrounded, so the file chooser showed 9 selected images while its Open action stayed unavailable. The workflow now requires a foreground preflight, a fixed diagnostic order, bounded retries, and minimal evidence reads.
+- Clarified the durable completion boundary: `upload_started` blocks repeated upload side effects, `ready_for_final_review` records verified page state, `kb_sync_pending` records confirmed publication awaiting knowledge sync, and `archived` requires verified KB page, index, and log updates.
+- Kept both language files at `draft: true`; no site publication or deployment was performed.
+- Validation: `npm run build && node test/ac-checks.mjs` passed with 61 checks; the draft remains excluded from production output.
+
 ## 2026-07-10 — Local Draft: Prompt, Context, Harness, And Loop Engineering
 
 - Added a bilingual, development-only blog draft at `prompt-context-loop-engineering` for editorial review.

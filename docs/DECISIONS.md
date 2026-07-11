@@ -27,3 +27,11 @@ AI/search discoverability metadata should be generated from the canonical conten
 ## D7 — Basic Traffic Stats Come From Server Logs
 
 Basic visit counts should be derived from ECS/Nginx access logs, not frontend analytics scripts. The public static site remains free of tracker pixels, third-party analytics CDNs, and client-side behavior-event collection unless a future product decision explicitly changes that boundary.
+
+## D8 — Social Publication Completes Only After Durable Knowledge Sync
+
+The social-media loop records execution truth in its own `.loop` state. `ready_for_final_review` means the publisher page was verified, not that the post is public. After Henson confirms publication, the task enters `kb_sync_pending`; it reaches `archived` only after the publication page, knowledge-base index, and append-only knowledge-base log are all verified. The Personal Homepage does not infer completion directly from chat history or the source material leaving `inbox/`; its article and project context must be updated from this durable evidence.
+
+## D9 — The Public Social Loop Repository Contains Harness Code Only
+
+The public `social-media-publish-loop` repository may contain the reusable state machine, CLI, tests, generic documentation, and placeholder configuration. It must exclude `.loop` runtime state, real source material, images, drafts, publication evidence, browser/profile details, personal filesystem paths, and knowledge-base content. Personal values belong only in ignored local configuration.

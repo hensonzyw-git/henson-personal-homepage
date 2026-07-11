@@ -1,6 +1,6 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-07-10
+Last updated: 2026-07-11
 
 ## Current Status
 
@@ -24,8 +24,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - AI Practice / Side Projects: tools, prompts, automation, and the site itself.
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
-- Published content: `agent-as-service-caller-open-platform` (zh/en draft mirror, revised to emphasize opaque third-party execution channels, a simulated pending-action flow, and first-party vs third-party Agent execution boundaries), plus `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
-- Local draft: `prompt-context-loop-engineering` (zh final draft + en draft translation) is available in development only for editorial review; it includes clearly labelled pre-run hypotheses and is excluded from production while `draft: true`.
+- Published content: `prompt-context-loop-engineering` (newest, 2026-07-11; records the first real iCloud-to-Xiaohongshu run with fuzzed restaurant identity and no spend amount, the two-tier scan/dispatch trigger, one-shot upload state, bounded verification, human publish checkpoint, and knowledge-base sync; links to the privacy-scrubbed public repository `hensonzyw-git/social-media-publish-loop`), plus `agent-as-service-caller-open-platform`, `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
 - GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`, plus truthful publish/modified metadata and related-reading paths. `/llms.txt` is generated from the bilingual blog and AI-practice indexes. Content-detail sitemap entries carry frontmatter-derived `lastmod` values.
 
 ## Current Boundaries
@@ -38,4 +37,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-Latest validation: `npm run build && node test/ac-checks.mjs` passed with 57 checks on 2026-07-10 after adding the local Loop Engineering article draft. Browser QA also passed at 1440px and 390px with no horizontal overflow or console errors.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed with 65 checks on 2026-07-11 after publishing `prompt-context-loop-engineering` (bilingual routes, GATE1 pair, and RSS inclusion added to AC). Mobile check at 375px showed no horizontal overflow on the new article page.

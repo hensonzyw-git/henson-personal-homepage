@@ -23,18 +23,17 @@ Start here after `AGENTS.md`.
 - GEO checks cover blog JSON-LD, Article publish/modified metadata, related reading, content-derived sitemap `lastmod`, and the blog + AI-practice `/llms.txt` index.
 - Blog `updated` is optional and means a real content revision. Do not set it to build or deploy time.
 - Basic traffic stats are server-log based via `npm run stats:traffic`; do not add a frontend analytics script unless that boundary is explicitly changed.
-- Current newest article: `agent-as-service-caller-open-platform` is published in zh/en draft mirror, revised to reduce repetition and add a simulated pending-action flow, and covered by AC route checks.
-- Local editorial draft: `prompt-context-loop-engineering` has paired zh/en files with `draft: true`. Review it at `/blog/prompt-context-loop-engineering` in development; remove the draft flag only after explicit publication approval.
+- Current newest article: `prompt-context-loop-engineering`, published 2026-07-11 (zh + en draft-translation mirror), covered by AC route, GATE1, and RSS checks. First-run evidence is privacy-fuzzed: no restaurant name, no spend amount.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 
 ### Loop Engineering Article TODO
 
-- [ ] Build the daily iCloud-to-Xiaohongshu loop: material completeness gate, persistent states, draft/topic generation, Computer Use upload, final human publish checkpoint, and archive step.
+- [x] Build the daily iCloud-to-Xiaohongshu loop and publish its reusable implementation at `hensonzyw-git/social-media-publish-loop`. The public repository excludes runtime state, personal configuration, images, drafts, publication evidence, browser data, and knowledge-base content.
 - [ ] Run it on real material several times and record: manual minutes saved per post, human intervention count, duplicate/failed upload rate, and time from `ready` to final review.
-- [ ] Replace or revise the article's clearly labelled pre-run hypotheses with observed results, including failures that disprove the current expectations.
-- [ ] Recheck that no private work data or platform-sensitive information enters the public article.
-- [ ] Review the English draft translation after the Chinese evidence update and adjust `readMins` if needed.
-- [ ] Before publication, remove `draft: true` from both language files, add the bilingual route to AC coverage, run build + AC + responsive browser QA, and publish only after Henson explicitly approves deployment.
+- [x] Replace the article's pre-run hypotheses with the first observed result, including the Chrome foreground upload failure, bounded-verifier lesson, one-shot state boundary, and post-publication KB sync. Keep the multi-run metrics explicitly unproven.
+- [x] Recheck that no private work data or platform-sensitive information enters the public article. Restaurant identity and spend amount were fuzzed out of the first-run evidence in both languages before publication.
+- [x] Review the English draft translation after the Chinese evidence update; `readMins` stays 15. The en file keeps the site-wide `draftTranslation: true` convention.
+- [x] Published 2026-07-11 with Henson's explicit approval: removed `draft: true` from both language files, set `date: 2026-07-11`, added the bilingual routes + GATE1 pair + RSS inclusion to AC (65 checks green), verified no mobile overflow, and deployed to ECS.
 
 ## Closeout
 

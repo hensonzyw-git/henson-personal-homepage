@@ -2,11 +2,10 @@
 key: prompt-context-loop-engineering
 lang: en
 title: "From Prompt to Loop: Why Engineering Closes More Easily and Product Work Brings Humans Back"
-date: 2026-07-10
+date: 2026-07-11
 category: AI Collaboration
 readMins: 15
 summary: "A prompt defines what an agent should do now. Context defines what it knows. A harness constrains how it may act. A loop defines what happens after the action. Engineering has hard verifiers such as tests and builds; product work often depends on feedback outside the system. This essay uses a false-green multi-agent workflow and an iCloud-to-Xiaohongshu publishing loop to explore that boundary."
-draft: true
 draftTranslation: true
 ---
 
@@ -158,6 +157,8 @@ A clock can make a task happen again. Only feedback lets a system change its beh
 
 I recently found a concrete personal use case.
 
+I have published the state machine and command-line workflow as an open-source repository: [social-media-publish-loop](https://github.com/hensonzyw-git/social-media-publish-loop). It contains only the reusable execution harness—not my photos, drafts, publication history, browser data, or knowledge-base content.
+
 After a restaurant visit or trip, I put photos and a text note into a designated iCloud folder. The note includes the cost, experience, recommendations, trade-offs, and the point I want to express. I then turn that material into a Xiaohongshu post, normalize the topic tags, upload the images, publish, and archive the result.
 
 With Prompt Engineering alone, I can save one instruction:
@@ -175,17 +176,22 @@ The workflow changes only when it becomes a loop:
 > Check the iCloud folder once a day  
 > → exit normally when there is nothing new  
 > → keep incomplete material in `collecting`  
-> → generate copy and normalize topics when complete  
-> → move to `ready_for_upload`  
-> → use Computer Use to upload images and fill the fields  
+> → move complete material to `ready_for_draft`, then generate copy and normalize topics  
+> → move to `ready_for_upload` once the draft passes validation  
+> → enter the one-shot `upload_started` state, then use Computer Use to upload images and fill the fields<br>
 > → verify image count, title, body, and topics on the page  
-> → stop at final confirmation  
+> → move to `ready_for_final_review` and stop at final confirmation<br>
 > → I publish  
-> → record the result and archive the material
+> → move to `kb_sync_pending`, record the result, and verify the knowledge-base page, index, and log<br>
+> → move to `archived` only after that verification succeeds
 
 The material does not lose value if it waits a few hours. Scanning iCloud every five minutes would add retries, partial-sync states, and accidental triggers without creating meaningful value. Once a day is enough.
 
 The timer only starts the process. State transitions, completeness checks, branching, and the human checkpoint are what make it a loop.
+
+The trigger structure that actually landed is one level more conservative than that sentence. The daily job itself is a read-only scan run by a low-cost model: it only inspects state and reports what is missing. Only when a task is waiting for a draft or an upload does it dispatch a stronger model to generate the copy, run the upload, and verify the page — and that dispatched task always stops before the final publish click. Observation uses the cheap component; action uses the expensive one.
+
+The state machine also carries an easily overlooked rollback rule: if the material changes after a draft exists, the task returns to `ready_for_draft`. Stale copy is never uploaded alongside new material.
 
 Different stages use different verifiers. The material stage checks that files exist, images are readable, and required information is present. The writing stage checks title length, tag format, and duplicates. The upload stage checks what is actually visible on the page. Final publication remains a human decision.
 
@@ -193,21 +199,21 @@ The publish click is mechanically easy. The difficult part is that publishing me
 
 “Every field is filled” proves that the mechanical step is complete. It does not prove that the post should become public. That final checkpoint is not a weakness in the system. It is an accurate expression of responsibility.
 
-### Before it runs, turn expectations into testable hypotheses
+### What the first real run disproved
 
-This personal loop is still being designed. It has not completed enough real runs for me to describe the following claims as proven. But if the state machine and human checkpoints work as designed, I expect the first problems to be more operational than generative.
+In July 2026, I completed the first end-to-end run with real material from a restaurant visit. The workflow selected and ordered nine images from fifteen originals, then verified that the title, a 539-character body, and seven topics were all in place on the page. After I made the final publish decision, the system archived the source material and synchronized the publication record to a knowledge-base page, index, and operation log.
 
-First, **the real start gate is material completeness, not the timer.** Checking once a day instead of every five minutes changes detection latency. Whether the photos have finished syncing, whether the note contains the required information, and whether the package has already been processed determine whether the system can advance safely.
+One run is not enough to prove stability, and it cannot support claims about minutes saved per post or failure rates. It did, however, reveal several things that were more useful than a clean demo.
 
-Second, **state management will matter more to reliability than the prompt.** Without states such as `collecting`, `ready_for_upload`, `ready_for_final_review`, and `archived`, a scheduled task can regenerate or upload the same post twice, or treat a partially synced package as ready. A better prompt improves the copy. It does not solve duplicate execution or recovery.
+First, **state management mattered more to reliability than the prompt.** Opening the publisher must first move the task into the one-shot `upload_started` state. Even if I leave without clicking publish, later scheduled scans must not trigger the upload path again. `ready_for_final_review` means the visible page has been verified. `kb_sync_pending` means I have confirmed publication but the durable knowledge record is incomplete. Only verified page, index, and log updates allow `archived`. Upload, public release, and durable capture are therefore separate facts.
 
-Third, **Computer Use removes operational friction, not judgment responsibility.** Its likely savings are image selection, upload waiting, copy insertion, and topic formatting. Cover choice, narrative image order, and the decision to make the content public remain human checkpoints.
+Second, **Computer Use failure signals were more ambiguous than expected.** The first upload took a long time. The accessibility tree showed that nine files were selected, yet the Open button remained disabled. That encouraged several wrong hypotheses: multi-selection behavior, filename casing, quarantine metadata, or the web upload component. The actual cause was that Chrome was not in the foreground. Activating Chrome made the same selection work immediately. The lesson is to use a fixed diagnostic order: foreground the target app, verify selection and button state, and only then try a different upload strategy.
 
-Fourth, **the most common failures will probably come from the environment rather than the model.** An incomplete iCloud download, an expired Xiaohongshu session, a changed page structure, or an upload timeout may occur more often than weak writing. Reliability will depend on recognizing those states, avoiding duplicate side effects, and returning the task to me when recovery is unsafe.
+Third, **verification has a cost of its own.** Repeatedly reading a full page or accessibility tree can increase observation while consuming substantial time and tokens, and it can keep the agent exploring noise. A better verifier reads the smallest evidence needed for the current transition and caps retries. Image count, title, body length, and topic count were enough to decide whether the workflow could move to human review.
 
-These are hypotheses to test. After the workflow runs, I plan to track four measures: manual minutes saved per post, number of human interventions, duplicate or failed upload rate, and elapsed time from `ready` to the final review page.
+Fourth, **Computer Use removes operational friction, not judgment responsibility.** The system can upload images, fill the fields, and verify the page. I still make the final public-release decision. The first run showed that a human does not need to retake every mechanical step; the human needs to return where responsibility begins.
 
-If real results disprove these expectations, that disproof will be more valuable than a clean demo. The most reusable output of Loop Engineering is not the workflow diagram. It is the record of where the system interpreted feedback incorrectly.
+The next runs still need to measure four things: manual minutes saved per post, number of human interventions, duplicate or failed upload rate, and elapsed time from `ready` to final review. One successful run is evidence, not a reliability conclusion.
 
 ## The practical difference between context and loop
 
@@ -221,7 +227,7 @@ Context Engineering asks: **what should the agent see to make the next decision 
 
 Loop Engineering asks: **what triggers the next decision, how the last result enters it, and when the system stops.**
 
-In the Xiaohongshu workflow, previous posts, photos, notes, and format rules are context. The daily scan, completeness decision, upload retry, human confirmation, and post-publication archive are the loop.
+In the Xiaohongshu workflow, previous posts, photos, notes, and format rules are context. The daily scan, completeness decision, bounded upload recovery, human confirmation, and post-publication knowledge sync and archive are the loop.
 
 In other words:
 
