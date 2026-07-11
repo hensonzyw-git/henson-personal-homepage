@@ -195,9 +195,13 @@ The state machine also carries an easily overlooked rollback rule: if the materi
 
 Different stages use different verifiers. The material stage checks that files exist, images are readable, and required information is present. The writing stage checks title length, tag format, and duplicates. The upload stage checks what is actually visible on the page. Final publication remains a human decision.
 
+To put the labels back on: the one-shot state, the rollback rule, and keeping the publish button outside the automation's permissions are Harness. The minimal-evidence checks at each stage are verifiers. What the Loop owns is the temporal structure between them — when to check, what triggers the next step, and when to stop. All four layers have a seat in this small system.
+
 The publish click is mechanically easy. The difficult part is that publishing means I endorse the content and accept its consequences.
 
 “Every field is filled” proves that the mechanical step is complete. It does not prove that the post should become public. That final checkpoint is not a weakness in the system. It is an accurate expression of responsibility.
+
+Admittedly, the responsibility in this personal scenario is light: I answer for one post. In work settings the stakes are far heavier — decisions affect users, teams, and business outcomes — so the checkpoints there should come earlier and more often. What this small case demonstrates is how to design a checkpoint, not how many a real product loop needs.
 
 ### What the first real run disproved
 
@@ -233,17 +237,13 @@ In other words:
 
 > Context is the cognitive environment of each turn. A loop is the temporal structure between turns.
 
-Giving an agent more material and leaving a human to initiate, inspect, and advance every stage is still a better generation task. It becomes a loop only when the system can observe its environment, maintain state, choose the next action from feedback, and stop in the right place.
-
 ## The real product decision is where the loop breaks
 
 Once agents can operate files, browsers, and local applications, it is tempting to treat full automation as the ideal endpoint.
 
 But whether a workflow can be fully automated does not depend on whether the agent can click a button. It depends on whether the system can observe enough evidence to bear the decision.
 
-Engineering has builds, tests, and runtime output, so many loops can close inside the machine.
-
-Product work faces users, organizations, strategy, and responsibility. It can automate material preparation, format checks, analysis, drafting, and repetitive actions. It cannot safely ask the same system to prove its own directional judgment.
+Engineering loops can largely close inside the machine; product work cannot safely ask the same system to prove its own directional judgment.
 
 The core skill of Loop Engineering in product work may therefore be less about keeping AI autonomous for longer and more about placing the human precisely.
 
