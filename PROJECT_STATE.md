@@ -37,4 +37,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-Latest validation: `npm run build && node test/ac-checks.mjs` passed with 65 checks on 2026-07-11 after publishing `prompt-context-loop-engineering` (bilingual routes, GATE1 pair, and RSS inclusion added to AC). Mobile check at 375px showed no horizontal overflow on the new article page.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed with 66 checks on 2026-07-11 after the diagram revision, readMins unification, and UTC date fix following the publication of `prompt-context-loop-engineering` (bilingual routes, GATE1 pair, and RSS inclusion added to AC). Mobile check at 375px showed no horizontal overflow on the new article page.

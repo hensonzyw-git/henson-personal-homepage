@@ -1,5 +1,13 @@
 # Project Log — Personal Homepage
 
+## 2026-07-11 — Article Diagrams, readMins Unification, Date Timezone Fix
+
+- Replaced the Loop Engineering article's arrow-chain blockquotes with two token-styled SVG diagrams under `public/blog/prompt-context-loop-engineering/` (feedback loop; publish state machine with one-shot badge, rollback edge, and clay human gate), one file per language. Blockquotes trimmed from 11 to 6 genuine quotations.
+- Added body cross-links from the article to `/ai/multi-agent-workflow` (false-green case) and the agent-memory article (knowledge-base sync), both languages.
+- Unified `readMins` across all five article pairs using zh content chars / 1200: 14, 12, 21, 15, 15.
+- Fixed a build-machine timezone bug: `monoDate`/`monoDateShort` used local accessors, so date-only frontmatter (UTC midnight) rendered one day early when built on a machine west of UTC — production had shipped with every visible date shifted. Switched to UTC accessors and added an AC guard asserting the visible date matches frontmatter (66 checks).
+- Deployed to ECS; live pages verified for corrected dates, served SVGs, and cross-links.
+
 ## 2026-07-11 — Publish Loop Engineering Article
 
 - Published `prompt-context-loop-engineering` (zh + en): set `date: 2026-07-11`, removed `updated` and `draft: true` from both language files.
