@@ -127,7 +127,9 @@ function summarize(rows) {
     const day = formatDay(row.date);
     increment(byDay, day);
     increment(pages, pagePath);
-    const contentKind = classifyContentPage(pagePath);
+    // Only 200s count as content reads — scanners probing /blog/wp-includes/
+    // etc. get 404s and must not inflate the reading sections.
+    const contentKind = row.status === '200' ? classifyContentPage(pagePath) : '';
     if (contentKind === 'blog') increment(blogPages, pagePath);
     else if (contentKind === 'ai') increment(aiPages, pagePath);
     increment(status, row.status);
