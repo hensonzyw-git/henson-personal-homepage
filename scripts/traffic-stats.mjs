@@ -80,6 +80,8 @@ function summarize(rows) {
   start.setHours(0, 0, 0, 0);
 
   const pages = new Map();
+  const blogPages = new Map();
+  const aiPages = new Map();
   const refs = new Map();
   const status = new Map();
   const byDay = new Map();
@@ -125,6 +127,9 @@ function summarize(rows) {
     const day = formatDay(row.date);
     increment(byDay, day);
     increment(pages, pagePath);
+    const contentKind = classifyContentPage(pagePath);
+    if (contentKind === 'blog') increment(blogPages, pagePath);
+    else if (contentKind === 'ai') increment(aiPages, pagePath);
     increment(status, row.status);
     visitors.add(row.ip);
 
@@ -141,6 +146,10 @@ function summarize(rows) {
     pageViews: sum(byDay),
     uniqueVisitors: visitors.size,
     pages: topEntries(pages),
+    blogPageViews: sum(blogPages),
+    aiPageViews: sum(aiPages),
+    blogPages: topEntries(blogPages),
+    aiPages: topEntries(aiPages),
     referrers: topEntries(refs),
     status: topEntries(status),
     byDay: topEntries(byDay, byDay.size || 1),
@@ -218,6 +227,13 @@ function normalizeSitePage(pathname) {
   return clean === '/' ? '/' : `${clean}/`;
 }
 
+// Content detail pages only — /blog/<slug>/ and /ai/<slug>/ plus /en mirrors.
+// Index pages stay out so these sections track real reading, not navigation.
+function classifyContentPage(pagePath) {
+  const match = pagePath.match(/^\/(?:en\/)?(blog|ai)\/[a-z0-9-]+\/$/);
+  return match ? match[1] : '';
+}
+
 function isBot(userAgent) {
   return /bot|crawler|spider|slurp|bingpreview|facebookexternalhit|ia_archiver|monitor|uptime|curl|wget|python-requests/i.test(userAgent);
 }
@@ -292,6 +308,8 @@ function printSummary(stats) {
   console.log(`Unique visitors:  ${stats.uniqueVisitors} (IP-based estimate)`);
   console.log('');
   printTable('Top pages', stats.pages);
+  printTable(`Article pages (${stats.blogPageViews} total views)`, stats.blogPages);
+  printTable(`AI practice pages (${stats.aiPageViews} total views)`, stats.aiPages);
   printTable('Referrer domains', stats.referrers);
   printTable('AI referrer domains', stats.aiReferrers);
   printTable('AI / search crawlers', stats.crawlers);
