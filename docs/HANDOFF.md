@@ -24,6 +24,7 @@ Start here after `AGENTS.md`.
 - Blog `updated` is optional and means a real content revision. Do not set it to build or deploy time.
 - Date rendering must stay timezone-independent: frontmatter dates are UTC midnight, so `monoDate`/`monoDateShort` use UTC accessors and an AC check pins the visible date. Do not reintroduce local getters.
 - Basic traffic stats are server-log based via `npm run stats:traffic`; do not add a frontend analytics script unless that boundary is explicitly changed.
+- ECS nginx logrotate keeps 365 days as of 2026-07-12 (was 14; backup at `/etc/logrotate.d/nginx.bak-20260712`). Log history earlier than ~2026-06-28 is permanently lost — launch-to-date totals cannot be reconstructed before that day.
 - Current newest article: `prompt-context-loop-engineering`, published 2026-07-11 (zh + en draft-translation mirror), covered by AC route, GATE1, and RSS checks. First-run evidence is privacy-fuzzed: no restaurant name, no spend amount.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 
