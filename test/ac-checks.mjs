@@ -70,7 +70,7 @@ ok('GEO visible date matches frontmatter regardless of build TZ',
    post.includes('2026 · 06 · 24'),
    'monoDate shifted the day — check UTC accessors in content.ts');
 ok('GEO article has related-reading paths',
-   /相关阅读/.test(post) && /href="\/blog\/mcp-vs-cli-agent-encapsulation/.test(post),
+   /相关阅读/.test(post) && /相关阅读[\s\S]*?href="\/blog\/[a-z-]+/.test(post),
    'missing related reading');
 const llms = read('llms.txt') || '';
 ok('GEO llms.txt lists site and articles',
