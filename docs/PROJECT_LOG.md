@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-08-07 — Personal Agent Phase One: Publication Prepared
+
+- Added a bilingual publication, `personal-agent-phase-one` (zh + en), under the blog content collection. The Chinese version mirrors the current Personal Agent Phase 1 retrospective; the English mirror retains the site-wide `draftTranslation: true` convention.
+- Public release is approved. The entries will render at `/blog/personal-agent-phase-one/` and `/en/blog/personal-agent-phase-one/`, and will enter the production blog index, RSS, sitemap, and `/llms.txt`.
+- Validation: `npm run build && node test/ac-checks.mjs` passed with 66 checks while the entries were local drafts; the production build and live deployment are the remaining release gates.
+
 ## 2026-07-11 — Article Diagrams, readMins Unification, Date Timezone Fix
 
 - Replaced the Loop Engineering article's arrow-chain blockquotes with two token-styled SVG diagrams under `public/blog/prompt-context-loop-engineering/` (feedback loop; publish state machine with one-shot badge, rollback edge, and clay human gate), one file per language. Blockquotes trimmed from 11 to 6 genuine quotations.

@@ -1,6 +1,6 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-07-11
+Last updated: 2026-08-07
 
 ## Current Status
 
@@ -25,6 +25,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
 - Published content: `prompt-context-loop-engineering` (newest, 2026-07-11; records the first real iCloud-to-Xiaohongshu run with fuzzed restaurant identity and no spend amount, the two-tier scan/dispatch trigger, one-shot upload state, bounded verification, human publish checkpoint, and knowledge-base sync; links to the privacy-scrubbed public repository `hensonzyw-git/social-media-publish-loop`), plus `agent-as-service-caller-open-platform`, `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
+- Pending publication: `personal-agent-phase-one` (zh + en, 2026-08-07) records the completed first phase of Personal Agent: coding-agent routing, Timeline/Session/Context design, governed Finance writes, production acceptance, eval gaps, backup/restore, and the next Development Agent Loop. Public release is approved and will include both language routes, the blog index, RSS, sitemap, and `/llms.txt`.
 - GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`, plus truthful publish/modified metadata and related-reading paths. `/llms.txt` is generated from the bilingual blog and AI-practice indexes. Content-detail sitemap entries carry frontmatter-derived `lastmod` values.
 
 ## Current Boundaries
@@ -37,4 +38,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-Latest validation: `npm run build && node test/ac-checks.mjs` passed with 66 checks on 2026-07-11 after the diagram revision, readMins unification, and UTC date fix following the publication of `prompt-context-loop-engineering` (bilingual routes, GATE1 pair, and RSS inclusion added to AC). Mobile check at 375px showed no horizontal overflow on the new article page.
+Latest validation: `npm run build && node test/ac-checks.mjs` passed with 66 checks on 2026-08-07 after preparing the bilingual `personal-agent-phase-one` publication. The Astro dev server returned HTTP 200 for both its zh and en routes.

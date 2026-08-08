@@ -26,6 +26,7 @@ Start here after `AGENTS.md`.
 - Basic traffic stats are server-log based via `npm run stats:traffic`; do not add a frontend analytics script unless that boundary is explicitly changed.
 - ECS nginx logrotate keeps 365 days as of 2026-07-12 (was 14; backup at `/etc/logrotate.d/nginx.bak-20260712`). Log history earlier than ~2026-06-28 is permanently lost — launch-to-date totals cannot be reconstructed before that day.
 - Current newest article: `prompt-context-loop-engineering`, published 2026-07-11 (zh + en draft-translation mirror), covered by AC route, GATE1, and RSS checks. First-run evidence is privacy-fuzzed: no restaurant name, no spend amount.
+- Pending publication: `personal-agent-phase-one` (zh + en, 2026-08-07). Public release is approved; it will appear in both language routes, the index, sitemap, RSS, and `/llms.txt`. Its English mirror keeps the site-wide `draftTranslation: true` convention.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 
 ### Loop Engineering Article TODO
