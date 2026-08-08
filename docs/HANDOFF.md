@@ -25,8 +25,7 @@ Start here after `AGENTS.md`.
 - Date rendering must stay timezone-independent: frontmatter dates are UTC midnight, so `monoDate`/`monoDateShort` use UTC accessors and an AC check pins the visible date. Do not reintroduce local getters.
 - Basic traffic stats are server-log based via `npm run stats:traffic`; do not add a frontend analytics script unless that boundary is explicitly changed.
 - ECS nginx logrotate keeps 365 days as of 2026-07-12 (was 14; backup at `/etc/logrotate.d/nginx.bak-20260712`). Log history earlier than ~2026-06-28 is permanently lost — launch-to-date totals cannot be reconstructed before that day.
-- Current newest article: `prompt-context-loop-engineering`, published 2026-07-11 (zh + en draft-translation mirror), covered by AC route, GATE1, and RSS checks. First-run evidence is privacy-fuzzed: no restaurant name, no spend amount.
-- Pending publication: `personal-agent-phase-one` (zh + en, 2026-08-07). Public release is approved; it will appear in both language routes, the index, sitemap, RSS, and `/llms.txt`. Its English mirror keeps the site-wide `draftTranslation: true` convention.
+- Current newest article: `personal-agent-phase-one`, published 2026-08-07 (zh + en; English keeps the site-wide `draftTranslation: true` convention). It is live in both language routes, the index, sitemap, RSS, and `/llms.txt`; `npm run deploy:ecs` completed with 69 checks, Nginx validation/reload, and public zh/en route verification. The related kickoff article is `all-in-personal-agent` (zh + en, 2026-08-03).
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 
 ### Loop Engineering Article TODO
