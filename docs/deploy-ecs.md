@@ -22,7 +22,7 @@ The script does the full production path:
 Defaults are wired to the current production host:
 
 ```text
-ECS_SSH_USER=root
+ECS_SSH_USER=henson-admin
 ECS_SSH_HOST=8.153.84.10
 ECS_SSH_KEY=~/.ssh/henson_aliyun_ecs
 ECS_REMOTE_DIR=/var/www/zhuyawei.com/current

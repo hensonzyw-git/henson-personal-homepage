@@ -10,7 +10,7 @@ const dryRun = args.has('--dry-run');
 const skipChecks = args.has('--skip-checks');
 
 const config = {
-  sshUser: env.ECS_SSH_USER || 'root',
+  sshUser: env.ECS_SSH_USER || 'henson-admin',
   sshHost: env.ECS_SSH_HOST || '8.153.84.10',
   sshKey: expandHome(env.ECS_SSH_KEY || '~/.ssh/henson_aliyun_ecs'),
   remoteDir: env.ECS_REMOTE_DIR || '/var/www/zhuyawei.com/current',
@@ -51,11 +51,11 @@ function main() {
 
   if (!dryRun) {
     run(...sshCommand([
-      `chown -R root:www-data ${shellQuote(config.remoteDir)}`,
-      `find ${shellQuote(config.remoteDir)} -type d -exec chmod 755 {} +`,
-      `find ${shellQuote(config.remoteDir)} -type f -exec chmod 644 {} +`,
-      'nginx -t',
-      'systemctl reload nginx',
+      `sudo chown -R root:www-data ${shellQuote(config.remoteDir)}`,
+      `sudo find ${shellQuote(config.remoteDir)} -type d -exec chmod 755 {} +`,
+      `sudo find ${shellQuote(config.remoteDir)} -type f -exec chmod 644 {} +`,
+      'sudo nginx -t',
+      'sudo systemctl reload nginx',
     ].join(' && ')));
 
     for (const verifyPath of config.verifyPaths) {
