@@ -41,6 +41,7 @@ function main() {
   const rsyncArgs = [
     '-az',
     '--delete',
+    '--rsync-path=sudo rsync',
     '-e',
     rsyncSsh,
     dryRun ? '--dry-run' : null,

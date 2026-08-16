@@ -1,5 +1,13 @@
 # Project Log — Personal Homepage
 
+## 2026-08-16 — Published: Agent Eval Methodology Article
+
+- Published the bilingual `agent-eval-methodology` article (zh + en). The Chinese original was un-drafted; the English mirror keeps the site-wide `draftTranslation: true` convention.
+- Thesis: in Agent Eval, the hardest failure is not the measurement but knowing what you're measuring and what conclusion the numbers support — three kinds of "false green," statistical discipline (drifting denominators, single-run causal claims, per-metric stability), evidence binding, and a diagnosable/correctable/recyclable loop, cross-checked against τ-bench, LLM-as-judge calibration, and benchmark-audit literature.
+- AC coverage: added the bilingual routes and GATE1 pair, and pointed the "newly published post" RSS assertion at the new slug. `npm run build && node test/ac-checks.mjs` → 72 passed.
+- Fixed the deploy script's incomplete sudo migration: rsync now runs with `--rsync-path="sudo rsync"`, so the non-root `henson-admin` can write into the `root:www-data` target directory. (d52d364 had added sudo to chown/chmod/nginx but left the rsync step unprivileged — the first content-adding deploy after permission normalization then failed with "Permission denied".) Recorded as DECISIONS D10.
+- Deployed to ECS via `npm run deploy:ecs`; verified the public zh and en article routes both return HTTP 200.
+
 ## 2026-08-07 — Published: Personal Agent Phase One Retrospective
 
 - Published the bilingual `personal-agent-phase-one` article (zh + en). The Chinese version mirrors the current Personal Agent Phase 1 retrospective; the English mirror retains the site-wide `draftTranslation: true` convention.

@@ -35,3 +35,7 @@ The social-media loop records execution truth in its own `.loop` state. `ready_f
 ## D9 — The Public Social Loop Repository Contains Harness Code Only
 
 The public `social-media-publish-loop` repository may contain the reusable state machine, CLI, tests, generic documentation, and placeholder configuration. It must exclude `.loop` runtime state, real source material, images, drafts, publication evidence, browser/profile details, personal filesystem paths, and knowledge-base content. Personal values belong only in ignored local configuration.
+
+## D10 — Deploy rsync Escalates Via sudo (Non-Root Login + Passwordless sudo rsync)
+
+Production deploys log in as the non-root `henson-admin` (no root SSH login) and escalate only for privileged steps. The rsync step runs with `--rsync-path="sudo rsync"` so the file sync can write into the `root:www-data` target directory; the post-sync `chown`/`chmod`/`nginx -t`/`reload` steps already run under `sudo`. `henson-admin` holds `NOPASSWD: ALL` in sudoers, so no interactive password is needed. This completes the migration begun in d52d364, which added sudo to chown/chmod/nginx but left rsync unprivileged — so the first content-adding deploy after a permission normalization (which leaves the directory at `root:www-data` 755/644) fails with "Permission denied" on `mkdir`/`mkstemp`.
