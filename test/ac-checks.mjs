@@ -26,7 +26,8 @@ const zhRoutes = [
   'blog/agent-memory-knowledge-base/index.html',
   'blog/agent-as-service-caller-open-platform/index.html',
   'blog/prompt-context-loop-engineering/index.html',
-  'blog/all-in-personal-agent/index.html', 'ai/index.html',
+  'blog/all-in-personal-agent/index.html',
+  'blog/agent-eval-methodology/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
@@ -89,7 +90,7 @@ ok('GEO en RSS feed exists with blog items',
    /<rss/.test(rssEn) && /<item>/.test(rssEn) && /zhuyawei\.com\/en\/blog\//.test(rssEn),
    'en/rss.xml missing or has no blog items');
 ok('GEO RSS includes newly published post',
-   /all-in-personal-agent/.test(rssZh) && /all-in-personal-agent/.test(rssEn),
+   /agent-eval-methodology/.test(rssZh) && /agent-eval-methodology/.test(rssEn),
    'published post missing from a feed');
 ok('GEO RSS excludes drafts', !/draft-workflow-rework/.test(rssZh + rssEn), 'draft post leaked into feed');
 ok('GEO pages advertise RSS autodiscovery',
@@ -127,6 +128,7 @@ const pairs = [
   ['blog/agent-as-service-caller-open-platform', 'en/blog/agent-as-service-caller-open-platform'],
   ['blog/prompt-context-loop-engineering', 'en/blog/prompt-context-loop-engineering'],
   ['blog/all-in-personal-agent', 'en/blog/all-in-personal-agent'],
+  ['blog/agent-eval-methodology', 'en/blog/agent-eval-methodology'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
 for (const [zh, en] of pairs)
