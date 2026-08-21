@@ -27,7 +27,8 @@ const zhRoutes = [
   'blog/agent-as-service-caller-open-platform/index.html',
   'blog/prompt-context-loop-engineering/index.html',
   'blog/all-in-personal-agent/index.html',
-  'blog/agent-eval-methodology/index.html', 'ai/index.html',
+  'blog/agent-eval-methodology/index.html',
+  'blog/harness-governance-scar-tissue/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
@@ -92,6 +93,10 @@ ok('GEO en RSS feed exists with blog items',
 ok('GEO RSS includes newly published post',
    /agent-eval-methodology/.test(rssZh) && /agent-eval-methodology/.test(rssEn),
    'published post missing from a feed');
+// Henson selected this as the sole public Harness article on 2026-08-22.
+ok('GEO RSS includes harness-governance-scar-tissue',
+   /harness-governance-scar-tissue/.test(rssZh) && /harness-governance-scar-tissue/.test(rssEn),
+   'new post missing from a feed');
 ok('GEO RSS excludes drafts', !/draft-workflow-rework/.test(rssZh + rssEn), 'draft post leaked into feed');
 ok('GEO pages advertise RSS autodiscovery',
    /type="application\/rss\+xml"[^>]*href="\/rss\.xml"/.test(read('index.html') || '')
@@ -129,6 +134,7 @@ const pairs = [
   ['blog/prompt-context-loop-engineering', 'en/blog/prompt-context-loop-engineering'],
   ['blog/all-in-personal-agent', 'en/blog/all-in-personal-agent'],
   ['blog/agent-eval-methodology', 'en/blog/agent-eval-methodology'],
+  ['blog/harness-governance-scar-tissue', 'en/blog/harness-governance-scar-tissue'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
 for (const [zh, en] of pairs)

@@ -1,5 +1,41 @@
 # Project Log — Personal Homepage
 
+## 2026-08-22 — Harness article selected for publication
+
+- Henson selected `harness-governance-scar-tissue` as the sole public article for the DSH / Claude Code / Codex Harness / Personal Agent comparison.
+- Removed the two superseded same-material article pairs, `agent-harness-teardown` and `harness-failure-direction`, in both Chinese and English so the blog index, home feed, RSS, sitemap, `llms.txt`, and the generated knowledge-base mirror can carry one canonical version only.
+- The knowledge-base `published/` directory remains a generated mirror; it is refreshed from the surviving site source rather than edited directly.
+- Ran `npm run deploy:ecs`: the production build passed all 76 checks, assets were synchronized to ECS, Nginx configuration validated and reloaded, and the production Chinese and English article routes returned 200. The removed Chinese routes returned 404.
+
+## 2026-08-22 — Harness article narrowed to Personal Agent's six responsibilities
+
+- Revised `harness-governance-scar-tissue` in both languages after Henson found the article difficult to follow because Personal Agent runtime concepts and Coding Graph Loop concepts reused similar terms with different meanings.
+- Removed the Coding Graph Loop and multi-agent-orchestration layer in full, including its three false-green development/evaluation stories, provider/reviewer vocabulary, exact-SHA workflow, and conclusion references. That topic is reserved for a standalone article after the loop is complete.
+- Rebuilt the candidate around six layers that all use the implemented Finance path as the sole case: product/framework, runtime loop, tool boundary, context/memory, permission/HITL, and evidence/recovery. The introduction now explicitly distinguishes completed Finance work from future personal-workflow expansion.
+- First reduced the Chinese body from roughly 12.9K to 9.0K characters to remove the Coding Graph Loop and overloaded vocabulary. After Henson found the remaining Personal Agent decision content too thin, expanded it to roughly 12.2K characters and 27 minutes using only Finance decisions rather than restoring the removed topic.
+- Added an upfront six-decision matrix and rebuilt every layer around the same decision chain: options considered, selected path, rejected alternatives, concrete rules, accepted cost, and later verification. Key trade-offs now include framework speed vs runtime replaceability, immediate feedback vs write correctness, general MCP reuse vs bounded business consequences, continuous UX vs governed context, clean terminal state vs preserved evidence conflict, and delivery speed vs real-world proof.
+- Tightened evidence language: independent review reduces shared-assumption risk rather than proving correctness; general harnesses provide execution mechanisms rather than defining domain completion. External-source wording now matches the cited Axios and current DSH documentation.
+- Corrected the opening chronology after Henson's review: DSH opened first; the Codex harness/App Server opening discussed by this article came later. Removed the misleading sentence that blended the older public Codex CLI repository with the later harness-opening event.
+- Local `npm run build` and `node test/ac-checks.mjs` passed: 76 / 76. Not deployed.
+
+## 2026-08-21 — Harness article rebuilt as a seven-layer judgment comparison
+
+- Replaced the Chinese and English bodies of `harness-governance-scar-tissue` with a substantial seven-layer comparison: product/framework, runtime loop, tool boundary, context/memory, permission/HITL, multi-agent orchestration, and evidence/recovery.
+- Each layer now relates Claude Code's exposed product scale, Codex's open harness/App Server, and DSH's plugin/provider architecture to an actual Personal Agent design decision. It explicitly distinguishes reuse, independent convergence, and domain-specific divergence, and states where Personal Agent is narrower or shallower than the public systems.
+- Expanded the project evidence beyond four incidents: the five-second `CommitUnknown`, Session contamination, the manual-review dead end, three false-green development/evaluation harnesses, production backup permission failures, the unsafe first read-only restore composition, and real iPhone-to-ledger acceptance.
+- Kept the strategic conclusion concrete and non-competitive: public harnesses clarify which infrastructure can be reused or reduced, while idempotency, authority, receipts, human evidence, recovery, and completion standards remain locally defined for personal workflows.
+- Corrected the project framing after Henson's review: Personal Agent's ambition is the unified entry point for personal data management, requirement management, and the Coding Graph Loop. Finance is the deliberately narrow first validation slice and pressure test, not the final product boundary.
+- Removed the repo-internal acronym “DAL” from the public article. Its first occurrence now explains the development Agent loop as a Coding Graph Loop from requirement clarification through coding, independent review, verification, and human merge; later references use plain-language “开发 Agent 闭环”.
+- External claims remain tied to OpenAI's Codex agent-loop and App Server posts, the `openai/codex` repository, DSH architecture/capability-seam documentation, and public reporting of the Claude Code source-map exposure. Local `npm run build` and `node test/ac-checks.mjs` passed: 76 / 76. Not deployed.
+
+## 2026-08-20 — New Draft Pair: Harness Governance Scar Tissue (coexists with agent-harness-teardown)
+
+- Wrote a second, independent article on the same DSH / Claude Code / Personal Agent comparison: `harness-governance-scar-tissue` (zh + en, `draftTranslation: true` on en). Henson's instruction: ignore the existing version, rewrite under a new name; he will keep exactly one of the two.
+- Reframing: the earlier `agent-harness-teardown` organizes by "seven layers"; this one organizes by "seven questions" (shape / recovery ratio / gate placement / human exit / store-expose split / harness-as-field / record purpose), each ending on scar tissue rather than architecture description.
+- Fact corrections vs the earlier draft, from source-level verification: dropped the unverifiable "1,371 notes" count (GitHub API shows directories, not counts); dropped the wrong manual-resolution fix date (2026-08-16; git says commit 2950b6c is 2026-08-04); replaced the unsourced "40 vs 47" story with the verified DEV-040 Session-pollution root cause (seq 53 DirectAnswer, `state=succeeded` fed back as model-visible history, four-step closeout, PROJECT_STATUS.md:2342–2369). Added newly verified details: the reasoning-sandwich numbers (xhigh 53.9% vs high 63.6% vs sandwich 66.5%), the exact 513,216-line / 1,884-file counts, and the 2026-08-14 transcript deployment date.
+- AC coverage: added zh/en routes, GATE1 pair, and an RSS assertion for the new slug (a comment marks it as coexisting until Henson picks one). `npm run build && node test/ac-checks.mjs` → 76 passed.
+- Not deployed; both harness articles currently build side by side in the blog index, home feed, RSS, sitemap, and llms.txt — expected state pending Henson's keep-one decision.
+
 ## 2026-08-16 — Published: Agent Eval Methodology Article
 
 - Published the bilingual `agent-eval-methodology` article (zh + en). The Chinese original was un-drafted; the English mirror keeps the site-wide `draftTranslation: true` convention.
