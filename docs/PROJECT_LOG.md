@@ -8,6 +8,7 @@
 - Extended AC coverage for the bilingual routes, GATE1 pair, RSS inclusion, language switching, and exact related-reading matches. `npm run build && node test/ac-checks.mjs` passed 82 / 82.
 - Browser QA passed at 1280px and 390px: the long title wraps cleanly, the code tree stays within the reading column, mobile TOC behavior is correct, related links stack correctly, and there are no console errors or horizontal overflow.
 - Deployed through `npm run deploy:ecs`; Nginx validation/reload succeeded and the Chinese article, English mirror, RSS feeds, and `/llms.txt` returned HTTP 200.
+- Enabled `.githooks` on the new machine and corrected `scripts/sync-kb.mjs` so its documented default resolves `/Users/admin/henson-knowledge-base`; the generated `published/` mirror now includes the new article without requiring a per-run override.
 
 ## 2026-08-22 — Harness article selected for publication
 

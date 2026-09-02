@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 const SITE_URL = 'https://zhuyawei.com';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const kbDir = process.env.KB_DIR || "/Users/zhuyawei/Library/Mobile Documents/iCloud~md~obsidian/Documents/Henson's Personal Knowledge";
+const kbDir = process.env.KB_DIR || '/Users/admin/henson-knowledge-base';
 
 if (!existsSync(kbDir)) {
   console.log(`[sync-kb] KB not found at ${kbDir} — skipping (set KB_DIR to override).`);
