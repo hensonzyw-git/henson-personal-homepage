@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-09-02 — Deployed: Personal Agent OS Revision
+
+- Published the authorized revision of `personal-agent-as-my-os` to ECS after local zh/en preview, desktop/mobile checks, a 39-page build, and 85 passing acceptance checks.
+- The ChatGPT response now renders as one continuous left-bordered block, separate from Henson's prose; both language versions include the AI conclusion about turning ideas into real things.
+- Synced the Chinese source into the knowledge-base mirror at `published/blog/personal-agent-as-my-os.md`.
+
 ## 2026-09-02 — Local Revision Pending Release Authorization
 
 - Revised `personal-agent-as-my-os` in zh and en so the ChatGPT response is presented as a distinct block rather than blended into Henson's article prose.
