@@ -171,6 +171,17 @@ ok('GEO Personal OS article uses explicit related-reading matches',
 const enPersonalOsPost = read('en/blog/personal-agent-as-my-os/index.html') || '';
 ok('AC-8 en Personal OS deep page links back to zh counterpart',
    /href="\/blog\/personal-agent-as-my-os/.test(enPersonalOsPost), 'no link back to zh counterpart');
+ok('AC-10 ChatGPT answer is visually separated from zh article body',
+   /<blockquote[\s\S]*ChatGPT 的回答/.test(zhPersonalOsPost)
+   && !zhPersonalOsPost.includes('下面不是厂商公开承认的战略'),
+   'ChatGPT attribution is not separately formatted or stale framing remains');
+ok('AC-10 zh conclusion includes AI landing the ideas',
+   /AI 让我有能力把脑子里那些原本只能想想的东西一个个落地，真的太酷了/.test(zhPersonalOsPost),
+   'new conclusion sentence missing');
+ok('AC-10 English mirror separates ChatGPT answer and carries conclusion',
+   /<blockquote[\s\S]*ChatGPT’s answer/.test(enPersonalOsPost)
+   && /AI gives me the ability to turn ideas that used to stay in my head into things I can actually build/.test(enPersonalOsPost),
+   'English revision is missing');
 
 // ---- AC-3: About me offers no public PDF download (private; provided on request) ----
 const resume = read('about/index.html') || '';

@@ -3,6 +3,7 @@ key: personal-agent-as-my-os
 lang: en
 title: "I Suddenly Realized: Coding Agents May Just Be Suppliers to My Personal Agent"
 date: 2026-09-02
+updated: 2026-09-02
 category: AI Collaboration
 readMins: 12
 summary: "After wrestling with an automated development graph for months, I realized that what I want to own is not one stronger coding agent. It is a Personal Agent whose memory, tools, and rules I control—and which treats models and agents as service providers."
@@ -43,25 +44,25 @@ Today I asked ChatGPT a question:
 
 > Codex and Claude Code are already powerful. Their coding harnesses can, at least technically, be separated from the underlying models, and more multi-model execution frameworks keep appearing. Why do model companies still compete to build their own coding agents? Why not just sell models?
 
-What follows is not a strategy that any of these companies has publicly admitted. It is my inference from the shape of their products.
+I am putting ChatGPT’s answer in a separate block below, so it is clear which parts are its response and which parts are my own text.
 
-The short-term case is easy to understand. Coding agents consume an enormous number of tokens. They read repositories, search files, edit code, run commands, encounter errors, revise their work, rerun tests, and review the result. A complete task consumes far more than an ordinary chat.
+> **ChatGPT’s answer**
+>
+> The short-term case is easy to understand. Coding agents consume an enormous number of tokens. They read repositories, search files, edit code, run commands, encounter errors, revise their work, rerun tests, and review the result. A complete task consumes far more than an ordinary chat.
+>
+> Coding is also a valuable feedback environment for models. The user provides a goal; the agent takes observable actions; the code either compiles or does not; tests pass or fail; and the final change is accepted or rejected. Those outcomes are much clearer than a user merely feeling that an answer was “pretty good.” Whoever owns the coding agent is closer to a large volume of real, verifiable work trajectories.
+>
+> Then there is distribution. Most people do not perform fine-grained model routing every day. If they install Claude Code, they will probably use Claude by default. If they install Codex, they will probably use GPT by default. The entry point influences the default choice, and the default choice influences usage.
+>
+> Over the longer term, model companies may be competing not only over who writes code best, but over who owns the work environment above the model: files, terminals, tools, permissions, task history, background execution, and user habits.
+>
+> If a third party controls that layer, GPT, Claude, Gemini, and DeepSeek can all become replaceable underlying services. The product above them can compare performance, route tasks automatically, control cost, and switch providers. If the model company controls the coding agent, it is no longer selling only an inference call. It owns the place where the user gets work done, strengthening both the product relationship and its pricing power.
+>
+> Coding is an unusually good starting point for a general agent. The environment is structured, actions can be recorded, and results can be checked with compilers, tests, and Git. Today an agent writes code. Tomorrow it can connect to Jira, Slack, browsers, cloud services, and deployment systems, moving from “complete this code change” to “complete this piece of work.”
+>
+> That is why coding agents are competing for distribution, data, and pricing power—and for the chance to become the next work environment.
 
-Coding is also a valuable feedback environment for models. The user provides a goal; the agent takes observable actions; the code either compiles or does not; tests pass or fail; and the final change is accepted or rejected. Those outcomes are much clearer than a user merely feeling that an answer was “pretty good.” Whoever owns the coding agent is closer to a large volume of real, verifiable work trajectories.
-
-Then there is distribution. Most people do not perform fine-grained model routing every day. If they install Claude Code, they will probably use Claude by default. If they install Codex, they will probably use GPT by default. The entry point influences the default choice, and the default choice influences usage.
-
-Over the longer term, model companies may be competing not only over who writes code best, but over who owns the work environment above the model: files, terminals, tools, permissions, task history, background execution, and user habits.
-
-If a third party controls that layer, GPT, Claude, Gemini, and DeepSeek can all become replaceable underlying services. The product above them can compare performance, route tasks automatically, control cost, and switch providers. If the model company controls the coding agent, it is no longer selling only an inference call. It owns the place where the user gets work done, strengthening both the product relationship and its pricing power.
-
-The public evolution of these products is at least consistent with that interpretation. OpenAI describes the [Codex app](https://openai.com/index/introducing-the-codex-app/) as a workspace for supervising multiple agents across the lifecycle from design through maintenance, with capabilities expanding beyond code. Anthropic describes the [Claude Agent SDK](https://www.anthropic.com/news/claude-sonnet-4-5) as the same infrastructure that powers Claude Code, made available for non-coding agents as well. These statements do not prove the companies’ commercial motives, but they do show coding agents becoming broader work entry points rather than remaining code generators.
-
-Coding is an unusually good starting point for a general agent. The environment is structured, actions can be recorded, and results can be checked with compilers, tests, and Git. Today an agent writes code. Tomorrow it can connect to Jira, Slack, browsers, cloud services, and deployment systems, moving from “complete this code change” to “complete this piece of work.”
-
-That is why, in my interpretation, coding agents are competing for distribution, data, and pricing power—and for the chance to become the next work environment.
-
-The argument sounded reasonable.
+The answer sounds reasonable. To separate its inference from public facts, I checked the product direction as well. OpenAI describes the [Codex app](https://openai.com/index/introducing-the-codex-app/) as a workspace for supervising multiple agents across the lifecycle from design through maintenance, with capabilities expanding beyond code. Anthropic describes the [Claude Agent SDK](https://www.anthropic.com/news/claude-sonnet-4-5) as the same infrastructure that powers Claude Code, made available for non-coding agents as well. These statements do not prove the companies’ commercial motives, but they do show coding agents becoming broader work entry points rather than remaining code generators.
 
 But it immediately raised another question.
 
@@ -211,4 +212,4 @@ But many important systems began as something one person built to avoid a little
 
 Who knows?
 
-At the very least, this idea has given me the motivation to keep working through the graph. For me, staying enthusiastic and confident about AI does not mean believing every grand narrative. It means that, while solving one concrete problem after another, I can still see a direction worth following.
+At the very least, this idea has given me the motivation to keep working through the graph. For me, staying enthusiastic and confident about AI does not mean believing every grand narrative. It means that, while solving one concrete problem after another, I can still see a direction worth following. More simply: AI gives me the ability to turn ideas that used to stay in my head into things I can actually build. That is genuinely cool.

@@ -1,5 +1,12 @@
 # Project Log — Personal Homepage
 
+## 2026-09-02 — Local Revision Pending Release Authorization
+
+- Revised `personal-agent-as-my-os` in zh and en so the ChatGPT response is presented as a distinct block rather than blended into Henson's article prose.
+- Added the closing thought that AI makes it possible to turn ideas into real things, and added AC coverage for the separation and conclusion.
+- Added the same explicit local-preview-before-deploy gate to `AGENTS.md` and `CLAUDE.md`: build, acceptance checks, local zh/en preview, report results, then wait for Henson's release authorization before deploying.
+- This revision is intentionally not deployed. The live site remains on the previous authorized version.
+
 ## 2026-09-02 — Published: Personal Agent as My OS
 
 - Edited the supplied `personal-agent-as-my-os-draft-v0.3.md` into the published Chinese article `personal-agent-as-my-os`, preserving its personal narrative while clarifying three boundaries: vendor motives are Henson's inference rather than disclosed strategy; calling coding agents “suppliers” does not make them interchangeable commodities; and capability growth must remain governed, auditable, and reversible.

@@ -57,6 +57,17 @@ mirror from scratch each run; never hand-edit the mirror). It runs automatically
 (default `/Users/admin/henson-knowledge-base`) and skips silently if the KB isn't present, so
 commits never break on a machine/CI without it.
 
+### Publication gate
+
+For every new or materially revised public article, the required order is:
+
+1. Build locally and run `node test/ac-checks.mjs`.
+2. Start `npm run preview` and inspect the Chinese and English pages locally, including the mobile layout when content or layout could affect it.
+3. Report the local preview result and wait for Henson's explicit authorization for this specific release.
+4. Only after that authorization, run `npm run deploy:ecs` and verify the live URLs.
+
+Do not infer deployment authorization from requests to check, prepare, translate, or publish content. “Publish” in an editorial context means prepare and preview unless Henson separately authorizes the production deployment. Never run `npm run deploy:ecs` before the explicit authorization.
+
 There is no linter/formatter/unit-test runner configured. The **only** automated gate is
 `test/ac-checks.mjs`, which asserts against built HTML in `dist/`. After any change that could
 affect routes, content, the home Latest feed, bilingual pairing, contact values, or AI media,

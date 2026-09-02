@@ -29,6 +29,7 @@ Start here after `AGENTS.md`.
 - Preceding published article: `harness-governance-scar-tissue`, substantially rewritten on 2026-08-21 and revised again on 2026-08-22 (zh + en). It relates the actual Finance path to Claude Code, DeepSeek Harness, and Codex Harness/App Server across six responsibilities. Coding Graph Loop material was intentionally reserved for the later standalone direction now introduced by `personal-agent-as-my-os`. Earlier: `agent-eval-methodology` (2026-08-16), `personal-agent-phase-one` (2026-08-07), and `all-in-personal-agent` (2026-08-03).
 - Deploy note: the rsync step now runs with `--rsync-path="sudo rsync"` (see DECISIONS D10). Without it, a content-adding deploy fails with "Permission denied" because the non-root `henson-admin` cannot write into the `root:www-data` target directory.
 - This machine has `core.hooksPath=.githooks`; the knowledge-base sync default is `/Users/admin/henson-knowledge-base` and can still be overridden with `KB_DIR` on another machine.
+- Important release gate: a local revision of `personal-agent-as-my-os` is currently being reviewed. Its ChatGPT answer is visually separated from the author's prose and its conclusion now says that AI makes it possible to land ideas in reality. The live site still has the previously deployed revision. Run local build/preview and wait for Henson's explicit release authorization before `npm run deploy:ecs`.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 
 ### Loop Engineering Article TODO

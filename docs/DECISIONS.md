@@ -43,3 +43,7 @@ Production deploys log in as the non-root `henson-admin` (no root SSH login) and
 ## D11 — Related Reading May Be Editorially Matched
 
 Blog frontmatter may provide an ordered `related` list of entry keys when an author has a stronger semantic match than simple recency. The detail page resolves those keys in the active language and preserves the declared order. Entries without an explicit list retain the strict same-category, newest-first fallback; the site never fills empty slots with unrelated posts merely to populate the section.
+
+## D12 — Production Deployment Requires Explicit Release Authorization
+
+For a new or materially revised public article, local build, acceptance checks, and zh/en preview are preparation steps only. The agent must report those results and wait for Henson's explicit authorization for that specific release before running `npm run deploy:ecs`. Editorial requests to check, translate, prepare, or publish content do not by themselves authorize production deployment. The live site may therefore temporarily remain on the last authorized revision while a local candidate is reviewed.
