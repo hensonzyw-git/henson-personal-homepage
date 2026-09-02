@@ -39,3 +39,7 @@ The public `social-media-publish-loop` repository may contain the reusable state
 ## D10 — Deploy rsync Escalates Via sudo (Non-Root Login + Passwordless sudo rsync)
 
 Production deploys log in as the non-root `henson-admin` (no root SSH login) and escalate only for privileged steps. The rsync step runs with `--rsync-path="sudo rsync"` so the file sync can write into the `root:www-data` target directory; the post-sync `chown`/`chmod`/`nginx -t`/`reload` steps already run under `sudo`. `henson-admin` holds `NOPASSWD: ALL` in sudoers, so no interactive password is needed. This completes the migration begun in d52d364, which added sudo to chown/chmod/nginx but left rsync unprivileged — so the first content-adding deploy after a permission normalization (which leaves the directory at `root:www-data` 755/644) fails with "Permission denied" on `mkdir`/`mkstemp`.
+
+## D11 — Related Reading May Be Editorially Matched
+
+Blog frontmatter may provide an ordered `related` list of entry keys when an author has a stronger semantic match than simple recency. The detail page resolves those keys in the active language and preserves the declared order. Entries without an explicit list retain the strict same-category, newest-first fallback; the site never fills empty slots with unrelated posts merely to populate the section.

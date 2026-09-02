@@ -58,14 +58,25 @@ export function blogUpdated(entry: CollectionEntry<'blog'>): Date {
   return entry.data.updated ?? entry.data.date;
 }
 
-// Related reading is intentionally strict: only same-category posts qualify.
-// Do not fill empty slots with unrelated recent posts just to populate the UI.
+// Prefer an entry's explicit editorial order. Older entries without one keep the
+// strict same-category fallback; never fill slots with unrelated recent posts.
 export async function getRelatedBlogEntries(
   entry: CollectionEntry<'blog'>,
   lang: Lang,
   limit = 2,
 ) {
-  return (await getBlogIndex(lang))
+  const rows = await getBlogIndex(lang);
+  if (entry.data.related.length > 0) {
+    const bySlug = new Map(rows.map((row) => [row.slug, row]));
+    const selected: typeof rows = [];
+    for (const slug of entry.data.related) {
+      const row = bySlug.get(slug);
+      if (row && row.slug !== entry.data.key) selected.push(row);
+    }
+    return selected.slice(0, limit);
+  }
+
+  return rows
     .filter((row) => row.slug !== entry.data.key && row.entry.data.category === entry.data.category)
     .sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
     .slice(0, limit);

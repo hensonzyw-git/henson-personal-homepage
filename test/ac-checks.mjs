@@ -28,7 +28,8 @@ const zhRoutes = [
   'blog/prompt-context-loop-engineering/index.html',
   'blog/all-in-personal-agent/index.html',
   'blog/agent-eval-methodology/index.html',
-  'blog/harness-governance-scar-tissue/index.html', 'ai/index.html',
+  'blog/harness-governance-scar-tissue/index.html',
+  'blog/personal-agent-as-my-os/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
@@ -91,7 +92,7 @@ ok('GEO en RSS feed exists with blog items',
    /<rss/.test(rssEn) && /<item>/.test(rssEn) && /zhuyawei\.com\/en\/blog\//.test(rssEn),
    'en/rss.xml missing or has no blog items');
 ok('GEO RSS includes newly published post',
-   /agent-eval-methodology/.test(rssZh) && /agent-eval-methodology/.test(rssEn),
+   /personal-agent-as-my-os/.test(rssZh) && /personal-agent-as-my-os/.test(rssEn),
    'published post missing from a feed');
 // Henson selected this as the sole public Harness article on 2026-08-22.
 ok('GEO RSS includes harness-governance-scar-tissue',
@@ -135,6 +136,7 @@ const pairs = [
   ['blog/all-in-personal-agent', 'en/blog/all-in-personal-agent'],
   ['blog/agent-eval-methodology', 'en/blog/agent-eval-methodology'],
   ['blog/harness-governance-scar-tissue', 'en/blog/harness-governance-scar-tissue'],
+  ['blog/personal-agent-as-my-os', 'en/blog/personal-agent-as-my-os'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
 for (const [zh, en] of pairs)
@@ -159,6 +161,16 @@ ok('AC-8 zh Agent-caller deep page links to /en counterpart',
 const enAgentCallerPost = read('en/blog/agent-as-service-caller-open-platform/index.html') || '';
 ok('AC-8 en Agent-caller deep page links back to zh counterpart',
    /href="\/blog\/agent-as-service-caller-open-platform/.test(enAgentCallerPost), 'no link back to zh counterpart');
+const zhPersonalOsPost = read('blog/personal-agent-as-my-os/index.html') || '';
+ok('AC-8 zh Personal OS deep page links to /en counterpart',
+   zhPersonalOsPost.includes('/en/blog/personal-agent-as-my-os'), 'no link to en counterpart');
+ok('GEO Personal OS article uses explicit related-reading matches',
+   zhPersonalOsPost.includes('/blog/harness-governance-scar-tissue')
+   && zhPersonalOsPost.includes('/blog/agent-memory-knowledge-base'),
+   'missing one of the editorially matched related articles');
+const enPersonalOsPost = read('en/blog/personal-agent-as-my-os/index.html') || '';
+ok('AC-8 en Personal OS deep page links back to zh counterpart',
+   /href="\/blog\/personal-agent-as-my-os/.test(enPersonalOsPost), 'no link back to zh counterpart');
 
 // ---- AC-3: About me offers no public PDF download (private; provided on request) ----
 const resume = read('about/index.html') || '';

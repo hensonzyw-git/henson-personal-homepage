@@ -1,6 +1,6 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-08-22
+Last updated: 2026-09-02
 
 ## Current Status
 
@@ -24,7 +24,7 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - AI Practice / Side Projects: tools, prompts, automation, and the site itself.
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
-- Newest publication: `harness-governance-scar-tissue` (zh + en, 2026-08-21; revised 2026-08-22) — a six-layer comparison of Claude Code's exposed product scale, DeepSeek Harness, the later-opened Codex harness/App Server, and the actual Personal Agent design. It stays entirely on Personal Agent's implemented Finance path: product/framework, runtime loop, tool boundary, context/memory, permission/HITL, and evidence/recovery. Each layer reconstructs a real product decision through options considered, the selected path, rejected alternatives, concrete rules, accepted cost, and later evidence. Coding Graph Loop material remains reserved for a later standalone article. Henson selected this version as the sole public Harness article; the two earlier same-material pairs, `agent-harness-teardown` and `harness-failure-direction`, were removed on 2026-08-22. Preceding published content: `agent-eval-methodology` (zh + en, 2026-08-16), `personal-agent-phase-one` (zh + en, 2026-08-07), and `all-in-personal-agent` (zh + en, 2026-08-03), alongside `prompt-context-loop-engineering`, `agent-as-service-caller-open-platform`, `agent-memory-knowledge-base`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
+- Newest publication: `personal-agent-as-my-os` (zh + en, 2026-09-02) — a personal argument that the durable layer should be a user-owned Personal Agent, while coding, browser, and research agents remain replaceable capability providers. It grows out of the unfinished Coding Graph Loop work and makes three boundaries explicit: vendor strategy is Henson's inference rather than a disclosed fact; “supplier” does not mean agents are interchangeable commodities; and capability growth must stay governed, auditable, and reversible. The article explicitly matches `harness-governance-scar-tissue` and `agent-memory-knowledge-base` as related reading. Preceding published content: `harness-governance-scar-tissue` (zh + en, 2026-08-21; revised 2026-08-22), `agent-eval-methodology` (zh + en, 2026-08-16), `personal-agent-phase-one` (zh + en, 2026-08-07), and `all-in-personal-agent` (zh + en, 2026-08-03), alongside `prompt-context-loop-engineering`, `agent-as-service-caller-open-platform`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
 - GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`, plus truthful publish/modified metadata and related-reading paths. `/llms.txt` is generated from the bilingual blog and AI-practice indexes. Content-detail sitemap entries carry frontmatter-derived `lastmod` values.
 
 ## Current Boundaries
@@ -37,4 +37,4 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 
 ## Validation State
 
-Latest validation and deployment: `npm run deploy:ecs` passed on 2026-08-22 after selecting `harness-governance-scar-tissue` as the sole Harness article and removing two older duplicate pairs. It rebuilt the static site, passed all 76 checks, updated ECS, validated and reloaded Nginx, and verified the public zh/en article routes. The superseded article routes return 404.
+Latest validation and deployment: `npm run deploy:ecs` passed on 2026-09-02 after publishing `personal-agent-as-my-os`. It rebuilt 39 static pages, passed all 82 checks, updated ECS, validated and reloaded Nginx, and verified both new article routes plus the home, blog indexes, RSS feeds, and `/llms.txt` with HTTP 200. Desktop and 390px browser checks found no overflow or console errors.

@@ -1,5 +1,14 @@
 # Project Log — Personal Homepage
 
+## 2026-09-02 — Published: Personal Agent as My OS
+
+- Edited the supplied `personal-agent-as-my-os-draft-v0.3.md` into the published Chinese article `personal-agent-as-my-os`, preserving its personal narrative while clarifying three boundaries: vendor motives are Henson's inference rather than disclosed strategy; calling coding agents “suppliers” does not make them interchangeable commodities; and capability growth must remain governed, auditable, and reversible.
+- Added a complete English mirror with the site's `draftTranslation: true` convention. Both versions link the memory, Personal Agent kickoff, Finance phase-one, and official OpenAI/Anthropic product evidence relevant to the argument.
+- Added ordered `related` keys to the blog schema and resolver. The new article explicitly recommends `harness-governance-scar-tissue` and `agent-memory-knowledge-base`; older articles keep the strict same-category fallback.
+- Extended AC coverage for the bilingual routes, GATE1 pair, RSS inclusion, language switching, and exact related-reading matches. `npm run build && node test/ac-checks.mjs` passed 82 / 82.
+- Browser QA passed at 1280px and 390px: the long title wraps cleanly, the code tree stays within the reading column, mobile TOC behavior is correct, related links stack correctly, and there are no console errors or horizontal overflow.
+- Deployed through `npm run deploy:ecs`; Nginx validation/reload succeeded and the Chinese article, English mirror, RSS feeds, and `/llms.txt` returned HTTP 200.
+
 ## 2026-08-22 — Harness article selected for publication
 
 - Henson selected `harness-governance-scar-tissue` as the sole public article for the DSH / Claude Code / Codex Harness / Personal Agent comparison.
