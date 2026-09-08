@@ -9,9 +9,9 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
-## Authorized Release — 2026-09-08
+## Latest Release — 2026-09-08
 
-The local candidate `astra-computer-use-everything-use` is ready in both languages. Build generated 41 pages and all 92 AC checks passed. Desktop (1280px) and mobile (390px) previews were checked in zh/en. Henson requested local review before deployment; authorization is still pending. Preview is at `http://127.0.0.1:4321/blog/astra-computer-use-everything-use/` (English under `/en`). Do not deploy or sync this candidate to the published KB mirror until the release is authorized. Production still serves the September 2 release described below.
+`astra-computer-use-everything-use` is deployed in zh/en after Henson's explicit authorization. Article commit `80b4485`, merge `bb0ad52`, both pushed. The final text removes DAL and the ten-year introduction; shared table layout was fixed (D13). Build: 41 pages; AC: 92/92. Live article HTML, RSS and llms.txt match the build byte-for-byte. KB sync, source-page publication link, index and log are recorded in KB commit `d782503`. The pre-existing uncommitted KB query-log entry was preserved outside that commit. No release work remains; future changes follow D12.
 
 ## Before Editing
 
@@ -29,7 +29,7 @@ The local candidate `astra-computer-use-everything-use` is ready in both languag
 - Date rendering must stay timezone-independent: frontmatter dates are UTC midnight, so `monoDate`/`monoDateShort` use UTC accessors and an AC check pins the visible date. Do not reintroduce local getters.
 - Basic traffic stats are server-log based via `npm run stats:traffic`; do not add a frontend analytics script unless that boundary is explicitly changed.
 - ECS nginx logrotate keeps 365 days as of 2026-07-12 (was 14; backup at `/etc/logrotate.d/nginx.bak-20260712`). Log history earlier than ~2026-06-28 is permanently lost — launch-to-date totals cannot be reconstructed before that day.
-- Current newest publication: `personal-agent-as-my-os`, 2026-09-02 (zh + en; English keeps `draftTranslation: true`). It reframes the unfinished Coding Graph Loop as the production line through which a user-owned Personal Agent can acquire governed capabilities, while coding/browser/research agents remain replaceable providers. The published edit distinguishes Henson's market inference from disclosed vendor strategy, rejects the idea that providers are already commodities, and defines self-extension as versioned, reviewable, testable, human-gated, and reversible. Its explicit related-reading keys are `harness-governance-scar-tissue` and `agent-memory-knowledge-base`. The ChatGPT response is presented as one continuous left-bordered block, separate from Henson's prose. `npm run deploy:ecs` built 39 pages, passed 85 checks, validated/reloaded Nginx, and verified the site routes, RSS, and `/llms.txt` with HTTP 200; desktop and 390px browser checks had no overflow or console errors.
+- September 2 publication: `personal-agent-as-my-os`, 2026-09-02 (zh + en; English keeps `draftTranslation: true`). It reframes the unfinished Coding Graph Loop as the production line through which a user-owned Personal Agent can acquire governed capabilities, while coding/browser/research agents remain replaceable providers. The published edit distinguishes Henson's market inference from disclosed vendor strategy, rejects the idea that providers are already commodities, and defines self-extension as versioned, reviewable, testable, human-gated, and reversible. Its explicit related-reading keys are `harness-governance-scar-tissue` and `agent-memory-knowledge-base`. The ChatGPT response is presented as one continuous left-bordered block, separate from Henson's prose. `npm run deploy:ecs` built 39 pages, passed 85 checks, validated/reloaded Nginx, and verified the site routes, RSS, and `/llms.txt` with HTTP 200; desktop and 390px browser checks had no overflow or console errors.
 - Preceding published article: `harness-governance-scar-tissue`, substantially rewritten on 2026-08-21 and revised again on 2026-08-22 (zh + en). It relates the actual Finance path to Claude Code, DeepSeek Harness, and Codex Harness/App Server across six responsibilities. Coding Graph Loop material was intentionally reserved for the later standalone direction now introduced by `personal-agent-as-my-os`. Earlier: `agent-eval-methodology` (2026-08-16), `personal-agent-phase-one` (2026-08-07), and `all-in-personal-agent` (2026-08-03).
 - Deploy note: the rsync step now runs with `--rsync-path="sudo rsync"` (see DECISIONS D10). Without it, a content-adding deploy fails with "Permission denied" because the non-root `henson-admin` cannot write into the `root:www-data` target directory.
 - This machine has `core.hooksPath=.githooks`; the knowledge-base sync default is `/Users/admin/henson-knowledge-base` and can still be overridden with `KB_DIR` on another machine.
@@ -48,11 +48,3 @@ The local candidate `astra-computer-use-everything-use` is ready in both languag
 ## Closeout
 
 Update `PROJECT_STATE.md`, `docs/DECISIONS.md`, `docs/PROJECT_LOG.md`, and `docs/HANDOFF.md` when project direction or current state changes.
-
-- September 8 preview edit: replaced the unexplained DAL abbreviation with “我的自动开发 loop” and the English equivalent. This candidate still awaits release authorization.
-
-- September 8 table fix: shared `Prose.astro` now wraps tables at build time, preserving native table layout and moving horizontal overflow/borders to the wrapper (D13). The earlier page-overflow check missed the internal blank area reported by Henson. Rechecked table/head widths and screenshots at 820px, 390px, and desktop in zh/en; build and all 92 AC checks pass. Still local only.
-
-- September 8 editorial follow-up: removed the abrupt ten-year open-platform experience introduction from both languages, connecting the interface question directly to the two earlier articles. Deployment remains pending authorization.
-
-- Release authorization received on September 8: Henson explicitly requested commit, push, merge, ECS deployment, and knowledge-base persistence for the reviewed final version. Earlier pending-authorization notes above are historical; deployment verification is now in progress.

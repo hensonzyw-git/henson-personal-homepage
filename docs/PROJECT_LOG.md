@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-09-08 — Deployed: Computer Use to Everything Use
+
+- Henson approved the final article and explicitly requested commit, push, merge, ECS deployment and KB persistence. Article commit `80b4485` merged via `bb0ad52` and pushed to main, including the previously deployed September 2 commits.
+- Deploy rebuilt 41 pages, passed 92/92 checks, validated/reloaded Nginx and returned HTTP 200 on all verification routes. Live zh/en article HTML, both RSS feeds and llms.txt match local artifacts byte-for-byte.
+- KB sync generated 15 files; article body matches source. KB commit `d782503` records the corpus, source wiki published link, index and operation log; the pre-existing query-log edit remains untouched and uncommitted.
+
 ## 2026-09-08 — Table Layout Fix, Local Only
 
 - Fixed the reported empty area inside narrow-layout article tables. `display: block` on the table separated frame width from native column sizing; a build-time wrapper now owns borders and scrolling while tables retain native sizing.
