@@ -47,3 +47,7 @@ Blog frontmatter may provide an ordered `related` list of entry keys when an aut
 ## D12 — Production Deployment Requires Explicit Release Authorization
 
 For a new or materially revised public article, local build, acceptance checks, and zh/en preview are preparation steps only. The agent must report those results and wait for Henson's explicit authorization for that specific release before running `npm run deploy:ecs`. Editorial requests to check, translate, prepare, or publish content do not by themselves authorize production deployment. The live site may therefore temporarily remain on the last authorized revision while a local candidate is reviewed.
+
+## D13 — Editorial Tables Keep Native Layout
+
+`Prose.astro` wraps rendered Markdown tables in a build-time scroll container. Borders and overflow belong to that wrapper; the table retains native table layout and fills the container. Do not set `display: block` on the table itself: below 860px that allowed its frame to fill the article while internal columns occupied only their intrinsic width. This approach needs no client JavaScript or new Markdown dependencies.
