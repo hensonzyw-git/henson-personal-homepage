@@ -1,5 +1,23 @@
 # Project Log — Personal Homepage
 
+## 2026-09-08 — Table Layout Fix, Local Only
+
+- Fixed the reported empty area inside narrow-layout article tables. `display: block` on the table separated frame width from native column sizing; a build-time wrapper now owns borders and scrolling while tables retain native sizing.
+- No new dependency or client JavaScript. Shared prose tables receive the fix, including existing articles.
+- Verified zh/en table screenshots and matching table/head widths at mobile, 820px, and desktop. No page overflow; English mobile table remains locally scrollable. Build: 41 pages; AC: 92/92. Release authorization remains pending.
+
+## 2026-09-08 — Local Preview: Computer Use to Everything Use
+
+- Removed the ten-year open-platform experience introduction in both languages at Henson’s request; the preceding question now leads directly into the earlier articles.
+
+- Follow-up edit requested by Henson: replaced DAL with “我的自动开发 loop” and updated the English mirror.
+
+- Prepared `astra-computer-use-everything-use` in Chinese and English from Henson's supplied v1 draft, preserving the Chinese body and adding metadata, localized internal links, and explicit related reading. English retains the draft-translation convention.
+- Verified the cited Artificial Analysis September 3 report's scores, token efficiency, and coding-task cost claims.
+- Extended AC coverage for routes, bilingual pairing, language switching, homepage inclusion, and RSS. Build: 41 pages; AC: 92 passed, 0 failed.
+- Checked zh/en previews at 1280px and 390px, with no page-level horizontal overflow or browser errors observed. Existing mobile table scrolling is retained.
+- Preview server remains available at port 4321. Deployment and published-KB sync are pending Henson's review and explicit release authorization, following D12. No new durable policy decision was needed.
+
 ## 2026-09-02 — Deployed: Personal Agent OS Revision
 
 - Published the authorized revision of `personal-agent-as-my-os` to ECS after local zh/en preview, desktop/mobile checks, a 39-page build, and 85 passing acceptance checks.

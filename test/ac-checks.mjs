@@ -29,6 +29,7 @@ const zhRoutes = [
   'blog/all-in-personal-agent/index.html',
   'blog/agent-eval-methodology/index.html',
   'blog/harness-governance-scar-tissue/index.html',
+  'blog/astra-computer-use-everything-use/index.html',
   'blog/personal-agent-as-my-os/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'contact/index.html',
 ];
@@ -92,7 +93,7 @@ ok('GEO en RSS feed exists with blog items',
    /<rss/.test(rssEn) && /<item>/.test(rssEn) && /zhuyawei\.com\/en\/blog\//.test(rssEn),
    'en/rss.xml missing or has no blog items');
 ok('GEO RSS includes newly published post',
-   /personal-agent-as-my-os/.test(rssZh) && /personal-agent-as-my-os/.test(rssEn),
+   /astra-computer-use-everything-use/.test(rssZh) && /astra-computer-use-everything-use/.test(rssEn),
    'published post missing from a feed');
 // Henson selected this as the sole public Harness article on 2026-08-22.
 ok('GEO RSS includes harness-governance-scar-tissue',
@@ -136,6 +137,7 @@ const pairs = [
   ['blog/all-in-personal-agent', 'en/blog/all-in-personal-agent'],
   ['blog/agent-eval-methodology', 'en/blog/agent-eval-methodology'],
   ['blog/harness-governance-scar-tissue', 'en/blog/harness-governance-scar-tissue'],
+  ['blog/astra-computer-use-everything-use', 'en/blog/astra-computer-use-everything-use'],
   ['blog/personal-agent-as-my-os', 'en/blog/personal-agent-as-my-os'],
   ['ai/show-radar', 'en/ai/show-radar'],
 ];
@@ -161,6 +163,12 @@ ok('AC-8 zh Agent-caller deep page links to /en counterpart',
 const enAgentCallerPost = read('en/blog/agent-as-service-caller-open-platform/index.html') || '';
 ok('AC-8 en Agent-caller deep page links back to zh counterpart',
    /href="\/blog\/agent-as-service-caller-open-platform/.test(enAgentCallerPost), 'no link back to zh counterpart');
+for (const prefix of ['', 'en/']) {
+  const article = read(`${prefix}blog/astra-computer-use-everything-use/index.html`) || '';
+  const counterpart = prefix ? '/blog/astra-computer-use-everything-use' : '/en/blog/astra-computer-use-everything-use';
+  ok(`AC-8 Astra language switch: ${prefix || 'zh'}`, article.includes(`href="${counterpart}"`), 'counterpart missing');
+  ok(`AC-2 Astra appears in latest: ${prefix || 'zh'}`, (read(`${prefix}index.html`) || '').includes('/blog/astra-computer-use-everything-use'), 'new article missing from home');
+}
 const zhPersonalOsPost = read('blog/personal-agent-as-my-os/index.html') || '';
 ok('AC-8 zh Personal OS deep page links to /en counterpart',
    zhPersonalOsPost.includes('/en/blog/personal-agent-as-my-os'), 'no link to en counterpart');

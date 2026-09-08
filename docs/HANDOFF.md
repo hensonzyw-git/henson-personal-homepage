@@ -9,6 +9,10 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
+## Authorized Release — 2026-09-08
+
+The local candidate `astra-computer-use-everything-use` is ready in both languages. Build generated 41 pages and all 92 AC checks passed. Desktop (1280px) and mobile (390px) previews were checked in zh/en. Henson requested local review before deployment; authorization is still pending. Preview is at `http://127.0.0.1:4321/blog/astra-computer-use-everything-use/` (English under `/en`). Do not deploy or sync this candidate to the published KB mirror until the release is authorized. Production still serves the September 2 release described below.
+
 ## Before Editing
 
 - Check whether the request is public-site content, private career material, or design/system work.
@@ -29,7 +33,7 @@ Start here after `AGENTS.md`.
 - Preceding published article: `harness-governance-scar-tissue`, substantially rewritten on 2026-08-21 and revised again on 2026-08-22 (zh + en). It relates the actual Finance path to Claude Code, DeepSeek Harness, and Codex Harness/App Server across six responsibilities. Coding Graph Loop material was intentionally reserved for the later standalone direction now introduced by `personal-agent-as-my-os`. Earlier: `agent-eval-methodology` (2026-08-16), `personal-agent-phase-one` (2026-08-07), and `all-in-personal-agent` (2026-08-03).
 - Deploy note: the rsync step now runs with `--rsync-path="sudo rsync"` (see DECISIONS D10). Without it, a content-adding deploy fails with "Permission denied" because the non-root `henson-admin` cannot write into the `root:www-data` target directory.
 - This machine has `core.hooksPath=.githooks`; the knowledge-base sync default is `/Users/admin/henson-knowledge-base` and can still be overridden with `KB_DIR` on another machine.
-- Release gate status: Henson explicitly authorized this revision after local build, acceptance checks, and zh/en desktop/mobile preview. The revision is now deployed; future article releases must follow the same gate before `npm run deploy:ecs`.
+- September 2 release gate status: Henson explicitly authorized that revision after local build, acceptance checks, and zh/en desktop/mobile preview. The revision is now deployed; future article releases must follow the same gate before `npm run deploy:ecs`.
 - If this machine cannot build because `@astrojs/sitemap` is missing from `node_modules`, run `npm install` first.
 
 ### Loop Engineering Article TODO
@@ -44,3 +48,11 @@ Start here after `AGENTS.md`.
 ## Closeout
 
 Update `PROJECT_STATE.md`, `docs/DECISIONS.md`, `docs/PROJECT_LOG.md`, and `docs/HANDOFF.md` when project direction or current state changes.
+
+- September 8 preview edit: replaced the unexplained DAL abbreviation with “我的自动开发 loop” and the English equivalent. This candidate still awaits release authorization.
+
+- September 8 table fix: shared `Prose.astro` now wraps tables at build time, preserving native table layout and moving horizontal overflow/borders to the wrapper (D13). The earlier page-overflow check missed the internal blank area reported by Henson. Rechecked table/head widths and screenshots at 820px, 390px, and desktop in zh/en; build and all 92 AC checks pass. Still local only.
+
+- September 8 editorial follow-up: removed the abrupt ten-year open-platform experience introduction from both languages, connecting the interface question directly to the two earlier articles. Deployment remains pending authorization.
+
+- Release authorization received on September 8: Henson explicitly requested commit, push, merge, ECS deployment, and knowledge-base persistence for the reviewed final version. Earlier pending-authorization notes above are historical; deployment verification is now in progress.
