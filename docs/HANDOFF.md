@@ -11,7 +11,7 @@ Start here after `AGENTS.md`.
 
 ## Writing In Progress — 2026-09-23
 
-The Chinese open-source announcement draft and editorial evidence notes are under `docs/editorial/personal-agent-open-source*`. Henson supplies the storyline; preserve his authorship and confirm inferred motivations. Finalize Chinese before preparing paired publication content. No deployment or push authorized for this draft.
+The Chinese open-source announcement draft and editorial evidence notes are under `docs/editorial/personal-agent-open-source*`. Henson supplies the storyline. His confirmed motivations (hands-on learning, customization, contribution without expected return) and Memory-versus-DAL priority are now incorporated; the opening wording is approved. Preserve these distinctions. Finalize Chinese before preparing paired publication content. No deployment or push authorized for this draft.
 
 ## Latest Release — 2026-09-23
 

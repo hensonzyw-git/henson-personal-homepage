@@ -1,5 +1,12 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Author motivations incorporated
+
+- Added the author's reasons to keep building after Muse: hands-on AI/Agent learning and deeper personal customization.
+- Clarified the open-source intention without inventing expectations of community assistance.
+- Expanded Memory-first reasoning as everyday usability improvement, distinguishing it from DAL development efficiency. Author approved the opening wording about using Muse to explain his own direction.
+- Chinese editorial draft only; no site content, translation or release changed. `git diff --check` passed.
+
 ## 2026-09-23 — Open-source announcement first draft
 
 - Drafted a Chinese editorial document from Henson’s 13-point storyline and his clarification about large-company product definition.
