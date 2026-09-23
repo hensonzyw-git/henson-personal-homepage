@@ -1,5 +1,10 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Parallel Muse practice added to draft
+
+- Added Henson’s plan to build his tools on Muse as well as his own Personal Agent and compare actual use. Kept it explicitly prospective, without claiming migration success or comparative results.
+- Editorial documents only; `git diff --check` passed. No publication.
+
 ## 2026-09-23 — Author motivations incorporated
 
 - Added the author's reasons to keep building after Muse: hands-on AI/Agent learning and deeper personal customization.
