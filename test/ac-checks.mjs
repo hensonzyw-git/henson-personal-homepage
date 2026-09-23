@@ -27,6 +27,7 @@ const zhRoutes = [
   'blog/agent-as-service-caller-open-platform/index.html',
   'blog/prompt-context-loop-engineering/index.html',
   'blog/all-in-personal-agent/index.html',
+  'blog/personal-agent-open-source/index.html',
   'blog/agent-eval-methodology/index.html',
   'blog/harness-governance-scar-tissue/index.html',
   'blog/astra-computer-use-everything-use/index.html',
@@ -140,6 +141,7 @@ const pairs = [
   ['blog/astra-computer-use-everything-use', 'en/blog/astra-computer-use-everything-use'],
   ['blog/personal-agent-as-my-os', 'en/blog/personal-agent-as-my-os'],
   ['ai/show-radar', 'en/ai/show-radar'],
+  ['blog/personal-agent-open-source', 'en/blog/personal-agent-open-source'],
   ['ai/personal-agent', 'en/ai/personal-agent'],
 ];
 for (const [zh, en] of pairs)
