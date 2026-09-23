@@ -17,9 +17,9 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - Milestone log: `docs/PROJECT_LOG.md`
 - Next-agent handoff: `docs/HANDOFF.md`
 
-## Pending Release — Personal Agent
+## Latest Release — Personal Agent
 
-Added bilingual `personal-agent` AI project cards and detail pages, linking the public MIT repository. The copy distinguishes historical runtime evidence from public checks, keeps DAL end-to-end acceptance pending, and puts Memory first on the roadmap. Local build and 95/95 AC checks passed; zh/en index and detail pages checked at 390px and 1280px with no horizontal overflow or broken images. Not deployed or pushed; production and the published KB mirror remain on the previous release pending explicit authorization.
+Added bilingual `personal-agent` AI project cards and detail pages, linking the public MIT repository. The copy distinguishes historical runtime evidence from public checks, keeps DAL end-to-end acceptance pending, and puts Memory first on the roadmap. Local build and 95/95 AC checks passed; zh/en index and detail pages checked at 390px and 1280px with no horizontal overflow or broken images. Henson authorized publication on 2026-09-23. Content commit `6230d1b` is pushed; ECS deployment passed build, 95 checks and Nginx validation/reload. Both language indexes and detail pages return 200 and match the build byte-for-byte. The published KB mirror is regenerated from source.
 
 ## Current Product Shape
 
@@ -49,5 +49,7 @@ Added bilingual `personal-agent` AI project cards and detail pages, linking the 
 - Basic traffic stats use ECS/Nginx access logs via `npm run stats:traffic`; the public frontend remains free of analytics trackers.
 
 ## Validation State
+
+September 23 Personal Agent release: 95/95 checks passed; `/ai/`, `/en/ai/`, `/ai/personal-agent/` and `/en/ai/personal-agent/` match the local build byte-for-byte. Homepage and llms.txt also return 200.
 
 September 8 deployment passed: 41 static pages, 92/92 acceptance checks, Nginx validation/reload, and HTTP 200 for home, article indexes, both article languages, RSS and llms.txt. Both live article HTML files, both RSS feeds and llms.txt matched local build output byte-for-byte. The generated KB article body matches the Chinese source. No pending release authorization remains for this revision.

@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Personal Agent published
+
+- Henson explicitly authorized the reviewed release. Pushed content commit `6230d1b` to main and deployed to ECS.
+- Build and 95/95 checks passed; Nginx validation/reload succeeded. Chinese and English AI indexes and Personal Agent detail pages return 200 and match built HTML byte-for-byte. Homepage and llms.txt return 200.
+- Regenerated the knowledge-base published mirror from canonical site source.
+
 ## 2026-09-23 — Personal Agent project release candidate
 
 - Added Chinese and English AI project entries, a cover using the existing palette, MIT repository links, current capabilities, and Memory-first next steps. Existing articles remain linked reading rather than duplicated content.

@@ -9,9 +9,9 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
-## Pending Release — 2026-09-23
+## Latest Release — 2026-09-23
 
-Personal Agent now has paired AI entries, a shared cover and public repository links. Build and 95 AC checks passed; zh/en index/detail previews passed at 390px and 1280px. Await explicit release authorization under D12 before deploying or pushing. After authorization, deploy and verify `/ai/`, `/en/ai/`, `/ai/personal-agent/`, `/en/ai/personal-agent/`, then regenerate the KB mirror with `npm run sync:kb`. The mirror is intentionally not refreshed for this unshipped candidate.
+Personal Agent is live in the Chinese and English AI indexes and detail pages. Henson explicitly authorized this release. Content commit `6230d1b` is pushed; ECS deployment passed build, 95 checks and Nginx validation/reload. The four AI routes return 200 and match the build byte-for-byte. The generated KB mirror is refreshed. No release authorization remains pending for this version; future releases follow D12.
 
 ## Latest Release — 2026-09-08
 
