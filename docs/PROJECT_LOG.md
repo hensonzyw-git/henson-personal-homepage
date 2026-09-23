@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Open-source announcement first draft
+
+- Drafted a Chinese editorial document from Henson’s 13-point storyline and his clarification about large-company product definition.
+- Checked Muse official materials and existing project essays; corrected publication-vs-development chronology and the history of per-round approval gates.
+- Kept editorial questions and source boundaries separate from the article. Draft remains outside the production content collection; no translation or publication yet.
+
 ## 2026-09-23 — Personal Agent published
 
 - Henson explicitly authorized the reviewed release. Pushed content commit `6230d1b` to main and deployed to ECS.

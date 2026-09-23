@@ -9,6 +9,10 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
+## Writing In Progress — 2026-09-23
+
+The Chinese open-source announcement draft and editorial evidence notes are under `docs/editorial/personal-agent-open-source*`. Henson supplies the storyline; preserve his authorship and confirm inferred motivations. Finalize Chinese before preparing paired publication content. No deployment or push authorized for this draft.
+
 ## Latest Release — 2026-09-23
 
 Personal Agent is live in the Chinese and English AI indexes and detail pages. Henson explicitly authorized this release. Content commit `6230d1b` is pushed; ECS deployment passed build, 95 checks and Nginx validation/reload. The four AI routes return 200 and match the build byte-for-byte. The generated KB mirror is refreshed. No release authorization remains pending for this version; future releases follow D12.

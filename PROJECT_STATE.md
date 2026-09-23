@@ -8,6 +8,10 @@ This repo is Henson's personal homepage built with Astro. It is separate from th
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
 
+## Editorial Work In Progress — 2026-09-23
+
+Chinese first draft: `docs/editorial/personal-agent-open-source.zh.draft.md`, based on Henson's story outline and confirmed feeling that a direction he saw early was ultimately defined by a large-company product. Evidence and unresolved author decisions are in the companion editorial notes. This is outside the content collection: not published, not translated, and awaiting editorial review.
+
 ## Source Of Truth
 
 - Repo instructions: `AGENTS.md`
