@@ -1,6 +1,6 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-09-08
+Last updated: 2026-09-23
 
 ## Current Status
 
@@ -16,6 +16,10 @@ The site is bilingual with Chinese as default and English mirror routes. It posi
 - Long-term decisions: `docs/DECISIONS.md`
 - Milestone log: `docs/PROJECT_LOG.md`
 - Next-agent handoff: `docs/HANDOFF.md`
+
+## Pending Release — Personal Agent
+
+Added bilingual `personal-agent` AI project cards and detail pages, linking the public MIT repository. The copy distinguishes historical runtime evidence from public checks, keeps DAL end-to-end acceptance pending, and puts Memory first on the roadmap. Local build and 95/95 AC checks passed; zh/en index and detail pages checked at 390px and 1280px with no horizontal overflow or broken images. Not deployed or pushed; production and the published KB mirror remain on the previous release pending explicit authorization.
 
 ## Current Product Shape
 

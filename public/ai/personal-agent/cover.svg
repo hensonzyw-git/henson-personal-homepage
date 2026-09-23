@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+<title id="title">Personal Agent</title><desc id="desc">Single-user personal agent. iOS, Google ADK and MCP. Open source under MIT.</desc>
+<rect width="960" height="300" fill="#E7E3D7"/>
+<g font-family="-apple-system, BlinkMacSystemFont, sans-serif">
+<text x="48" y="68" fill="#C15F3C" font-size="20" letter-spacing="3">OPEN SOURCE / MIT</text>
+<text x="48" y="147" fill="#1F1E1B" font-size="58" font-weight="600">Personal Agent</text>
+<path d="M48 188H912" stroke="#1F1E1B" stroke-opacity=".14"/>
+<text x="48" y="243" fill="#5C594F" font-size="25">SINGLE USER · iOS · ADK · MCP</text>
+</g></svg>

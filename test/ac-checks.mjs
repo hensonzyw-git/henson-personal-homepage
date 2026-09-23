@@ -31,7 +31,7 @@ const zhRoutes = [
   'blog/harness-governance-scar-tissue/index.html',
   'blog/astra-computer-use-everything-use/index.html',
   'blog/personal-agent-as-my-os/index.html', 'ai/index.html',
-  'ai/show-radar/index.html', 'contact/index.html',
+  'ai/show-radar/index.html', 'ai/personal-agent/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
 for (const r of [...zhRoutes, ...enRoutes]) ok(`AC-1 route exists: ${r}`, fileExists(r), 'missing in dist');
@@ -140,6 +140,7 @@ const pairs = [
   ['blog/astra-computer-use-everything-use', 'en/blog/astra-computer-use-everything-use'],
   ['blog/personal-agent-as-my-os', 'en/blog/personal-agent-as-my-os'],
   ['ai/show-radar', 'en/ai/show-radar'],
+  ['ai/personal-agent', 'en/ai/personal-agent'],
 ];
 for (const [zh, en] of pairs)
   ok(`GATE1 zh+en both exist: ${zh}`, fileExists(`${zh}/index.html`) && fileExists(`${en}/index.html`), 'one side missing');

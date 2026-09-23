@@ -1,5 +1,12 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Personal Agent project release candidate
+
+- Added Chinese and English AI project entries, a cover using the existing palette, MIT repository links, current capabilities, and Memory-first next steps. Existing articles remain linked reading rather than duplicated content.
+- Fast-forwarded the local checkout to the latest remote baseline before final verification, preserving the two newer published articles.
+- Production build and 95/95 acceptance checks passed; Chinese and English index/detail pages passed 390px and 1280px preview checks.
+- Not deployed or pushed. Awaiting specific release authorization under D12; generated KB mirror deferred until publication.
+
 ## 2026-09-08 — Deployed: Computer Use to Everything Use
 
 - Henson approved the final article and explicitly requested commit, push, merge, ECS deployment and KB persistence. Article commit `80b4485` merged via `bb0ad52` and pushed to main, including the previously deployed September 2 commits.

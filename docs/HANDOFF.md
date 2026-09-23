@@ -9,6 +9,10 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
+## Pending Release — 2026-09-23
+
+Personal Agent now has paired AI entries, a shared cover and public repository links. Build and 95 AC checks passed; zh/en index/detail previews passed at 390px and 1280px. Await explicit release authorization under D12 before deploying or pushing. After authorization, deploy and verify `/ai/`, `/en/ai/`, `/ai/personal-agent/`, `/en/ai/personal-agent/`, then regenerate the KB mirror with `npm run sync:kb`. The mirror is intentionally not refreshed for this unshipped candidate.
+
 ## Latest Release — 2026-09-08
 
 `astra-computer-use-everything-use` is deployed in zh/en after Henson's explicit authorization. Article commit `80b4485`, merge `bb0ad52`, both pushed. The final text removes DAL and the ten-year introduction; shared table layout was fixed (D13). Build: 41 pages; AC: 92/92. Live article HTML, RSS and llms.txt match the build byte-for-byte. KB sync, source-page publication link, index and log are recorded in KB commit `d782503`. The pre-existing uncommitted KB query-log entry was preserved outside that commit. No release work remains; future changes follow D12.
