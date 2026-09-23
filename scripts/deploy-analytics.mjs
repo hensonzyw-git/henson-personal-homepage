@@ -38,15 +38,23 @@ try {
   run('rsync', ['-az', '-e', transport, 'ops/analytics/', `${host}:${stage}/ops/`]);
   run('rsync', ['-az', '-e', transport, '.analytics-build/', `${host}:${stage}/`]);
   run('ssh', [...ssh, `sudo python3 ${quote(stage + '/ops/install.py')} ${quote(stage)}`], { input:JSON.stringify(credentials)+'\n', stdio:['pipe','inherit','inherit'] });
+  run('ssh', [...ssh, [
+    'if ! sudo test -s /var/lib/homepage-analytics/dashboard/history.json; then',
+    'sudo python3 /opt/homepage-analytics/backfill.py --logs /var/log/nginx --pages /opt/homepage-analytics/pages.json --output /var/lib/homepage-analytics/dashboard/history.json',
+    '&& sudo chown root:www-data /var/lib/homepage-analytics/dashboard/history.json',
+    '&& sudo chmod 640 /var/lib/homepage-analytics/dashboard/history.json;',
+    'fi',
+  ].join(' ')]);
   // Public deployment is a separate, visible step after the collector is ready.
   run('npm', ['run', 'deploy:ecs']);
   const base = 'https://zhuyawei.com/analytics/';
-  for (const asset of ['', 'data.json', 'dashboard.js', 'dashboard.css', 'site.css']) {
+  for (const asset of ['', 'data.json', 'history.json', 'dashboard.js', 'dashboard.css', 'site.css']) {
     const response = await fetch(base + asset, { redirect:'manual' });
     if (response.status !== 401) throw new Error(`Unauthenticated ${asset || 'dashboard'} returned ${response.status}, expected 401`);
   }
   // No plaintext password is stored, so login is verified by the owner in-browser.
   run('ssh', [...ssh, "sudo -u homepage-analytics python3 -c 'import json,time; from datetime import datetime; d=json.load(open(\"/var/lib/homepage-analytics/dashboard/data.json\")); assert time.time()-datetime.fromisoformat(d[\"generated_at\"]).timestamp()<180; print(\"Private aggregation is fresh.\")'"]);
+  run('ssh', [...ssh, "sudo -u www-data python3 -c 'import json; d=json.load(open(\"/var/lib/homepage-analytics/dashboard/history.json\")); assert d[\"source\"]==\"nginx_access_log\" and d[\"coverage\"][\"files\"]>0; print(\"Private historical import is available.\")'"]);
   console.log(`Verified unauthenticated access is blocked: ${base}\nSign in yourself using the credentials you configured; no secret is printed.`);
 } finally {
   run('ssh', [...ssh, `rm -rf -- ${quote(stage)}`]);

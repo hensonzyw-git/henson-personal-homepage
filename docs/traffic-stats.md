@@ -1,10 +1,10 @@
 # Traffic Stats
 
-The site uses server-side Nginx access logs for basic traffic statistics. This keeps the public static site free of analytics scripts, tracker pixels, third-party CDNs, and client-side event collection.
+This legacy CLI reads raw Nginx access logs for traffic inspection. Since D14, the public site also has first-party browser events. The private dashboard keeps the two sources separate; see [analytics.md](analytics.md).
 
 ## What It Measures
 
-- Page views: successful page-like `GET` / `HEAD` requests for known site route patterns after static assets and random probe paths are filtered out.
+- Page-like requests: known route patterns after static assets and random probe paths are filtered. The CLI headline includes status codes other than 200; use the status breakdown and 200-only content sections when discussing readership.
 - Unique visitors: an approximate count based on unique client IPs in the selected window.
 - Top pages: most requested page paths.
 - Referrer domains: external domains that sent traffic.
@@ -50,4 +50,4 @@ The same `ECS_SSH_USER`, `ECS_SSH_HOST`, and `ECS_SSH_KEY` environment variables
 
 ## Boundary
 
-Do not add frontend analytics scripts for basic traffic counting. If future work needs product-level behavior events, make that an explicit product decision first and document the privacy, hosting, and mainland-China availability tradeoffs.
+D14 authorized first-party frontend behavior events. Historical backfill in the private dashboard uses only HTTP 200 GETs to currently published routes, filters known bots and remains a distinct metric from browser events. Do not add the two sources together.

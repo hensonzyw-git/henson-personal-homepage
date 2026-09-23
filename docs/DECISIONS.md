@@ -63,3 +63,7 @@ D14 credential refinement: Henson explicitly requested manual configuration with
 Henson subsequently set the minimum password length to 8 characters. Hidden input, double entry and hash-only storage remain unchanged.
 
 Production note: the ECS `sites-enabled/zhuyawei.com` is a copied file, not a symlink. Analytics installation updates and backs up both enabled and available configurations.
+
+## D15 — Historical Server Requests Stay Separate From Browser Events
+
+The private dashboard includes a one-time aggregate of pre-tracker Nginx access logs. The cutoff is 2026-09-23 18:47 Asia/Shanghai, before the first frontend tracker release; later access-log requests are not backfilled, preventing overlap. The importer accepts only GET/200 requests to currently published routes, filters known bots, assets/probes and non-public IPs, and strips URL parameters and referrer paths. Historical UV is an IP-based estimate; browser UV uses IP + User-Agent. Raw identifiers never enter dashboard JSON. The historical series is shown in its own section and is never summed with frontend events. The static snapshot remains available after raw logs rotate; its coverage is explicitly bounded by logs actually retained.

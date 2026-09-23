@@ -12,7 +12,7 @@
     "sync:kb": "node scripts/sync-kb.mjs",
     "astro": "astro",
     "analytics:prepare": "node scripts/prepare-analytics.mjs",
-    "analytics:test": "python3 -m unittest discover -s test -p analytics_test.py && node --test test/analytics-tracker.test.mjs",
+    "analytics:test": "python3 -m unittest discover -s test -p 'analytics*test.py' && node --test test/analytics-tracker.test.mjs",
     "analytics:deploy": "node scripts/deploy-analytics.mjs",
     "analytics:preview": "python3 scripts/preview-analytics.py",
     "analytics:configure": "python3 scripts/configure-analytics.py"

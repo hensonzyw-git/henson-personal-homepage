@@ -60,6 +60,7 @@ for site in sites:
     shutil.copy2(site, backup / (site.parent.name + '-zhuyawei.com'))
 files = {
     stage / 'ops/aggregate.py': Path('/opt/homepage-analytics/aggregate.py'),
+    stage / 'ops/backfill.py': Path('/opt/homepage-analytics/backfill.py'),
     stage / 'pages.json': Path('/opt/homepage-analytics/pages.json'),
     stage / 'ops/nginx-http.conf': Path('/etc/nginx/conf.d/homepage-analytics.conf'),
     stage / 'ops/nginx-server.conf': Path('/etc/nginx/snippets/homepage-analytics.conf'),

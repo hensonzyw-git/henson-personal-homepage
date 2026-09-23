@@ -39,11 +39,29 @@
       <section class="panel"><h2>如何访问</h2><div id="devices"></div><div id="languages"></div></section>
     </div>
     <section class="panel"><div class="section-head"><h2>行为与连接</h2><span>同次浏览的同类、同目标动作只计一次</span></div><div id="events" class="table-scroll"></div></section>
+    <section class="panel historical" aria-labelledby="history-title">
+      <div class="section-head"><h2 id="history-title">历史服务端访问</h2><span>数据来源：Nginx 日志 · 与上方浏览器埋点分开展示</span></div>
+      <p id="history-status" role="status">正在读取历史汇总…</p>
+      <div id="history-report" hidden>
+        <div class="metrics" aria-label="历史统计">
+          <div class="metric"><span>有效页面请求</span><strong id="history-pv">—</strong><small>GET、200、已发布页面、过滤已知机器人</small></div>
+          <div class="metric"><span>访客估算</span><strong id="history-uv">—</strong><small>整个历史区间按 IP 去重</small></div>
+          <div class="metric"><span>文章详情请求</span><strong id="history-articles">—</strong><small>中英文文章详情页</small></div>
+          <div class="metric"><span>AI 项目详情请求</span><strong id="history-ai">—</strong><small>中英文项目详情页</small></div>
+        </div>
+        <div class="section-head"><h2>历史趋势</h2><span id="history-range"></span></div>
+        <div id="history-chart"></div>
+        <details><summary>查看历史每日数据</summary><div id="history-daily" class="table-scroll"></div></details>
+        <h2 class="history-subtitle">历史热门页面</h2><div id="history-pages" class="table-scroll"></div>
+        <h2 class="history-subtitle">历史来源</h2><div id="history-sources"></div>
+      </div>
+      <p class="history-note">只回填前端埋点上线前的有效服务端请求，截止日是不完整的一天。HTTP 200 表示页面被成功请求，不代表文章被阅读；IP 访客数是估算值。与上方前端数据口径不同，两组数字不相加。</p>
+    </section>
     <aside class="notes">
       <h2>读数说明</h2>
       <p>读到一半：文章滚动达到 50%，且页面前台可见至少 30 秒。读到末尾：达到 90%，且前台可见至少 60 秒。这些是阅读信号，不等于确认读完或理解。</p>
       <p>访客按 IP + 浏览器特征估算：共用网络可能少算，切换网络可能多算。没有访客 Cookie，也没有跨站身份。来源被浏览器隐藏时归入“直接 / 未知”。广告拦截、隐私设置或关闭 JavaScript 会造成少计。</p>
-      <p>这里仅展示埋点启用后的数据；历史 Nginx 日志另行查询，不混入行为统计。时区为上海，数据约每分钟汇总；页面会自动刷新。已过滤常见机器人，但不能保证所有上报都来自真人。</p>
+      <p>上方展示埋点启用后的数据，下方展示清洗后的历史 Nginx 请求；两种口径分别统计。时区为上海，数据约每分钟汇总；页面会自动刷新。已过滤常见机器人，但不能保证所有上报都来自真人。</p>
       <p>排除访问设置仅对本浏览器、此域名生效。看板本身不产生埋点。登录使用浏览器账号密码弹窗；建议使用自己的浏览器配置文件，关闭浏览器以结束凭据缓存。</p>
     </aside>
   </div>

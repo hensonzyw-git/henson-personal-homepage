@@ -32,10 +32,10 @@ td a:hover { color: var(--clay); }
 td small { display: block; color: var(--muted); font-size: 11px; margin-top: 4px; overflow-wrap: anywhere; }
 td:not(:first-child) { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .empty { color: var(--muted); padding: 24px 0; font-size: 14px; }
-#chart svg { width: 100%; height: auto; display: block; }
-#chart rect { fill: var(--clay); }
-#chart text { fill: var(--muted); font-family: var(--sans); font-size: 12px; }
-#chart line { stroke: var(--line-12); }
+#chart svg, #history-chart svg { width: 100%; height: auto; display: block; }
+#chart rect, #history-chart rect { fill: var(--clay); }
+#chart text, #history-chart text { fill: var(--muted); font-family: var(--sans); font-size: 12px; }
+#chart line, #history-chart line { stroke: var(--line-12); }
 summary { color: var(--muted); cursor: pointer; font-size: 12px; margin-top: 12px; }
 .rank { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line-08); font-size: 14px; overflow-wrap: anywhere; }
 .rank strong { color: var(--clay); }
@@ -53,3 +53,10 @@ summary { color: var(--muted); cursor: pointer; font-size: 12px; margin-top: 12p
   .periods button { flex: 1; padding: 10px 12px; }
   td:first-child { min-width: 180px; }
 }
+
+.historical { margin-top: 24px; }
+.historical .metrics { margin: 24px 0; }
+.historical .metric { background: var(--paper); }
+.history-subtitle { margin-top: 36px; }
+.history-note { color: var(--muted); font-size: 13px; line-height: 1.75; margin: 24px 0 0; }
+#history-status { color: var(--muted); font-size: 13px; }
