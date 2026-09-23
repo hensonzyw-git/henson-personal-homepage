@@ -214,6 +214,14 @@ ok('AC-9 AI detail pages show real media, not placeholders',
    /<img[^>]+src="\/ai\//.test(aiDetails) && !/示例|待替换/.test(aiDetails),
    'expected real /ai/ images and no 示例/待替换 placeholder labels');
 
+// Private dashboard artifacts must never be copied into the public static build.
+ok('Analytics tracker is first-party on both languages',
+  (read('index.html') || '').includes('src="/site-events.js"')
+  && (read('en/index.html') || '').includes('src="/site-events.js"')
+  && fileExists('site-events.js'));
+ok('Analytics excludes noindex 404 pages', !(read('404.html') || '').includes('src="/site-events.js"'));
+ok('Analytics private report is outside dist', !fileExists('analytics/index.html') && !fileExists('analytics/data.json'));
+
 console.log(`\n=== ${pass} passed, ${fail} failed ===`);
 if (fails.length) { console.log('FAILURES:'); fails.forEach(f => console.log(' - ' + f)); }
 process.exit(fail ? 1 : 0);

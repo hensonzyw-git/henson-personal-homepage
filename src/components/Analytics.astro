@@ -1,0 +1,5 @@
+---
+interface Props { enabled: boolean; }
+const { enabled } = Astro.props;
+---
+{enabled && <script is:inline defer src="/site-events.js"></script>}

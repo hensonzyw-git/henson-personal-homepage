@@ -51,3 +51,15 @@ For a new or materially revised public article, local build, acceptance checks, 
 ## D13 — Editorial Tables Keep Native Layout
 
 `Prose.astro` wraps rendered Markdown tables in a build-time scroll container. Borders and overflow belong to that wrapper; the table retains native table layout and fills the container. Do not set `display: block` on the table itself: below 860px that allowed its frame to fill the article while internal columns occupied only their intrinsic width. This approach needs no client JavaScript or new Markdown dependencies.
+
+## D14 — First-Party Events And An Authenticated Static Dashboard
+
+On 2026-09-23 Henson requested instrumentation and a publicly reachable private dashboard, and selected an independent username/password. This supersedes D7's no-frontend-event boundary. The public Astro site remains static: a same-origin vanilla JS tracker records pageviews, reading-depth signals and contact/repository/link intent. Nginx writes a dedicated restricted event log; a minute-based Python standard-library batch process generates aggregates. No application backend, database, third-party tracker/CDN or additional always-on service is introduced. The existing ECS was verified to have about 540 MB available and also hosts Personal Agent, so the batch has explicit resource limits.
+
+The dashboard is a separate private operational artifact at `/analytics/`, outside `dist/`, public navigation and sitemap. Nginx Basic Auth protects the whole prefix including JSON and assets; noindex is supplementary. No new bilingual public route is created. Credentials stay outside Git. UV is explicitly IP + browser based estimation; reading thresholds mean visible time plus scroll depth, not verified comprehension. Historical server-log stats stay separate. The repository's explicit production release gate was satisfied by Henson's 2026-09-23 deployment authorization; this implementation is live.
+
+D14 credential refinement: Henson explicitly requested manual configuration without displayed/printed credentials. `npm run analytics:configure` hides both username and password entry and saves only a salted SHA-512 crypt hash in a 0600 local file. Deployment requires this preconfigured file and synchronizes its account/hash over SSH stdin, including intentional changes on subsequent authorized releases. Plaintext is never persisted or passed in arguments. Actual login is verified by Henson, since the deployment process has no plaintext password.
+
+Henson subsequently set the minimum password length to 8 characters. Hidden input, double entry and hash-only storage remain unchanged.
+
+Production note: the ECS `sites-enabled/zhuyawei.com` is a copied file, not a symlink. Analytics installation updates and backs up both enabled and available configurations.

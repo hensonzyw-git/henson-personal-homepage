@@ -250,3 +250,21 @@
 - Astro static site with bilingual Chinese/default and English routes.
 - Design references live under `docs/design/`.
 - Public site currently avoids exposing private career project material.
+
+## 2026-09-23 — Private analytics prepared, release pending
+
+- Added first-party pageview, 30s/50% and 60s/90% article signals, contact/repository/outbound clicks and language-switch tracking; no visitor cookies, third-party SDK or raw URL parameters.
+- Built a private responsive dashboard with 1/7/30/90-day views and explicit measurement caveats. Kept operational assets outside public dist.
+- Added Nginx ingestion/auth/rate limits, resource-limited minute aggregation, route-manifest synchronization, log rotation, deployment and rollback documentation.
+- Passed build, 101 AC checks, 9 analytics regression tests, actual Chromium instrumentation and bilingual/mobile previews. Isolated ECS Nginx verified authentication for all assets/data, validation, actual 429 limiting and aggregate output; temporary test infrastructure removed.
+- No production installation, credentials, commit or push in this step. Explicit release authorization remains pending.
+
+### Analytics manual credential entry
+
+At Henson's request, replaced auto-generated plaintext credentials with manual hidden terminal prompts for account/password/confirmation. Only a salted hash is stored and synced; no sensitive values are printed. Added real PTY tests verifying echo is disabled, plaintext absent from saved config/output, mismatches preserve old config and noninteractive input is refused. All 12 analytics tests pass. No real credentials configured and no deployment performed.
+
+- Credential policy refinement: reduced the minimum password length to 8 characters at Henson's request; the real-terminal regression now verifies successful hidden configuration with an 8-character test password.
+
+## 2026-09-23 — Private analytics deployed
+
+Henson explicitly authorized deployment. The first run installed analytics files but the public `/analytics/` stayed 404 because `sites-enabled/zhuyawei.com` was a copied file. Updated the installer to modify and back up both enabled and available configurations, then redeployed successfully. Built 45 pages; 101 site AC and 12 analytics tests passed. Public zh/en home pages and tracker match local hashes; unauthenticated dashboard, data, CSS and JS all return 401; ingestion smoke request returned 200 with a filtered monitoring User-Agent; timer is enabled/active, aggregate fresh, Nginx and logrotate checks pass. Henson subsequently confirmed actual browser login using his own password. Source changes remain uncommitted and unpushed.

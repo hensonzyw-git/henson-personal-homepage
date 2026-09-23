@@ -32,6 +32,7 @@ an open-platform product manager. Hook: "思考 + AI 实践". Built with **Astro
 - **No backend, no client framework, no DB.** Plain `.astro` components + scoped `<style>` +
   a little vanilla JS for progressive enhancement (clipboard copy, TOC scroll-spy, external-link
   targeting). Do not add React/Vue/Tailwind/a CSS framework or a UI library.
+- First-party analytics is allowed under D14: same-origin vanilla JS, Nginx event logs, and an offline batch-generated private dashboard. Keep dashboard/data outside `dist/` and protect the entire `/analytics/` prefix with authentication. See `docs/analytics.md`; no application backend, database, third-party tracker or public navigation entry.
 - **No drop shadows** (one deliberate exception: the phone-mockup image on AI cards). Depth comes
   from paper/surface contrast + hairlines (Anthropic-style restraint).
 - Fonts are **self-hosted** via `@fontsource/space-mono`. **Never** add a Google Fonts `<link>` /
@@ -68,8 +69,9 @@ For every new or materially revised public article, the required order is:
 
 Do not infer deployment authorization from requests to check, prepare, translate, or publish content. “Publish” in an editorial context means prepare and preview unless Henson separately authorizes the production deployment. Never run `npm run deploy:ecs` before the explicit authorization.
 
-There is no linter/formatter/unit-test runner configured. The **only** automated gate is
-`test/ac-checks.mjs`, which asserts against built HTML in `dist/`. After any change that could
+There is no linter/formatter or third-party test runner configured. The public-site acceptance gate is
+`test/ac-checks.mjs`, which asserts against built HTML in `dist/`. Analytics changes additionally run
+`npm run analytics:test` (Python/Node standard-library regression tests). After any change that could
 affect routes, content, the home Latest feed, bilingual pairing, contact values, or AI media,
 run `npm run build && node test/ac-checks.mjs` and keep it green.
 
@@ -227,4 +229,4 @@ Component-local conventions seen repeatedly — match them:
 4. `node test/ac-checks.mjs` is green (update the AC list when you intentionally add/rename a
    route or content entry).
 5. Responsive check at ≤860px (grids collapse, nav wraps, no horizontal overflow).
-6. No external network dependency added (fonts, CDNs, trackers).
+6. No external network dependency added (fonts, CDNs, third-party trackers). First-party analytics follows D14.

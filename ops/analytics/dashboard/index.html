@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>站点观察 · Henson</title>
+  <link rel="stylesheet" href="/analytics/site.css">
+  <link rel="stylesheet" href="/analytics/dashboard.css">
+  <script defer src="/analytics/dashboard.js"></script>
+</head>
+<body>
+<main class="container">
+  <header>
+    <div><p class="eyebrow">HENSON / PRIVATE ANALYTICS</p><h1>站点观察<span>从访问，到阅读，再到连接。</span></h1></div>
+    <a class="home-link" href="/">访问个人站 ↗</a>
+  </header>
+  <section class="toolbar" aria-label="统计设置">
+    <div class="periods" role="group" aria-label="时间范围">
+      <button data-days="1" aria-pressed="false">今天</button>
+      <button data-days="7" aria-pressed="true">7 天</button>
+      <button data-days="30" aria-pressed="false">30 天</button>
+      <button data-days="90" aria-pressed="false">90 天</button>
+    </div>
+    <button id="exclude" class="exclude">排除本浏览器的访问</button>
+  </section>
+  <p id="status" role="status">正在读取统计…</p>
+  <div id="report" hidden>
+    <section class="metrics" aria-label="核心指标">
+      <div class="metric"><span>页面浏览</span><strong id="pv">—</strong><small>成功收到的浏览器上报</small></div>
+      <div class="metric"><span>访客估算</span><strong id="uv">—</strong><small>所选区间按 IP + 浏览器去重</small></div>
+      <div class="metric"><span>文章浏览</span><strong id="articles">—</strong><small>中英文文章详情页</small></div>
+      <div class="metric"><span>联系点击</span><strong id="contact">—</strong><small>邮箱 / LinkedIn / GitHub 主页</small></div>
+    </section>
+    <section class="panel trend"><div class="section-head"><h2>访问趋势</h2><span id="range"></span></div><div id="chart"></div><details><summary>查看每日数据</summary><div id="daily" class="table-scroll"></div></details></section>
+    <section class="panel"><div class="section-head"><h2>内容表现</h2><span>按浏览量排序 · 中英文分别统计</span></div><div id="pages" class="table-scroll"></div></section>
+    <div class="grid-2">
+      <section class="panel"><h2>从哪里来</h2><div id="sources"></div></section>
+      <section class="panel"><h2>如何访问</h2><div id="devices"></div><div id="languages"></div></section>
+    </div>
+    <section class="panel"><div class="section-head"><h2>行为与连接</h2><span>同次浏览的同类、同目标动作只计一次</span></div><div id="events" class="table-scroll"></div></section>
+    <aside class="notes">
+      <h2>读数说明</h2>
+      <p>读到一半：文章滚动达到 50%，且页面前台可见至少 30 秒。读到末尾：达到 90%，且前台可见至少 60 秒。这些是阅读信号，不等于确认读完或理解。</p>
+      <p>访客按 IP + 浏览器特征估算：共用网络可能少算，切换网络可能多算。没有访客 Cookie，也没有跨站身份。来源被浏览器隐藏时归入“直接 / 未知”。广告拦截、隐私设置或关闭 JavaScript 会造成少计。</p>
+      <p>这里仅展示埋点启用后的数据；历史 Nginx 日志另行查询，不混入行为统计。时区为上海，数据约每分钟汇总；页面会自动刷新。已过滤常见机器人，但不能保证所有上报都来自真人。</p>
+      <p>排除访问设置仅对本浏览器、此域名生效。看板本身不产生埋点。登录使用浏览器账号密码弹窗；建议使用自己的浏览器配置文件，关闭浏览器以结束凭据缓存。</p>
+    </aside>
+  </div>
+  <noscript>请启用 JavaScript 以查看看板。此页及其数据均需要登录。</noscript>
+</main>
+</body>
+</html>

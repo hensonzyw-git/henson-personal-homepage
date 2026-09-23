@@ -51,6 +51,17 @@ function main() {
   run('rsync', rsyncArgs);
 
   if (!dryRun) {
+    // Keep the analytics route allowlist aligned with each newly shipped article.
+    const analyticsInstalled = spawnSync('ssh', [...sshBase.slice(1),
+      'test -f /opt/homepage-analytics/pages.json'], { stdio: 'ignore' });
+    if (analyticsInstalled.status === 0) {
+      run('node', ['scripts/prepare-analytics.mjs']);
+      run('rsync', ['-az', '--rsync-path=sudo rsync', '-e', rsyncSsh,
+        '.analytics-build/pages.json', `${sshTarget}:/opt/homepage-analytics/pages.json`]);
+      run(...sshCommand('sudo chmod 644 /opt/homepage-analytics/pages.json && sudo systemctl start homepage-analytics.service'));
+    } else if (analyticsInstalled.status !== 1) {
+      fail('Could not check the remote analytics manifest.');
+    }
     run(...sshCommand([
       `sudo chown -R root:www-data ${shellQuote(config.remoteDir)}`,
       `sudo find ${shellQuote(config.remoteDir)} -type d -exec chmod 755 {} +`,

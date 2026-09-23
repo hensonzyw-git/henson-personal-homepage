@@ -15,3 +15,7 @@ node_modules/
 
 # local tooling
 .claude/
+
+# private analytics build / runtime
+.analytics-build/
+__pycache__/

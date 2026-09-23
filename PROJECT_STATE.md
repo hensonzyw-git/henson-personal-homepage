@@ -8,6 +8,10 @@ This repo is Henson's personal homepage built with Astro. It is separate from th
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
 
+## Live Release — Private Analytics (2026-09-23)
+
+Henson explicitly authorized deployment after manually configuring an independent account and password. First-party frontend events and the private dashboard are live at `https://zhuyawei.com/analytics/`; the full prefix, including JSON and assets, requires Basic Auth. The local credential file stores only a salted hash; the agent did not read or print it. Nginx writes accepted events to a restricted log and a minute timer produces aggregate JSON; no app backend, database or third-party tracker was added. Build, 101 AC checks, 12 analytics tests, bilingual/mobile Chromium previews and isolated real-Nginx auth/rate-limit tests passed. Production pages and tracker match local build hashes, the ingestion smoke request returned 200, unauthed dashboard/assets/data returned 401, the timer is enabled/active, aggregation fresh, Nginx valid and logrotate debug green. The smoke request used a monitoring User-Agent excluded by the aggregator. Henson confirmed successful browser login with the manually set account and password. The installer was corrected to update both the enabled Nginx configuration copy and the available file after the first run returned 404. See `docs/analytics.md` and D14. Source changes are local and uncommitted; no Git push was performed.
+
 ## Latest Article — 2026-09-23
 
 `personal-agent-open-source` is published in Chinese and English with Henson's explicit authorization. Content commit `4e8c290` is pushed. The article preserves the author’s motivations, Muse integration experience, hands-on learning, and Memory-first priority, using “自动化开发流程” instead of internal abbreviations. Build and 98 checks passed; both languages checked at 390px and 1280px. ECS deployment and Nginx validation/reload succeeded. Live article pages, RSS feeds and llms.txt match the build. No pending release authorization for this version.
@@ -50,7 +54,7 @@ Added bilingual `personal-agent` AI project cards and detail pages, linking the 
 - Keep career project material private by default; README notes the public site currently does not expose a career project page.
 - Avoid adding placeholder-heavy content to public navigation.
 - Preserve bilingual content pairing when adding pages or content collections.
-- Basic traffic stats use ECS/Nginx access logs via `npm run stats:traffic`; the public frontend remains free of analytics trackers.
+- Historical traffic stats still use ECS/Nginx access logs via `npm run stats:traffic`. D14 first-party behavior tracking is live; historical and new-event numbers remain separate.
 
 ## Validation State
 

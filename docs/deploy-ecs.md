@@ -54,3 +54,7 @@ See `docs/traffic-stats.md` for options and log-path overrides.
 `www.zhuyawei.com` is handled on the server by Nginx and redirects to the apex domain. The Let's Encrypt certificate for `zhuyawei.com` includes both `zhuyawei.com` and `www.zhuyawei.com`.
 
 The `zhuyawei.com` Nginx server block must include `charset utf-8;` so generated plain-text files such as `/llms.txt` render Chinese correctly in browsers. Without the charset header, browsers may mis-detect the text encoding even though the file bytes are valid UTF-8.
+
+## Private analytics (D14)
+
+Private analytics was deployed with Henson’s explicit approval on 2026-09-23. See [analytics.md](analytics.md) for installation, credentials, validation and rollback. Once installed, subsequent site deployments synchronize its route allowlist. Historical `stats:traffic` remains available and is separate from frontend-event data.

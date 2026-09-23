@@ -3,6 +3,7 @@ import '../styles/fonts.ts'; // self-hosted webfonts (no Google CDN; see fonts.t
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
 import { htmlLang, localePath, type Lang } from '../lib/i18n';
 
 interface Props {
@@ -81,5 +82,6 @@ const ogImage = `${siteUrl}/wechat-share-v2.png`;
     </main>
 
     <Footer lang={lang} />
+    <Analytics enabled={!noindex} />
   </body>
 </html>

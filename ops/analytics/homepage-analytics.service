@@ -1,0 +1,19 @@
+[Unit]
+Description=Aggregate private homepage analytics
+After=nginx.service
+
+[Service]
+Type=oneshot
+User=homepage-analytics
+Group=www-data
+SupplementaryGroups=homepage-analytics
+ExecStart=/usr/bin/python3 /opt/homepage-analytics/aggregate.py --logs /var/log/homepage-analytics --pages /opt/homepage-analytics/pages.json --output /var/lib/homepage-analytics/dashboard/data.json
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/homepage-analytics/dashboard
+MemoryMax=160M
+CPUQuota=25%
+TimeoutStartSec=45
+UMask=0027
