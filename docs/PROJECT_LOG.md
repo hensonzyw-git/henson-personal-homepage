@@ -1,5 +1,10 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Public-facing workflow terminology
+
+- Per Henson’s instruction, replaced DAL and Graph in the Chinese announcement with 自动化开发流程 and aligned the editorial notes. Read the external review as suggestions; other proposed rewrites remain unapplied.
+- Documentation-only edit; `git diff --check` and absence of internal workflow names in the article verified. Not published.
+
 ## 2026-09-23 — Actual Muse integrations added
 
 - Replaced the future-only comparison paragraph with Henson’s first-hand report: bills, calendar and knowledge base already connected on Muse, much faster than coding his own integrations.
