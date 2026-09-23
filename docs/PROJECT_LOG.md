@@ -1,5 +1,10 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Local article preview
+
+- Added a Chinese draft content entry matching the editorial body for requested local preview. Production build excludes the draft; English pairing remains required before publication.
+- Build and 95 checks passed; local article returned 200 and showed no horizontal overflow at 390px and 1280px. Dev preview: port 4322. No push or deployment.
+
 ## 2026-09-23 — Public-facing workflow terminology
 
 - Per Henson’s instruction, replaced DAL and Graph in the Chinese announcement with 自动化开发流程 and aligned the editorial notes. Read the external review as suggestions; other proposed rewrites remain unapplied.
