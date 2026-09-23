@@ -94,6 +94,7 @@
       const history = await response.json();
       if (history.source !== 'nginx_access_log') throw new Error('Unexpected history source');
       historyDaily = history.daily;
+      $('history-shortcut-count').textContent = `${format(history.pv)} 次有效页面请求 · 查看历史数据`;
       $('history-status').textContent = `保留日志 ${history.coverage.files} 份 · 清洗后的时间范围`;
       $('history-report').hidden = false;
       $('history-range').textContent = history.coverage.log_first
@@ -111,6 +112,7 @@
       }));
       rank('history-sources', history.sources);
     } catch {
+      $('history-shortcut-count').textContent = '历史数据暂时无法读取';
       $('history-status').textContent = '历史汇总暂时无法读取；前端埋点数据仍可查看。';
     }
   }

@@ -276,3 +276,7 @@ A read-only ECS dry run confirmed a bounded pre-tracker log corpus (87 retained 
 ## 2026-09-23 — Historical dashboard data deployed
 
 Installed the one-time pre-tracker Nginx backfill into the existing private `/analytics/` dashboard. The private file covers 87 retained log days from 2026-06-29 to the 18:47 frontend-launch cutoff on 2026-09-23. It counts only GET/200 published-page requests after route, bot and IP cleaning and keeps historical totals separate from browser events. Build and 101 AC checks, 15 analytics tests and responsive browser preview passed. Production Nginx and timer are healthy; unauthenticated history JSON returns 401, and Nginx's file-reading identity can parse it. The first deployment command exited on an overly narrow verification identity after successful installation; fixed that check and confirmed the live file and cutoff.
+
+## 2026-09-23 — Historical data discoverability
+
+Henson could not see the new data in the top metrics. His authenticated Chrome tab showed the separate history section and its 22,372 requests below the frontend sections; the top metrics correctly showed only post-launch browser events. Added a prominent top link with the historical count and a jump to the existing history section, leaving the two data sources separate.
