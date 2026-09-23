@@ -9,9 +9,9 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
-## Writing In Progress — 2026-09-23
+## Latest Article Release — 2026-09-23
 
-The Chinese open-source announcement draft and editorial evidence notes are under `docs/editorial/personal-agent-open-source*`. Henson supplies the storyline. His confirmed motivations (hands-on learning, customization, contribution without expected return) and Memory-versus-DAL priority are now incorporated; the opening wording is approved. Preserve these distinctions. The draft now includes Henson’s report that bills, calendar and knowledge base are already connected on Muse, substantially faster to set up than his own integrations. Remaining tools and sustained comparison are future work; do not invent timings or imply feature/reliability parity. Chinese preview is now available through `src/content/blog/personal-agent-open-source.zh.md` with `draft: true`; local dev URL uses port 4322. Production build excludes it. Keep its body aligned with the editorial draft; add the English pair before publication. No deployment or push authorized for this draft.
+`personal-agent-open-source` is live in zh/en, authorized by Henson after Chinese preview. Content commit `4e8c290` is pushed. Build and 98 checks passed; both languages passed mobile/desktop previews. Live article HTML, both RSS feeds and llms.txt match the build. Canonical source is now the paired `src/content/blog` entries; editorial files are historical working material. KB mirror and publication record are synchronized. Future releases follow D12.
 
 ## Latest Release — 2026-09-23
 

@@ -8,9 +8,9 @@ This repo is Henson's personal homepage built with Astro. It is separate from th
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
 
-## Editorial Work In Progress — 2026-09-23
+## Latest Article — 2026-09-23
 
-Chinese first draft: `docs/editorial/personal-agent-open-source.zh.draft.md`, based on Henson's story outline and confirmed feeling that a direction he saw early was ultimately defined by a large-company product. Evidence and unresolved author decisions are in the companion editorial notes. Author follow-up confirms hands-on AI/Agent learning and customization as reasons to continue, contribution without expected community return, and Memory as a usability upgrade ahead of DAL development efficiency. These are incorporated into the draft. Henson reports already connecting bills, calendar and knowledge base on Muse much faster than his own coding/integration process. The draft includes this first-hand observation, with remaining tools and ongoing comparison still prospective; no measured speed ratio or functional parity is claimed. The editorial source now has a Chinese preview copy in `src/content/blog/personal-agent-open-source.zh.md` (`draft: true`), excluded from production. Local dev preview is on port 4322. Not published or translated; awaiting editorial review.
+`personal-agent-open-source` is published in Chinese and English with Henson's explicit authorization. Content commit `4e8c290` is pushed. The article preserves the author’s motivations, Muse integration experience, hands-on learning, and Memory-first priority, using “自动化开发流程” instead of internal abbreviations. Build and 98 checks passed; both languages checked at 390px and 1280px. ECS deployment and Nginx validation/reload succeeded. Live article pages, RSS feeds and llms.txt match the build. No pending release authorization for this version.
 
 ## Source Of Truth
 

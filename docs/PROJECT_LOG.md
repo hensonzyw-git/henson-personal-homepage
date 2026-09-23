@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Open-source article published
+
+- Henson approved the local Chinese preview and authorized deployment. Added the faithful English translation; both language entries are published. Content commit `4e8c290` pushed.
+- Build and 98 checks passed; zh/en previews passed at 390px and 1280px. Deployed the verified build, validated/reloaded Nginx, and verified live article pages, RSS feeds and llms.txt against build bytes.
+- Generated the KB mirror and recorded publication at the top of its log.
+
 ## 2026-09-23 — Local article preview
 
 - Added a Chinese draft content entry matching the editorial body for requested local preview. Production build excludes the draft; English pairing remains required before publication.
