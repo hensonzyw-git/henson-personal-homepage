@@ -1,5 +1,10 @@
 # Project Log — Personal Homepage
 
+## 2026-09-23 — Actual Muse integrations added
+
+- Replaced the future-only comparison paragraph with Henson’s first-hand report: bills, calendar and knowledge base already connected on Muse, much faster than coding his own integrations.
+- Preserved his decision to keep building for hands-on understanding and customization; no invented timings, speed ratios or equivalence claims. Editorial-only validation: `git diff --check`.
+
 ## 2026-09-23 — Parallel Muse practice added to draft
 
 - Added Henson’s plan to build his tools on Muse as well as his own Personal Agent and compare actual use. Kept it explicitly prospective, without claiming migration success or comparative results.
