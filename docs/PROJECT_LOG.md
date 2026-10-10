@@ -1,5 +1,22 @@
 # Project Log — Personal Homepage
 
+## 2026-10-10 — Meta Muse Release Authorized
+
+- Henson approved the final local preview and explicitly authorized commit, push, merge and formal deployment to the personal site.
+- Integrated the 13 newer origin/main commits before release to preserve the newer publications and private first-party analytics. Resolved only project-context overlaps, retaining both histories.
+- Post-integration validation: 47 static pages, 108/108 site checks, 15 analytics regression tests, and repeated zh/en desktop/mobile previews. The older Astra article remains in both blog indexes; newest-home-feed checks now cover Muse. Analytics tests use bundled OpenSSL 3 because macOS LibreSSL does not support the existing hash command.
+- Deployment and final verification remain pending at this checkpoint. Existing D12 authorization is satisfied; no new durable policy decision.
+
+## 2026-10-10 — Local Preview: Meta Muse Workflows and Cloud Deployment
+
+- Added bilingual `meta-muse-personal-workflow-cloud-deploy` from Henson's approved revision, preserving the Chinese body and providing an English draft translation, frontmatter and related reading. No shared design or component changes.
+- Follow-up: reframed the introduction from maintaining Personal Agent to future development progressing in the cloud, with phone-based requirements, progress and decisions; synchronized zh/en and the Downloads revision.
+- Follow-up: credited Henson’s existing automated development design as the basis of the Muse migration, including roles, review/repair loops and approval boundaries; synchronized zh/en and the Downloads revision.
+- Editorial follow-up: condensed the development example to two paragraphs, preserving review/repair and a permission interruption; synchronized zh/en and the Downloads revision.
+- Extended acceptance coverage for the bilingual routes, pairing, RSS, both home feeds, llms.txt and language switching.
+- Build: 43 pages. AC: 99 passed / 0 failed. Verified zh/en at 1280px and 390px, including long titles, 17 TOC targets, three code blocks and round-trip language switching; no page overflow or observed browser errors.
+- Local preview remains on port 4321. No push, ECS deployment or published-KB sync; no production change occurred during the initial preview. Existing publication gate D12 covers this candidate; no new durable decision was needed.
+
 ## 2026-09-23 — Open-source article published
 
 - Henson approved the local Chinese preview and authorized deployment. Added the faithful English translation; both language entries are published. Content commit `4e8c290` pushed.

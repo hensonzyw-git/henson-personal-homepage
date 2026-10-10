@@ -9,6 +9,18 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
+## Current Local Preview — 2026-10-10
+
+`meta-muse-personal-workflow-cloud-deploy` is ready for local review on `codex/meta-muse-workflow-blog`. The zh body preserves Henson's approved article; en is a paired draft translation. After upstream integration: 47 pages; AC: 108/108; analytics regressions: 15 passed. Desktop (1280px) and mobile (390px) previews passed in both languages, including title wrapping, code-block containment, TOC anchors and language switching. Preview is running at `http://127.0.0.1:4321/blog/meta-muse-personal-workflow-cloud-deploy`.
+
+The opening now emphasizes future development running in the cloud, with phone-based requirements, progress and decisions; both languages and the Downloads revision are synchronized.
+
+The development section now states that the Muse workflow draws heavily on Henson’s existing automated development design. This is reuse of the design, not a claim that every original runtime integration has migrated.
+
+The development example has been shortened to two paragraphs at Henson’s request; detailed query/test internals were removed, while the practical review loop and permission interruption remain.
+
+Henson explicitly authorized commit, push, merge and ECS deployment of this revision on 2026-10-10. Upstream September 23 content and private analytics have been incorporated. Release is in progress at this checkpoint; preserve the existing analytics manifest update during deployment. No new durable policy decision was introduced.
+
 ## Live Private Analytics — 2026-09-23
 
 Read `docs/analytics.md`. Henson manually configured hidden account/password input (8-character minimum) and explicitly authorized deployment. The account name/hash were passed over SSH stdin; never read or print the local credential file. `https://zhuyawei.com/analytics/` is live with Basic Auth over page, assets and JSON. First-party tracker is served from the main static site. Production verification: zh/en pages and tracker match local build hashes; unauthorized dashboard/assets/data return 401; collector smoke request returned 200; minute timer active with fresh aggregate; Nginx valid and logrotate debug passes. The smoke request used a filtered monitoring User-Agent, so it does not inflate the dashboard. The first installer pass modified sites-available only and yielded 404 because this host has a copied sites-enabled file; installer now updates/backups both and rerun succeeded. Henson confirmed real browser login with his own password; the agent never possessed it. The D14 source was pushed as b542b10. Future site deployments update the analytics route allowlist.
