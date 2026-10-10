@@ -13,7 +13,7 @@ Start here after `AGENTS.md`.
 
 Henson explicitly authorized unifying all reading estimates, committing, pushing and deploying. All 28 published blog translations now use a shared Markdown-aware build-time estimator, with 400 Han characters/minute + 200 other words/minute, rounded up (minimum one). Removed all manually maintained `readMins` fields. Each translation is counted independently. Muse now displays 18 minutes in Chinese and 21 in English. Article prose and publication/revision dates are unchanged; see D16.
 
-Local validation: 5 estimator tests, 136/136 site acceptance checks and a 47-page build passed. Chinese/English Muse previews at 1280px and 390px show the expected estimates with no overflow or page errors. Production deployment is authorized and pending verification.
+Local validation: 5 estimator tests, 136/136 site acceptance checks and a 47-page build passed. Chinese/English Muse previews at 1280px and 390px show the expected estimates with no overflow or page errors. Deployed and pushed as `f2eaa62`. All 28 live article pages return 200, display their independently computed estimate and match the local build SHA256. Four private analytics routes still return 401 without authentication; Nginx validation/reload passed. Backup: `/var/backups/zhuyawei-pre-reading-time-20261010-f2eaa62.tar.gz` (validated, 3,329,063 bytes).
 
 ## Latest Release — Meta Muse Workflows (2026-10-10)
 

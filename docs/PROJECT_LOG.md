@@ -4,7 +4,7 @@
 
 - Henson explicitly authorized implementation, commit, push and deployment. Replaced manually entered `readMins` with build-time Markdown prose counting; Chinese and English are calculated separately (D16), with mixed prose combining 400 Han characters/minute and 200 words/minute. Removed old fields from all 28 blog files and the content schema.
 - Added a directly declared Markdown parser, 5 targeted unit tests and source-to-built-output checks for all 28 published translations. Article bodies, routes and publication/revision dates remain unchanged.
-- Local build: 47 pages; AC: 136/136; unit tests: 5/5. Chinese/English Muse previews at 1280px/390px passed; new estimates are 18/21 minutes, with no overflow or page errors. Deployment authorized; production verification pending.
+- Local build: 47 pages; AC: 136/136; unit tests: 5/5. Chinese/English Muse previews at 1280px/390px passed; new estimates are 18/21 minutes, with no overflow or page errors. Committed and pushed to main as `f2eaa62`, then deployed from the already verified build. All 28 live article pages are HTTP 200, match the build SHA256 and show the correct per-language estimates; 4 private analytics routes remain unauthenticated 401. Nginx validation/reload passed; pre-deploy site/manifest backup `/var/backups/zhuyawei-pre-reading-time-20261010-f2eaa62.tar.gz` validated (3,329,063 bytes).
 
 ## 2026-10-10 — Deployed: Meta Muse Workflows and Cloud Development
 
