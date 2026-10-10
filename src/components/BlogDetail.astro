@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from 'astro:content';
 import { t, localePath, type Lang } from '../lib/i18n';
 import { getRelatedBlogEntries, monoDate } from '../lib/content';
+import { readingTime } from '../lib/reading-time.mjs';
 import Prose from './Prose.astro';
 import EnFallbackNote from './EnFallbackNote.astro';
 
@@ -14,6 +15,7 @@ const { lang, entry, fellBack } = Astro.props;
 const ui = t(lang);
 const { Content, headings } = await render(entry);
 const d = entry.data;
+const { minutes } = readingTime(entry.body ?? '', d.lang);
 const related = await getRelatedBlogEntries(entry, lang);
 
 // Table of contents: top-level (h2) + one nested level (h3). Astro auto-assigns
@@ -25,7 +27,7 @@ const relatedLabel = lang === 'en' ? 'Related reading' : '相关阅读';
 <div class:list={['article-shell', { 'has-toc': toc.length > 1 }]}>
   <article class="article">
     <a class="mono back-link" href={localePath(lang, '/blog')}>{ui.backToBlog}</a>
-    <div class="mono article-meta">{monoDate(d.date)} · {ui.readMins(d.readMins)}</div>
+    <div class="mono article-meta">{monoDate(d.date)} · {ui.readMins(minutes)}</div>
     <h1 class="display article-h1">{d.title}</h1>
 
     {fellBack && <EnFallbackNote lang={lang} />}

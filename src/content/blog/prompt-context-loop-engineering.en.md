@@ -4,7 +4,6 @@ lang: en
 title: "From Prompt to Loop: Why Engineering Closes More Easily and Product Work Brings Humans Back"
 date: 2026-07-11
 category: AI Collaboration
-readMins: 15
 summary: "A prompt defines what an agent should do now. Context defines what it knows. A harness constrains how it may act. A loop defines what happens after the action. Engineering has hard verifiers such as tests and builds; product work often depends on feedback outside the system. This essay uses a false-green multi-agent workflow and an iCloud-to-Xiaohongshu publishing loop to explore that boundary."
 draftTranslation: true
 ---

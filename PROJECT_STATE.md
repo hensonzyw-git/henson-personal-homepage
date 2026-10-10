@@ -8,6 +8,12 @@ This repo is Henson's personal homepage built with Astro. It is separate from th
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
 
+## Reading Time — Automatic Per Language (2026-10-10)
+
+Henson explicitly authorized unifying all reading estimates, committing, pushing and deploying. All 28 published blog translations now use a shared Markdown-aware build-time estimator, with 400 Han characters/minute + 200 other words/minute, rounded up (minimum one). Removed all manually maintained `readMins` fields. Each translation is counted independently. Muse now displays 18 minutes in Chinese and 21 in English. Article prose and publication/revision dates are unchanged; see D16.
+
+Local validation: 5 estimator tests, 136/136 site acceptance checks and a 47-page build passed. Chinese/English Muse previews at 1280px and 390px show the expected estimates with no overflow or page errors. Production deployment is authorized and pending verification.
+
 ## Latest Release — Meta Muse Workflows (2026-10-10)
 
 - Henson explicitly approved commit, push, merge and ECS deployment after the final local review. Article commit `0d47158` was pushed on `codex/meta-muse-workflow-blog`, merged as `abf108b`, and pushed to `origin/main`.

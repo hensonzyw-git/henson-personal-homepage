@@ -15,12 +15,14 @@
     "analytics:test": "python3 -m unittest discover -s test -p 'analytics*test.py' && node --test test/analytics-tracker.test.mjs",
     "analytics:deploy": "node scripts/deploy-analytics.mjs",
     "analytics:preview": "python3 scripts/preview-analytics.py",
-    "analytics:configure": "python3 scripts/configure-analytics.py"
+    "analytics:configure": "python3 scripts/configure-analytics.py",
+    "reading-time:test": "node --test test/reading-time.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/space-mono": "^5.2.9",
-    "astro": "^7.0.2"
+    "astro": "^7.0.2",
+    "mdast-util-from-markdown": "^2.1.0"
   }
 }

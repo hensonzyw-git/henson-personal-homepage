@@ -4,7 +4,6 @@ lang: en
 title: "I Open-Sourced Personal Agent: What Is Included"
 date: 2026-09-23
 category: AI Collaboration
-readMins: 12
 summary: After Muse launched, I open-sourced my Personal Agent. Here is what the repository includes, why I will keep building, and how hands-on work changed my engineering, review and acceptance decisions.
 related:
   - personal-agent-as-my-os

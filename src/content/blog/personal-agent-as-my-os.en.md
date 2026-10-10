@@ -5,7 +5,6 @@ title: "I Suddenly Realized: Coding Agents May Just Be Suppliers to My Personal 
 date: 2026-09-02
 updated: 2026-09-02
 category: AI Collaboration
-readMins: 12
 summary: "After wrestling with an automated development graph for months, I realized that what I want to own is not one stronger coding agent. It is a Personal Agent whose memory, tools, and rules I control—and which treats models and agents as service providers."
 related:
   - harness-governance-scar-tissue

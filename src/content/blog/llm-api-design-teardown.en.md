@@ -4,7 +4,6 @@ lang: en
 title: "How LLM APIs are actually designed: a point-by-point teardown through traditional-API eyes"
 date: 2026-07-21
 category: Open Platform
-readMins: 18
 summary: "My mental model of the LLM API was stuck at 'two strings in, one string out.' After actually reading through the docs of Anthropic, OpenAI, and several Chinese platforms, I found today's LLM API is a stateless conversation-replay machine bolted to a built-in tool-calling protocol. This is a point-by-point teardown through the eyes of traditional API design: stateless replay and four caching philosophies, stop_reason and content blocks, the suspend-resume loop of tool calls, sampling params being clawed back by the platform, four philosophies of API consolidation, the protocol's audience shifting from your code to the model, and a rarely-named protocol war over Anthropic-compatible endpoints. The conclusion: the periphery is all familiar old craft; the genuinely new species is only that small core."
 draft: false
 draftTranslation: true

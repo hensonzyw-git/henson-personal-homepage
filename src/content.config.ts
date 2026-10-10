@@ -17,7 +17,6 @@ const blog = defineCollection({
     updated: z.coerce.date().optional(), // meaningful content revision; omit when unchanged since publication
     summary: z.string(),
     category: z.string().default('文章'),
-    readMins: z.number().default(6),
     related: z.array(z.string()).default([]), // ordered entry keys; falls back to same-category recency when empty
     draft: z.boolean().default(false),
     // en bodies may be labelled draft translations

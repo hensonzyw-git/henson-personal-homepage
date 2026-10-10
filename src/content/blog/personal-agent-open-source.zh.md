@@ -4,7 +4,6 @@ lang: zh
 title: 我把 Personal Agent 开源了：这次公开了什么
 date: 2026-09-23
 category: AI 协作
-readMins: 16
 summary: Muse 出来后，我把自己的 Personal Agent 开源了。这里说明这次公开的范围，以及亲手搭建过程中，我怎样逐渐形成工程、审查和验收上的判断。
 related:
   - personal-agent-as-my-os

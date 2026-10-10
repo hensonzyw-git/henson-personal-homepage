@@ -4,7 +4,6 @@ lang: en
 title: "From Astra’s Computer Use to Everything Use"
 date: 2026-09-08
 category: AI Collaboration
-readMins: 12
 summary: "Watching Astra operate software led me to think about interfaces and physical tools: digital systems can change their interfaces for agents, but the world we live in may require AI to adapt to existing environments for much longer."
 related:
   - traditional-to-ai-open-platform

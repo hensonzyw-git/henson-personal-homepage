@@ -4,7 +4,6 @@ lang: en
 title: "From Accounting to Cloud Development: Bringing My Workflows into Meta Muse"
 date: 2026-10-10
 category: AI Collaboration
-readMins: 8
 summary: "From Feishu accounting and travel follow-up to development and ECS deployment in Muse’s VM: custom connectors, credential separation, Cloud Assistant, private OSS, releases, and rollback."
 related:
   - personal-agent-as-my-os

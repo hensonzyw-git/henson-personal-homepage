@@ -4,7 +4,6 @@ lang: zh
 title: 我为什么决定把业余时间 all in 到一个大项目：Personal Agent
 date: 2026-08-03
 category: AI 协作
-readMins: 14
 summary: 从 ChatGPT、豆包、Claude Code 和 Codex，到 iCloud 云盘、GitHub 与多个个人数据源：我为什么不再继续寻找更好用的 AI 工具，而要开始搭建一套自己拥有、能够跨设备延续并对真实行动负责的 Personal Agent。
 draft: false
 ---

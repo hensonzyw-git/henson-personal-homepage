@@ -4,7 +4,6 @@ lang: en
 title: "Why I’m going all-in on a side project: my Personal Agent"
 date: 2026-08-03
 category: AI Collaboration
-readMins: 14
 summary: "From ChatGPT, Doubao, Claude Code, and Codex to iCloud Drive, GitHub, and multiple personal data sources: why I am no longer just looking for a better AI tool, but building a Personal Agent I own—one that can continue across devices and take responsibility for real actions."
 draft: false
 draftTranslation: true

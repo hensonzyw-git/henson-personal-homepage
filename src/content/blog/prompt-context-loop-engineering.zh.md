@@ -4,7 +4,6 @@ lang: zh
 title: 从 Prompt 到 Loop：为什么研发更容易自动闭环，产品工作需要让人回来
 date: 2026-07-11
 category: AI 协作
-readMins: 15
 summary: Prompt 决定这一轮怎么做，Context 决定这一轮知道什么，Harness 决定允许怎样行动，Loop 决定这一轮结束后发生什么。研发拥有测试、编译等硬验证器，产品工作的关键反馈却常在用户、业务和组织现场之外。本文从一次多 Agent 假绿和一个 iCloud 到小红书的个人工作流出发，讨论 Loop Engineering 的逻辑、适用边界，以及人在循环里的正确位置。
 ---
 

@@ -4,7 +4,6 @@ lang: zh
 title: 用 Vibe Coding 完成 Personal Agent 一期
 date: 2026-08-07
 category: AI 协作
-readMins: 21
 summary: 从模型与编码智能体路由、单一时间线与自动会话、受治理的财务 MCP，到真实 iPhone、ECS、备份与恢复，我用 16 天完成了一个只服务自己的 Personal Agent。本文记录最重要的产品决策、生产事故、评测补洞，以及为什么模型说“已经记录”从来不算完成。
 ---
 

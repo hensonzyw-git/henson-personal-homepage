@@ -1,8 +1,10 @@
 // Deterministic AC checks against the built dist/ output.
 // Run: node test/ac-checks.mjs   (from repo root)
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+
+import { readingTime } from '../src/lib/reading-time.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -238,6 +240,20 @@ ok('Analytics tracker is first-party on both languages',
   && fileExists('site-events.js'));
 ok('Analytics excludes noindex 404 pages', !(read('404.html') || '').includes('src="/site-events.js"'));
 ok('Analytics private report is outside dist', !fileExists('analytics/index.html') && !fileExists('analytics/data.json'));
+
+// Every published translation must display its own computed prose estimate.
+for (const filename of readdirSync(join(root, 'src/content/blog')).filter((f) => f.endsWith('.md'))) {
+  const source = readFileSync(join(root, 'src/content/blog', filename), 'utf8');
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  const [, frontmatter, body] = match;
+  if (/^draft:\s*true\s*$/m.test(frontmatter)) continue;
+  const key = frontmatter.match(/^key:\s*(.+)$/m)?.[1].trim();
+  const lang = frontmatter.match(/^lang:\s*(zh|en)$/m)?.[1];
+  const { minutes } = readingTime(body, lang);
+  const html = read(`${lang === 'en' ? 'en/' : ''}blog/${key}/index.html`) || '';
+  const label = lang === 'en' ? `~${minutes} min read` : `阅读约 ${minutes} 分钟`;
+  ok(`Reading time ${key} (${lang})`, html.includes(label) && !/^readMins:/m.test(frontmatter));
+}
 
 console.log(`\n=== ${pass} passed, ${fail} failed ===`);
 if (fails.length) { console.log('FAILURES:'); fails.forEach(f => console.log(' - ' + f)); }

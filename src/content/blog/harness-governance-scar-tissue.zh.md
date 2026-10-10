@@ -4,7 +4,6 @@ lang: zh
 title: 通用 Harness 开源之后：Personal Agent 还必须自己负责什么？
 date: 2026-08-21
 category: AI 协作
-readMins: 27
 summary: Claude Code 的源码泄露让人看到成熟 Coding Agent 背后的产品工程，DeepSeek 先开源 DSH，把 Harness 做成可组合的插件体系；更晚公开的 Codex Harness 与 App Server，则展示了共享运行时怎样服务多个产品界面。把这些公共能力与我的 Personal Agent 放在一起，我不再问谁的 Harness 更强，而是复盘六个真实决策：我有哪些选项、为什么选择这一边、主动放弃了什么，又为此承担了什么代价。Finance 是已经打通真实写入、真机验收和恢复演练的第一条纵向链路，也是本文唯一的落地案例。
 ---
 

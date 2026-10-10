@@ -4,7 +4,6 @@ lang: zh
 title: "从记账到云端开发，我把自己的工作流接进了 Meta Muse"
 date: 2026-10-10
 category: AI 协作
-readMins: 8
 summary: "从飞书记账、知识库和国庆旅行，到把自动化开发与 ECS 部署接进 Muse 虚拟机：记录自定义连接器、凭据隔离、云助手、私有 OSS，以及版本发布和回滚的实操。"
 related:
   - personal-agent-as-my-os

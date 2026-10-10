@@ -125,6 +125,8 @@ Astro's `glob` loader from `src/content/<collection>/`.
 halves by `key`. If only one language exists, `pickLang` falls back to the other and flags it
 (`EnFallbackNote` renders a banner) — but shipped V1 content must have both.
 
+Reading time is derived from each translation’s own Markdown body at build time (D16), not hand-entered or copied across languages. Do not add `readMins` to frontmatter. Chinese uses 400 Han characters/minute, English 200 words/minute; mixed prose adds both contributions. Run `npm run reading-time:test` for changes to the estimator.
+
 Frontmatter rules (enforced by the schema — read it before adding fields):
 - Both: `key`, `lang` (`'zh'|'en'`), `title`, `date` (coerced), `summary`/`oneLiner`.
 - `draft: true` excludes a blog entry from the **production** index (still visible in dev). AI

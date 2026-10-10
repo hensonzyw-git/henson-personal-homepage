@@ -4,7 +4,6 @@ lang: en
 title: "How to Evaluate an Agent: Measurement Instruments, Statistical Discipline, and Judge Calibration"
 date: 2026-08-16
 category: AI Collaboration
-readMins: 18
 summary: "When evaluating my own bookkeeping agent, my most surprising conclusion was this: I thought I was testing a model, when I was really testing a person who had already learned to cooperate with the model. Grounded in the real evaluation of Personal Agent Phase One, this essay checks the boundaries of what my conclusions support, three kinds of 'false green,' statistical discipline, and evidence binding against public methodology (τ-bench, LLM-as-judge calibration, benchmark audits), and lands on a single loop: errors can't be avoided, so every error must be diagnosable, correctable, and recyclable into a gatekeeping test case."
 draftTranslation: true
 ---

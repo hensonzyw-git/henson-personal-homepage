@@ -1,5 +1,11 @@
 # Project Log — Personal Homepage
 
+## 2026-10-10 — Automatic Reading Estimates Per Translation
+
+- Henson explicitly authorized implementation, commit, push and deployment. Replaced manually entered `readMins` with build-time Markdown prose counting; Chinese and English are calculated separately (D16), with mixed prose combining 400 Han characters/minute and 200 words/minute. Removed old fields from all 28 blog files and the content schema.
+- Added a directly declared Markdown parser, 5 targeted unit tests and source-to-built-output checks for all 28 published translations. Article bodies, routes and publication/revision dates remain unchanged.
+- Local build: 47 pages; AC: 136/136; unit tests: 5/5. Chinese/English Muse previews at 1280px/390px passed; new estimates are 18/21 minutes, with no overflow or page errors. Deployment authorized; production verification pending.
+
 ## 2026-10-10 — Deployed: Meta Muse Workflows and Cloud Development
 
 - Henson approved the final preview and explicitly authorized commit, push, merge and production deployment. Pushed article commit `0d47158` on the feature branch and merged as `abf108b` on main; main is pushed.

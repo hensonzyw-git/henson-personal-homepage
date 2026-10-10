@@ -4,7 +4,6 @@ lang: zh
 title: "从 Astra 的 Computer Use，想到 Everything Use"
 date: 2026-09-08
 category: AI 协作
-readMins: 12
 summary: "Astra 操作软件的表现，让我从 Computer Use 想到了接口与物理工具：数字世界可以为 Agent 改变接口，但我们生活的世界，可能更长期地要求 AI 适应已有环境。"
 related:
   - traditional-to-ai-open-platform

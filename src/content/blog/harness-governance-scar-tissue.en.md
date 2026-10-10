@@ -4,7 +4,6 @@ lang: en
 title: "After General Harnesses Opened Up: What Must Personal Agent Still Own?"
 date: 2026-08-21
 category: AI Collaboration
-readMins: 27
 summary: "The Claude Code source-map leak exposed the product engineering behind a mature coding agent. DeepSeek first open-sourced DSH as a composable plugin system; the later opening of the Codex harness and App Server showed how a shared runtime can serve multiple product surfaces. Instead of asking which harness is strongest, this essay revisits six real decisions: the options I had, why I chose one side, what I deliberately rejected, and what that choice cost. Finance—the first path proven through real writes, device acceptance, and recovery drills—is the only implementation case in this essay."
 draftTranslation: true
 ---

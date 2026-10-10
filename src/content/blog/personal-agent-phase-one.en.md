@@ -4,7 +4,6 @@ lang: en
 title: Building the First Phase of My Personal Agent with Vibe Coding
 date: 2026-08-07
 category: AI Collaboration
-readMins: 21
 summary: In sixteen days, I built a single-user Personal Agent around governed Finance tools, one visible Timeline with automatic Sessions, real-device acceptance, ECS deployment, backup, restore, and rollback. This is a record of the product decisions, production failures, evaluation gaps, and the rule that a model saying “recorded” is never completion.
 draftTranslation: true
 ---

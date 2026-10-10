@@ -9,6 +9,12 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
+## Reading Time — Automatic Per Language (2026-10-10)
+
+Henson explicitly authorized unifying all reading estimates, committing, pushing and deploying. All 28 published blog translations now use a shared Markdown-aware build-time estimator, with 400 Han characters/minute + 200 other words/minute, rounded up (minimum one). Removed all manually maintained `readMins` fields. Each translation is counted independently. Muse now displays 18 minutes in Chinese and 21 in English. Article prose and publication/revision dates are unchanged; see D16.
+
+Local validation: 5 estimator tests, 136/136 site acceptance checks and a 47-page build passed. Chinese/English Muse previews at 1280px and 390px show the expected estimates with no overflow or page errors. Production deployment is authorized and pending verification.
+
 ## Latest Release — Meta Muse Workflows (2026-10-10)
 
 `meta-muse-personal-workflow-cloud-deploy` is live in Chinese and English after Henson's explicit commit/push/merge/deploy authorization. Article commit `0d47158`; merge `abf108b`, both pushed. The 13 newer upstream commits were retained before release. Build: 47 pages; site AC: 108/108; analytics regressions: 15 passed using bundled OpenSSL 3. Local and live zh/en previews passed at 1280px and 390px, including language switching and code-block containment.

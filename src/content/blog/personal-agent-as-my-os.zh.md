@@ -5,7 +5,6 @@ title: "我突然发现，Coding Agent 可能只是 Personal Agent 的供应商"
 date: 2026-09-02
 updated: 2026-09-02
 category: AI 协作
-readMins: 12
 summary: "啃了很久自动开发 Graph 之后，我突然意识到：我真正想拥有的不是某一个更强的 Coding Agent，而是一个由我控制记忆、定义工具，并把模型和 Agent 当作服务提供方的 Personal Agent。"
 related:
   - harness-governance-scar-tissue
