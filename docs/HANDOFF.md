@@ -9,17 +9,13 @@ Start here after `AGENTS.md`.
 3. `docs/DECISIONS.md`
 4. `docs/design/README.md`
 
-## Current Local Preview — 2026-10-10
+## Latest Release — Meta Muse Workflows (2026-10-10)
 
-`meta-muse-personal-workflow-cloud-deploy` is ready for local review on `codex/meta-muse-workflow-blog`. The zh body preserves Henson's approved article; en is a paired draft translation. After upstream integration: 47 pages; AC: 108/108; analytics regressions: 15 passed. Desktop (1280px) and mobile (390px) previews passed in both languages, including title wrapping, code-block containment, TOC anchors and language switching. Preview is running at `http://127.0.0.1:4321/blog/meta-muse-personal-workflow-cloud-deploy`.
+`meta-muse-personal-workflow-cloud-deploy` is live in Chinese and English after Henson's explicit commit/push/merge/deploy authorization. Article commit `0d47158`; merge `abf108b`, both pushed. The 13 newer upstream commits were retained before release. Build: 47 pages; site AC: 108/108; analytics regressions: 15 passed using bundled OpenSSL 3. Local and live zh/en previews passed at 1280px and 390px, including language switching and code-block containment.
 
-The opening now emphasizes future development running in the cloud, with phone-based requirements, progress and decisions; both languages and the Downloads revision are synchronized.
+Twelve public URLs match the built bytes by SHA256; four analytics page/data/asset URLs still return 401 without credentials. Both new article routes are in the analytics manifest, Nginx and the timer are active. The pre-release static site and manifest are preserved in `/var/backups/zhuyawei-pre-meta-muse-20261010-0d47158.tar.gz`; restore into a separate directory, rsync the archived site back with `--delete`, and restore the archived manifest for rollback. The configured hook regenerated 18 KB mirror files, with the article body matching source. No KB commit or push was performed in this task.
 
-The development section now states that the Muse workflow draws heavily on Henson’s existing automated development design. This is reuse of the design, not a claim that every original runtime integration has migrated.
-
-The development example has been shortened to two paragraphs at Henson’s request; detailed query/test internals were removed, while the practical review loop and permission interruption remain.
-
-Henson explicitly authorized commit, push, merge and ECS deployment of this revision on 2026-10-10. Upstream September 23 content and private analytics have been incorporated. Release is in progress at this checkpoint; preserve the existing analytics manifest update during deployment. No new durable policy decision was introduced.
+The requested release is complete. The earlier local preview remains available on port 4321. Future article revisions follow D12; there is no outstanding release authorization for this version. No new durable policy decision was introduced.
 
 ## Live Private Analytics — 2026-09-23
 

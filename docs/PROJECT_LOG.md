@@ -1,5 +1,14 @@
 # Project Log — Personal Homepage
 
+## 2026-10-10 — Deployed: Meta Muse Workflows and Cloud Development
+
+- Henson approved the final preview and explicitly authorized commit, push, merge and production deployment. Pushed article commit `0d47158` on the feature branch and merged as `abf108b` on main; main is pushed.
+- Preserved the 13 newer upstream commits, including September 23 content and private analytics. Updated an obsolete AC assumption that an older Astra post must remain in the latest-three feed; it now verifies retention in the blog index while the new Muse article has both-home-feed coverage.
+- Build: 47 pages; site AC: 108/108; analytics regressions: 15 passed with bundled OpenSSL 3. Local and live zh/en desktop/mobile checks passed, including TOC, code blocks and language switching. The live browser checker accounts for Nginx's trailing-slash normalization.
+- Backed up and validated the current static site and analytics route manifest at `/var/backups/zhuyawei-pre-meta-muse-20261010-0d47158.tar.gz` before deployment. Deploy completed analytics-manifest synchronization, aggregation and Nginx validation/reload.
+- Twelve public URLs returned 200 and matched built SHA256, including both new articles, home/indexes, preceding article/project, RSS, llms.txt and tracker. Four private analytics page/data/asset URLs returned 401; both new routes are in the manifest; Nginx and timer active.
+- Configured post-commit KB hook regenerated 18 local published mirrors. New Chinese article body matches source; no KB commit/push. No requested release work remains; existing D12 governs future changes.
+
 ## 2026-10-10 — Meta Muse Release Authorized
 
 - Henson approved the final local preview and explicitly authorized commit, push, merge and formal deployment to the personal site.

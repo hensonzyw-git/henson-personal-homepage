@@ -8,16 +8,15 @@ This repo is Henson's personal homepage built with Astro. It is separate from th
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
 
-## Current Local Preview — 2026-10-10
+## Latest Release — Meta Muse Workflows (2026-10-10)
 
-- Prepared `meta-muse-personal-workflow-cloud-deploy` in Chinese and English on `codex/meta-muse-workflow-blog` for Henson's requested local review. The Chinese body exactly matches the approved Downloads revision; English retains `draftTranslation: true`.
-- Henson revised the opening to emphasize future development running automatically in the cloud with requirements, progress and decisions handled from a phone; zh/en and the Downloads revision are synchronized.
-- The development migration section now explicitly credits Henson’s existing automated development workflow design as the source of roles, review/repair loops and approval boundaries; both languages and the Downloads revision are synchronized.
-- The development example is now condensed to two paragraphs, retaining the review/fix/re-review loop and a tool-permission interruption while removing detailed test and query internals.
-- Added article metadata and explicit related reading. Shared site typography, navigation and the existing TOC are unchanged; deployment diagrams and the release directory tree remain code blocks.
-- After upstream integration, local build: 47 static pages. Acceptance checks: 108 passed / 0 failed. Existing analytics regression tests: 15 passed. Browser checks passed in both languages at 1280px and 390px: one article title, 17 section headings, three code blocks, valid TOC anchors, working zh/en switching, no page overflow or observed browser errors.
-- Preview: `http://127.0.0.1:4321/blog/meta-muse-personal-workflow-cloud-deploy` (English under `/en/blog/meta-muse-personal-workflow-cloud-deploy`). Local preview session remains running.
-- Henson explicitly authorized commit, push, merge and production deployment of this revision on 2026-10-10. The feature branch now includes the 13 latest upstream commits, preserving the September 23 publications and private analytics. Deployment is pending at this checkpoint; D12 authorization is satisfied.
+- Henson explicitly approved commit, push, merge and ECS deployment after the final local review. Article commit `0d47158` was pushed on `codex/meta-muse-workflow-blog`, merged as `abf108b`, and pushed to `origin/main`.
+- Published `meta-muse-personal-workflow-cloud-deploy` in zh/en. The Chinese body matches the approved Downloads revision; English retains `draftTranslation: true`. The article covers custom connectors and credentials, travel follow-up, reuse of Henson's development workflow design, cloud development, and OSS/Cloud Assistant deployment and rollback.
+- Integrated the 13 newer upstream commits before release, preserving September 23 publications and private analytics. Build: 47 static pages; site acceptance: 108/108; existing analytics regression tests: 15 passed using bundled OpenSSL 3.
+- Local and live browser checks passed in zh/en at 1280px and 390px: titles, 17 section headings, three code blocks, valid TOC anchors, round-trip language switching, no page overflow or observed browser errors. Production trailing-slash normalization is handled in the browser verifier.
+- `npm run deploy:ecs` completed, including the analytics route manifest update and Nginx validation/reload. Twelve public URLs returned HTTP 200 and matched built bytes by SHA256: home/index pages, both article languages, preceding open-source article, Personal Agent project, RSS, llms.txt and tracker. Four unauthenticated analytics page/data/asset URLs returned 401. Nginx and the analytics timer are active; both new article routes are in the manifest.
+- Pre-release site files and analytics route manifest are backed up at `/var/backups/zhuyawei-pre-meta-muse-20261010-0d47158.tar.gz` (archive contents validated, 3,296,672 bytes). Restore into a separate directory and rsync the archived site back with `--delete`; also restore the archived analytics route manifest before restarting aggregation.
+- The configured post-commit hook refreshed the local published knowledge-base mirror (18 files); the mirrored Chinese article body matches site source. This release is complete, with no pending authorization. Future revisions follow D12.
 
 ## Live Release — Private Analytics (2026-09-23)
 
@@ -29,7 +28,7 @@ The private dashboard now has a separate, one-time aggregate from pre-tracker Ng
 
 After Henson reported that the board seemed unchanged, his open authenticated Chrome tab showed the history below the frontend sections. A top-of-page link now displays the historical request count and jumps to the separate history section; the top time-range controls and metrics still describe frontend events only.
 
-## Latest Article — 2026-09-23
+## Previous Article — 2026-09-23
 
 `personal-agent-open-source` is published in Chinese and English with Henson's explicit authorization. Content commit `4e8c290` is pushed. The article preserves the author’s motivations, Muse integration experience, hands-on learning, and Memory-first priority, using “自动化开发流程” instead of internal abbreviations. Build and 98 checks passed; both languages checked at 390px and 1280px. ECS deployment and Nginx validation/reload succeeded. Live article pages, RSS feeds and llms.txt match the build. No pending release authorization for this version.
 
@@ -53,8 +52,8 @@ Added bilingual `personal-agent` AI project cards and detail pages, linking the 
 - AI Practice / Side Projects: tools, prompts, automation, and the site itself.
 - About me: resume-like background, education, and skills.
 - Contact: email, LinkedIn, GitHub.
-- Newest publication: `astra-computer-use-everything-use` (zh + en, 2026-09-08), deployed after explicit review authorization. It explores agent interfaces and adaptation to human environments, with bounded personal review evidence.
-- Preceding publication: `personal-agent-as-my-os` (zh + en, 2026-09-02) — a personal argument that the durable layer should be a user-owned Personal Agent, while coding, browser, and research agents remain replaceable capability providers. It grows out of the unfinished Coding Graph Loop work and makes three boundaries explicit: vendor strategy is Henson's inference rather than a disclosed fact; “supplier” does not mean agents are interchangeable commodities; and capability growth must stay governed, auditable, and reversible. The article explicitly matches `harness-governance-scar-tissue` and `agent-memory-knowledge-base` as related reading. Preceding published content: `harness-governance-scar-tissue` (zh + en, 2026-08-21; revised 2026-08-22), `agent-eval-methodology` (zh + en, 2026-08-16), `personal-agent-phase-one` (zh + en, 2026-08-07), and `all-in-personal-agent` (zh + en, 2026-08-03), alongside `prompt-context-loop-engineering`, `agent-as-service-caller-open-platform`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
+- Newest publication: `meta-muse-personal-workflow-cloud-deploy` (zh + en, 2026-10-10), deployed after final review and explicit authorization. Preceding articles: `personal-agent-open-source` (2026-09-23) and `astra-computer-use-everything-use` (2026-09-08).
+- Earlier publication: `personal-agent-as-my-os` (zh + en, 2026-09-02) — a personal argument that the durable layer should be a user-owned Personal Agent, while coding, browser, and research agents remain replaceable capability providers. It grows out of the unfinished Coding Graph Loop work and makes three boundaries explicit: vendor strategy is Henson's inference rather than a disclosed fact; “supplier” does not mean agents are interchangeable commodities; and capability growth must stay governed, auditable, and reversible. The article explicitly matches `harness-governance-scar-tissue` and `agent-memory-knowledge-base` as related reading. Preceding published content: `harness-governance-scar-tissue` (zh + en, 2026-08-21; revised 2026-08-22), `agent-eval-methodology` (zh + en, 2026-08-16), `personal-agent-phase-one` (zh + en, 2026-08-07), and `all-in-personal-agent` (zh + en, 2026-08-03), alongside `prompt-context-loop-engineering`, `agent-as-service-caller-open-platform`, `mcp-vs-cli-agent-encapsulation`, and `traditional-to-ai-open-platform`.
 - The current deployed revision of `personal-agent-as-my-os` visibly separates the ChatGPT response from Henson's prose, keeps the response in one continuous left-bordered block, and adds the conclusion that AI makes it possible to turn ideas into real things.
 - GEO / AI discoverability: blog detail pages emit JSON-LD with `BlogPosting`, `Person`, and `BreadcrumbList`, plus truthful publish/modified metadata and related-reading paths. `/llms.txt` is generated from the bilingual blog and AI-practice indexes. Content-detail sitemap entries carry frontmatter-derived `lastmod` values.
 
@@ -74,6 +73,8 @@ Added bilingual `personal-agent` AI project cards and detail pages, linking the 
 - Historical traffic stats still use ECS/Nginx access logs via `npm run stats:traffic`. D14 first-party behavior tracking is live; historical and new-event numbers remain separate.
 
 ## Validation State
+
+October 10 Meta Muse release: 47 pages; 108/108 site checks; 15 analytics regressions. Twelve public URLs match local build SHA256; four private analytics URLs require authentication (401). Local/live bilingual desktop/mobile browser checks passed.
 
 September 23 Personal Agent release: 95/95 checks passed; `/ai/`, `/en/ai/`, `/ai/personal-agent/` and `/en/ai/personal-agent/` match the local build byte-for-byte. Homepage and llms.txt also return 200.
 
