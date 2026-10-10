@@ -1,12 +1,23 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-09-23
+Last updated: 2026-10-10
 
 ## Current Status
 
 This repo is Henson's personal homepage built with Astro. It is separate from the public GitHub profile repository `hensonzyw-git/hensonzyw-git`.
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
+
+## Current Local Preview — 2026-10-10
+
+- Prepared `meta-muse-personal-workflow-cloud-deploy` in Chinese and English on `codex/meta-muse-workflow-blog` for Henson's requested local review. The Chinese body exactly matches the approved Downloads revision; English retains `draftTranslation: true`.
+- Henson revised the opening to emphasize future development running automatically in the cloud with requirements, progress and decisions handled from a phone; zh/en and the Downloads revision are synchronized.
+- The development migration section now explicitly credits Henson’s existing automated development workflow design as the source of roles, review/repair loops and approval boundaries; both languages and the Downloads revision are synchronized.
+- The development example is now condensed to two paragraphs, retaining the review/fix/re-review loop and a tool-permission interruption while removing detailed test and query internals.
+- Added article metadata and explicit related reading. Shared site typography, navigation and the existing TOC are unchanged; deployment diagrams and the release directory tree remain code blocks.
+- After upstream integration, local build: 47 static pages. Acceptance checks: 108 passed / 0 failed. Existing analytics regression tests: 15 passed. Browser checks passed in both languages at 1280px and 390px: one article title, 17 section headings, three code blocks, valid TOC anchors, working zh/en switching, no page overflow or observed browser errors.
+- Preview: `http://127.0.0.1:4321/blog/meta-muse-personal-workflow-cloud-deploy` (English under `/en/blog/meta-muse-personal-workflow-cloud-deploy`). Local preview session remains running.
+- Henson explicitly authorized commit, push, merge and production deployment of this revision on 2026-10-10. The feature branch now includes the 13 latest upstream commits, preserving the September 23 publications and private analytics. Deployment is pending at this checkpoint; D12 authorization is satisfied.
 
 ## Live Release — Private Analytics (2026-09-23)
 

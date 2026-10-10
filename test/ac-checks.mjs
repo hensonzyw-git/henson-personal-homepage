@@ -31,6 +31,7 @@ const zhRoutes = [
   'blog/agent-eval-methodology/index.html',
   'blog/harness-governance-scar-tissue/index.html',
   'blog/astra-computer-use-everything-use/index.html',
+  'blog/meta-muse-personal-workflow-cloud-deploy/index.html',
   'blog/personal-agent-as-my-os/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'ai/personal-agent/index.html', 'contact/index.html',
 ];
@@ -96,6 +97,9 @@ ok('GEO en RSS feed exists with blog items',
 ok('GEO RSS includes newly published post',
    /astra-computer-use-everything-use/.test(rssZh) && /astra-computer-use-everything-use/.test(rssEn),
    'published post missing from a feed');
+ok('GEO RSS includes Muse article in both languages',
+   /meta-muse-personal-workflow-cloud-deploy/.test(rssZh) && /meta-muse-personal-workflow-cloud-deploy/.test(rssEn),
+   'Muse article missing from a feed');
 // Henson selected this as the sole public Harness article on 2026-08-22.
 ok('GEO RSS includes harness-governance-scar-tissue',
    /harness-governance-scar-tissue/.test(rssZh) && /harness-governance-scar-tissue/.test(rssEn),
@@ -139,6 +143,7 @@ const pairs = [
   ['blog/agent-eval-methodology', 'en/blog/agent-eval-methodology'],
   ['blog/harness-governance-scar-tissue', 'en/blog/harness-governance-scar-tissue'],
   ['blog/astra-computer-use-everything-use', 'en/blog/astra-computer-use-everything-use'],
+  ['blog/meta-muse-personal-workflow-cloud-deploy', 'en/blog/meta-muse-personal-workflow-cloud-deploy'],
   ['blog/personal-agent-as-my-os', 'en/blog/personal-agent-as-my-os'],
   ['ai/show-radar', 'en/ai/show-radar'],
   ['blog/personal-agent-open-source', 'en/blog/personal-agent-open-source'],
@@ -154,6 +159,18 @@ ok('AC-8 zh deep page links to /en counterpart',
 const enPost = read('en/blog/traditional-to-ai-open-platform/index.html') || '';
 ok('AC-8 en deep page links back to zh counterpart',
    /href="\/blog\/traditional-to-ai-open-platform/.test(enPost), 'no link back to zh counterpart');
+const museKey = 'meta-muse-personal-workflow-cloud-deploy';
+const museZh = read(`blog/${museKey}/index.html`) || '';
+const museEn = read(`en/blog/${museKey}/index.html`) || '';
+ok('AC-8 Muse article language switch preserves page',
+   museZh.includes(`href="/en/blog/${museKey}"`) && museEn.includes(`href="/blog/${museKey}"`),
+   'language switch does not point to the counterpart');
+ok('AC-2 Muse article appears in both home feeds',
+   home.includes(`/blog/${museKey}`) && (read('en/index.html') || '').includes(`/en/blog/${museKey}`),
+   'new article missing from a home feed');
+ok('GEO llms.txt includes both Muse article URLs',
+   llms.includes(`/blog/${museKey}`) && llms.includes(`/en/blog/${museKey}`),
+   'Muse article missing from llms.txt');
 const zhKbPost = read('blog/agent-memory-knowledge-base/index.html') || '';
 ok('AC-8 zh KB deep page links to /en counterpart',
    zhKbPost.includes('/en/blog/agent-memory-knowledge-base'), 'no link to en counterpart');
@@ -170,7 +187,7 @@ for (const prefix of ['', 'en/']) {
   const article = read(`${prefix}blog/astra-computer-use-everything-use/index.html`) || '';
   const counterpart = prefix ? '/blog/astra-computer-use-everything-use' : '/en/blog/astra-computer-use-everything-use';
   ok(`AC-8 Astra language switch: ${prefix || 'zh'}`, article.includes(`href="${counterpart}"`), 'counterpart missing');
-  ok(`AC-2 Astra appears in latest: ${prefix || 'zh'}`, (read(`${prefix}index.html`) || '').includes('/blog/astra-computer-use-everything-use'), 'new article missing from home');
+  ok(`AC-5 Astra remains in blog index: ${prefix || 'zh'}`, (read(`${prefix}blog/index.html`) || '').includes('/blog/astra-computer-use-everything-use'), 'older article missing from blog index');
 }
 const zhPersonalOsPost = read('blog/personal-agent-as-my-os/index.html') || '';
 ok('AC-8 zh Personal OS deep page links to /en counterpart',
