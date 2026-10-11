@@ -2,6 +2,11 @@
 
 Start here after `AGENTS.md`.
 
+## About Copy Cleanup — Deployed (2026-10-11)
+
+`src/data/resume.ts` now removes the 2017–2022 ByteDance team size and the whole POIZON international merchant AI Agent / 0-to-1 claim, in both languages, at Henson's request. POIZON keeps only open-platform responsibility. Build and 136/136 AC checks pass; bilingual previews at 1280px/390px show no overflow. Henson explicitly authorized commit, push and deployment; source commit `42e7794` is pushed and live. Seven public URLs match the local build SHA256; four analytics URLs require authentication (401). Nginx and the analytics timer are active. Pre-release backup: `/var/backups/zhuyawei-pre-about-cleanup-20261011-42e7794.tar.gz`. No release work remains. Pre-existing social-draft/context changes are retained locally and excluded from this task’s commits.
+
+
 ## Read First
 
 1. `PROJECT_STATE.md`

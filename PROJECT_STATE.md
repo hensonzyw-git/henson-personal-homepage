@@ -1,12 +1,17 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-10-10
+Last updated: 2026-10-11
 
 ## Current Status
 
 This repo is Henson's personal homepage built with Astro. It is separate from the public GitHub profile repository `hensonzyw-git/hensonzyw-git`.
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
+
+## About Copy Cleanup — Deployed (2026-10-11)
+
+At Henson's request, removed the team-of-four statement from the 2017–2022 ByteDance description and the entire international merchant AI Agent / 0-to-1 statement from the current POIZON description. POIZON now reads only “负责开放平台。” / “Own the open platform.” Both translations updated in `src/data/resume.ts`. Restored missing locally installed dependencies with `npm install`; no manifest or lockfile change. Build: 47 pages; acceptance: 136/136. Both About pages checked at 1280px and 390px, with the removed text absent and no horizontal overflow. Henson explicitly authorized commit, push and deployment. Source commit `42e7794` is pushed to `main` and deployed to ECS. Both About pages return HTTP 200, match the built SHA256 and contain the requested copy. All seven checked public URLs match the build; four private analytics URLs return 401 without authentication. Nginx validation/reload passed; Nginx and the analytics timer are active. Pre-release backup: `/var/backups/zhuyawei-pre-about-cleanup-20261011-42e7794.tar.gz` (validated, 3,329,783 bytes).
+
 
 ## Reading Time — Automatic Per Language (2026-10-10)
 

@@ -1,5 +1,14 @@
 # Project Log — Personal Homepage
 
+## 2026-10-11 — About experience copy cleanup
+
+- Removed ByteDance's team-of-four wording in both languages.
+- Removed the entire POIZON international merchant AI Agent claim; Henson clarified the project had not launched and should not be described as 0-to-1. Kept only open-platform responsibility.
+- Restored the declared Markdown parser dependency locally with `npm install` after the initial build found it missing; package files unchanged.
+- Build: 47 pages; acceptance: 136/136. Both About pages checked at 1280px and 390px; requested phrases absent, retained description correct, no horizontal overflow.
+- Henson explicitly authorized commit, push and deployment. Source commit `42e7794` pushed to `main`; ECS deployment passed the build/136 checks, analytics manifest sync and Nginx validation/reload. Seven public URLs including both About pages match the build SHA256; removed copy is absent. Four unauthenticated analytics URLs return 401; Nginx and analytics timer active. Validated backup: `/var/backups/zhuyawei-pre-about-cleanup-20261011-42e7794.tar.gz` (3,329,783 bytes). No durable architecture or policy change.
+
+
 ## 2026-10-10 — Automatic Reading Estimates Per Translation
 
 - Henson explicitly authorized implementation, commit, push and deployment. Replaced manually entered `readMins` with build-time Markdown prose counting; Chinese and English are calculated separately (D16), with mixed prose combining 400 Han characters/minute and 200 words/minute. Removed old fields from all 28 blog files and the content schema.
