@@ -34,6 +34,7 @@ const zhRoutes = [
   'blog/harness-governance-scar-tissue/index.html',
   'blog/astra-computer-use-everything-use/index.html',
   'blog/meta-muse-personal-workflow-cloud-deploy/index.html',
+  'blog/cloud-dev-workflow-agent-platform/index.html',
   'blog/personal-agent-as-my-os/index.html', 'ai/index.html',
   'ai/show-radar/index.html', 'ai/personal-agent/index.html', 'contact/index.html',
 ];
@@ -146,6 +147,7 @@ const pairs = [
   ['blog/harness-governance-scar-tissue', 'en/blog/harness-governance-scar-tissue'],
   ['blog/astra-computer-use-everything-use', 'en/blog/astra-computer-use-everything-use'],
   ['blog/meta-muse-personal-workflow-cloud-deploy', 'en/blog/meta-muse-personal-workflow-cloud-deploy'],
+  ['blog/cloud-dev-workflow-agent-platform', 'en/blog/cloud-dev-workflow-agent-platform'],
   ['blog/personal-agent-as-my-os', 'en/blog/personal-agent-as-my-os'],
   ['ai/show-radar', 'en/ai/show-radar'],
   ['blog/personal-agent-open-source', 'en/blog/personal-agent-open-source'],
