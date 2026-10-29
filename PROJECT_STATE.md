@@ -1,12 +1,16 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-10-11
+Last updated: 2026-10-30
 
 ## Current Status
 
 This repo is Henson's personal homepage built with Astro. It is separate from the public GitHub profile repository `hensonzyw-git/hensonzyw-git`.
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
+
+## Latest Release — Cloud Workflow and Open Platforms (2026-10-30)
+
+Henson confirmed the local preview and explicitly authorized publication. Paired `cloud-dev-workflow-agent-platform` article sources and route checks are committed and pushed as `99abd3be6358180ff5df0f73d456d77db59a3480`. Chinese wording matches the approved Downloads revision, with only two Markdown paragraph boundaries adjusted; English retains `draftTranslation: true`. Local build: 49 pages; 141/141 checks; zh/en reviewed at 1280px and 390px. ECS deployment completed: all 97 remote static files match the candidate build by SHA256, 12 public URLs return HTTP 200 and match local bytes, and four unauthenticated analytics page/data/JS/CSS URLs return 401. Nginx validation/reload passed; analytics route manifest matches the build. Verified pre-release backup: `/var/backups/zhuyawei-pre-cloud-workflow-20261030-99abd3be6358.tar.gz`. The local generated KB mirror was refreshed to 19 published Chinese files and the new body matches source; no KB commit/push. Article URLs: `https://zhuyawei.com/blog/cloud-dev-workflow-agent-platform/` and the `/en/blog/` counterpart. Release complete; see `docs/releases/2026-10-30-cloud-dev-workflow-agent-platform.md`. Unrelated pre-existing context/social edits remain local.
 
 ## About Copy Cleanup — Deployed (2026-10-11)
 

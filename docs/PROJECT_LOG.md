@@ -1,5 +1,18 @@
 # Project Log — Personal Homepage
 
+## 2026-10-30 — Published: cloud workflow and open-platform reflection
+
+- Henson confirmed the local preview and authorized publication. Article/test commit `99abd3be6358180ff5df0f73d456d77db59a3480` pushed to main; no changes to production app/layout/deployment code.
+- Build: 49 pages; 141/141 acceptance checks. Chinese approved wording preserved; English remains a draft translation. Local zh/en desktop/mobile preview passed.
+- ECS backup `/var/backups/zhuyawei-pre-cloud-workflow-20261030-99abd3be6358.tar.gz` validated; deployment completed with Nginx validation/reload. All 97 static files match the pre-release candidate by SHA256; 12 public URLs return 200 and match local bytes; four private analytics URLs remain 401. Analytics manifest matches the build.
+- Refreshed local generated KB published corpus (19 files), verified the new Chinese body against source; no KB commit/push. Details: `docs/releases/2026-10-30-cloud-dev-workflow-agent-platform.md`. Existing unrelated context/social changes excluded from release commits.
+
+## 2026-10-30 — Local article preview: cloud workflow and next direction
+
+- Added approved Chinese article plus English draft translation under `cloud-dev-workflow-agent-platform`; corrected only Markdown emphasis paragraph boundaries in the approved Chinese body.
+- Restored locked dependencies with `npm ci`; added the article routes/pair to existing acceptance checks. Build: 49 pages; 141/141 checks. Both languages passed 1280px/390px layout, headings/TOC, emphasis/list, language-switch and console checks.
+- Preview was prepared at `http://127.0.0.1:4321/blog/cloud-dev-workflow-agent-platform/`; screenshots/readbacks are in `/Users/zhuyawei/Downloads/homepage-preview-20261030/`. No publication at that stage; Henson subsequently authorized the release recorded above.
+
 ## 2026-10-11 — About experience copy cleanup
 
 - Removed ByteDance's team-of-four wording in both languages.

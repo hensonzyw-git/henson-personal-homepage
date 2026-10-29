@@ -1,5 +1,9 @@
 # Handoff — Personal Homepage
 
+## Latest Release — 2026-10-30
+
+`cloud-dev-workflow-agent-platform` is published in zh/en after Henson's explicit confirmation of the local preview. Source commit `99abd3be6358180ff5df0f73d456d77db59a3480` is pushed to main. Build: 49 pages; 141/141 acceptance checks; prior zh/en 1280px/390px preview passed. Deployment verified all 97 static files and the analytics manifest against local hashes; 12 public URLs match dist; four private analytics URLs require authentication (401). Backup: `/var/backups/zhuyawei-pre-cloud-workflow-20261030-99abd3be6358.tar.gz`. Local generated KB mirror updated to 19 files; no KB commit/push. See `docs/releases/2026-10-30-cloud-dev-workflow-agent-platform.md`. No release work remains for this revision. Preserve unrelated social-draft/context changes; future revisions follow the existing publication gate.
+
 Start here after `AGENTS.md`.
 
 ## About Copy Cleanup — Deployed (2026-10-11)
