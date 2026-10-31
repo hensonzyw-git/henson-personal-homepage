@@ -334,3 +334,7 @@ Installed the one-time pre-tracker Nginx backfill into the existing private `/an
 ## 2026-09-23 — Historical data discoverability
 
 Henson could not see the new data in the top metrics. His authenticated Chrome tab showed the separate history section and its 22,372 requests below the frontend sections; the top metrics correctly showed only post-launch browser events. Added a prominent top link with the historical count and a jump to the existing history section, leaving the two data sources separate.
+
+## 2026-10-30 — Open Wardrobe AI practice entry
+
+Added bilingual AI entry `open-wardrobe` with abstract SVG cover, linked to the MIT open-source wardrobe repository. Henson authorized PR + merge + ECS deploy.

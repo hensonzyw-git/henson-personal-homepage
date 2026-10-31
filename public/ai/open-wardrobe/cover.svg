@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+<title id="title">Open Wardrobe</title>
+<desc id="desc">Single-user wardrobe API and MCP. Weather-aware thermal budget. Open source under MIT.</desc>
+<rect width="960" height="300" fill="#E7E3D7"/>
+<!-- abstract layered hangers / thickness bands -->
+<g fill="none" stroke="#1F1E1B" stroke-opacity=".18" stroke-width="2">
+  <path d="M612 78c18-22 54-22 72 0"/>
+  <path d="M648 78v18"/>
+  <path d="M618 96h60"/>
+  <rect x="620" y="104" width="56" height="18" rx="3" fill="#F7F5EF" stroke="#1F1E1B" stroke-opacity=".22"/>
+  <rect x="624" y="128" width="48" height="22" rx="3" fill="#EEEBE2" stroke="#1F1E1B" stroke-opacity=".22"/>
+  <rect x="628" y="156" width="40" height="28" rx="3" fill="#C15F3C" fill-opacity=".22" stroke="#C15F3C" stroke-opacity=".55"/>
+</g>
+<g fill="none" stroke="#1F1E1B" stroke-opacity=".14" stroke-width="2">
+  <path d="M732 78c18-22 54-22 72 0"/>
+  <path d="M768 78v18"/>
+  <path d="M738 96h60"/>
+  <rect x="740" y="104" width="56" height="14" rx="3" fill="#F7F5EF" stroke="#1F1E1B" stroke-opacity=".18"/>
+  <rect x="744" y="124" width="48" height="16" rx="3" fill="#EEEBE2" stroke="#1F1E1B" stroke-opacity=".18"/>
+</g>
+<!-- temperature motif: simple thermometer + band -->
+<g transform="translate(860,70)">
+  <rect x="10" y="8" width="10" height="110" rx="5" fill="#F7F5EF" stroke="#1F1E1B" stroke-opacity=".22"/>
+  <circle cx="15" cy="128" r="14" fill="#C15F3C" fill-opacity=".35" stroke="#C15F3C" stroke-opacity=".7"/>
+  <rect x="12" y="70" width="6" height="48" rx="3" fill="#C15F3C" fill-opacity=".7"/>
+</g>
+<g font-family="-apple-system, BlinkMacSystemFont, sans-serif">
+  <text x="48" y="68" fill="#C15F3C" font-size="20" letter-spacing="3">OPEN SOURCE / MIT</text>
+  <text x="48" y="147" fill="#1F1E1B" font-size="58" font-weight="600">Open Wardrobe</text>
+  <path d="M48 188H560" stroke="#1F1E1B" stroke-opacity=".14"/>
+  <text x="48" y="243" fill="#5C594F" font-size="25">SINGLE USER · API · MCP · THERMAL BUDGET</text>
+</g>
+</svg>
