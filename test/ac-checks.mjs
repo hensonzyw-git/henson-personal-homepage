@@ -36,7 +36,7 @@ const zhRoutes = [
   'blog/meta-muse-personal-workflow-cloud-deploy/index.html',
   'blog/cloud-dev-workflow-agent-platform/index.html',
   'blog/personal-agent-as-my-os/index.html', 'ai/index.html',
-  'ai/show-radar/index.html', 'ai/personal-agent/index.html', 'contact/index.html',
+  'ai/show-radar/index.html', 'ai/personal-agent/index.html', 'ai/open-wardrobe/index.html', 'contact/index.html',
 ];
 const enRoutes = zhRoutes.map(r => r === 'index.html' ? 'en/index.html' : 'en/' + r);
 for (const r of [...zhRoutes, ...enRoutes]) ok(`AC-1 route exists: ${r}`, fileExists(r), 'missing in dist');
@@ -152,6 +152,7 @@ const pairs = [
   ['ai/show-radar', 'en/ai/show-radar'],
   ['blog/personal-agent-open-source', 'en/blog/personal-agent-open-source'],
   ['ai/personal-agent', 'en/ai/personal-agent'],
+  ['ai/open-wardrobe', 'en/ai/open-wardrobe'],
 ];
 for (const [zh, en] of pairs)
   ok(`GATE1 zh+en both exist: ${zh}`, fileExists(`${zh}/index.html`) && fileExists(`${en}/index.html`), 'one side missing');
@@ -230,7 +231,7 @@ ok('AC-7 contact real values resolve',
 ok('AC-7 contact has no placeholder value', !/example\.com|your-/i.test(contact), 'found a placeholder value');
 
 // ---- AC-9: AI detail pages render real media (placeholders replaced) ----
-const aiDetails = (read('ai/show-radar/index.html')||'') + (read('ai/personal-site/index.html')||'') + (read('ai/multi-agent-workflow/index.html')||'');
+const aiDetails = (read('ai/show-radar/index.html')||'') + (read('ai/personal-site/index.html')||'') + (read('ai/multi-agent-workflow/index.html')||'') + (read('ai/open-wardrobe/index.html')||'') + (read('ai/personal-agent/index.html')||'');
 ok('AC-9 AI detail pages show real media, not placeholders',
    /<img[^>]+src="\/ai\//.test(aiDetails) && !/示例|待替换/.test(aiDetails),
    'expected real /ai/ images and no 示例/待替换 placeholder labels');

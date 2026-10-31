@@ -87,3 +87,7 @@ Personal Agent is live in the Chinese and English AI indexes and detail pages. H
 ## Closeout
 
 Update `PROJECT_STATE.md`, `docs/DECISIONS.md`, `docs/PROJECT_LOG.md`, and `docs/HANDOFF.md` when project direction or current state changes.
+
+### Current (2026-10-30)
+
+Open Wardrobe AI entry added (or in flight): see `src/content/ai/open-wardrobe.*.md`. Deploy via `npm run deploy:ecs` after merge.

@@ -94,3 +94,9 @@ October 10 Meta Muse release: 47 pages; 108/108 site checks; 15 analytics regres
 September 23 Personal Agent release: 95/95 checks passed; `/ai/`, `/en/ai/`, `/ai/personal-agent/` and `/en/ai/personal-agent/` match the local build byte-for-byte. Homepage and llms.txt also return 200.
 
 September 8 deployment passed: 41 static pages, 92/92 acceptance checks, Nginx validation/reload, and HTTP 200 for home, article indexes, both article languages, RSS and llms.txt. Both live article HTML files, both RSS feeds and llms.txt matched local build output byte-for-byte. The generated KB article body matches the Chinese source. No pending release authorization remains for this revision.
+
+## 2026-10-30 · Open Wardrobe AI entry
+
+- Added `src/content/ai/open-wardrobe.{zh,en}.md` (featured) + `public/ai/open-wardrobe/cover.svg`.
+- Points at open-source repo `personal-online-wardrobe-open-source`.
+- Pending: PR → merge → `npm run deploy:ecs` (authorized by Henson 2026-10-30).
