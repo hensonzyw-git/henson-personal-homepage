@@ -8,6 +8,10 @@ This repo is Henson's personal homepage built with Astro. It is separate from th
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
 
+## Wardrobe Admin Deployed — 2026-11-02
+
+Wardrobe PR #31 merged at `0c4c7a4`; Homepage PR #2 at `3483f89`. Both code artifacts are deployed for Henson's online acceptance at `https://zhuyawei.com/wardrobe-admin/`, sharing existing analytics Basic Auth. No DNS record or public Astro deployment. Linux synthetic Nginx and bounded preview worker passed; production unauthenticated admin routes return 401, actual www-data→Unix→API reads passed, UID isolation and service health passed. Schema 0010, agent disabled, 100 public files and shared service PIDs unchanged. No real clothing writes or real-photo tests. Grant expires 2026-11-03 23:51:08 Asia/Shanghai under current 24h policy; no auto-renewal. [Release evidence](docs/releases/2026-11-02-wardrobe-admin.md). Earlier Mac/implementation sections below are historical; human login/write/mobile acceptance remains pending.
+
 ## Original-image fallback fixed — 2026-11-02
 
 At Henson's explicit repair request, fixed F1 by reattaching the image before loading the original. Two new UI regressions fail before and pass after; UI total 3/3, build 51 pages, AC 150/150. Real browser verified preview-error→original success and original-error→retry success through the existing synthetic local stack. No business API changes or Git/release actions. Remaining Linux/mobile/systemd/production gaps persist; prior NOT PASSED section below is the initial acceptance snapshot. See [repair verification](docs/verification/wardrobe-admin-image-fallback-fix-2026-11-02.md).
