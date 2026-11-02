@@ -33,6 +33,7 @@ an open-platform product manager. Hook: "思考 + AI 实践". Built with **Astro
   a little vanilla JS for progressive enhancement (clipboard copy, TOC scroll-spy, external-link
   targeting). Do not add React/Vue/Tailwind/a CSS framework or a UI library.
 - First-party analytics is allowed under D14: same-origin vanilla JS, Nginx event logs, and an offline batch-generated private dashboard. Keep dashboard/data outside `dist/` and protect the entire `/analytics/` prefix with authentication. See `docs/analytics.md`; no application backend, database, third-party tracker or public navigation entry.
+- Private wardrobe administration is an explicit D17 exception: a separate standard-library Unix-socket adapter and private UI live under `ops/wardrobe-admin/`, outside Astro/dist, and share analytics Basic Auth. It may only call the fixed narrow operator API; no public navigation, SSR, database, uploads or generic proxy. See `docs/衣橱后台_技术方案_v0.2_指针.md` and `ops/wardrobe-admin/README.md`. Production actions require separate authorization.
 - **No drop shadows** (one deliberate exception: the phone-mockup image on AI cards). Depth comes
   from paper/surface contrast + hairlines (Anthropic-style restraint).
 - Fonts are **self-hosted** via `@fontsource/space-mono`. **Never** add a Google Fonts `<link>` /

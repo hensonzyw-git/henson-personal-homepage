@@ -1,5 +1,9 @@
 # Handoff — Personal Homepage
 
+## Local Wardrobe Admin Candidate — 2026-11-02
+
+Read `ops/wardrobe-admin/README.md` and `docs/verification/wardrobe-admin-2026-11-02.md`. Approved v0.2 implemented in this uncommitted worktree; 26 admin tests passed / 1 real-socket skip, build 51 pages, AC 150/150, analytics 11 Python + 1 Node passed. Preserve all local changes for coordinator review/commit. Nginx, real sockets/TCP, cross-UID, systemd and browser journeys remain NO_EVIDENCE. No deployment/grant/real-data authorization exists. P3 pointer is now `docs/衣橱后台_技术方案_v0.2_指针.md`. D17 records the limited always-on adapter exception; public Astro stays static.
+
 ## Latest Release — 2026-10-30
 
 `cloud-dev-workflow-agent-platform` is published in zh/en after Henson's explicit confirmation of the local preview. Source commit `99abd3be6358180ff5df0f73d456d77db59a3480` is pushed to main. Build: 49 pages; 141/141 acceptance checks; prior zh/en 1280px/390px preview passed. Deployment verified all 97 static files and the analytics manifest against local hashes; 12 public URLs match dist; four private analytics URLs require authentication (401). Backup: `/var/backups/zhuyawei-pre-cloud-workflow-20261030-99abd3be6358.tar.gz`. Local generated KB mirror updated to 19 files; no KB commit/push. See `docs/releases/2026-10-30-cloud-dev-workflow-agent-platform.md`. No release work remains for this revision. Preserve unrelated social-draft/context changes; future revisions follow the existing publication gate.

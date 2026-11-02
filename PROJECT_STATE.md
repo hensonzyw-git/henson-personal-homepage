@@ -1,12 +1,16 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-10-30
+Last updated: 2026-11-02
 
 ## Current Status
 
 This repo is Henson's personal homepage built with Astro. It is separate from the public GitHub profile repository `hensonzyw-git/hensonzyw-git`.
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
+
+## Local Wardrobe Admin Candidate — 2026-11-02
+
+Approved v0.2 implemented only in the worktree: private UI, fixed Unix adapter, signed CSRF, dedicated Nginx/systemd/install artifacts; no Astro routes or public navigation. No commit, push, deployment, production credential access or database migration. Build: 51 pages; AC: 150/150; admin unittest: 26 passed / 1 skipped; analytics: 11 Python + 1 Node passed. Nginx absent and sockets denied: real Nginx/TCP/UID/systemd/browser verification remains **NO_EVIDENCE**. See [verification](docs/verification/wardrobe-admin-2026-11-02.md), [runbook](ops/wardrobe-admin/README.md), and D17.
 
 ## Latest Release — Cloud Workflow and Open Platforms (2026-10-30)
 
