@@ -1,0 +1,36 @@
+[Unit]
+Description=Private wardrobe admin adapter
+Requires=homepage-wardrobe-admin.socket
+After=network.target
+
+[Service]
+Type=simple
+User=homepage-wardrobe-admin
+Group=homepage-wardrobe-admin
+ExecStart=/usr/bin/python3 /opt/homepage-wardrobe-admin/proxy.py
+Sockets=homepage-wardrobe-admin.socket
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectProc=invisible
+ProcSubset=pid
+CapabilityBoundingSet=
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+IPAddressDeny=any
+IPAddressAllow=localhost
+InaccessiblePaths=-/var/lib/personal-wardrobe -/var/lib/homepage-analytics -/etc/nginx/homepage-analytics.htpasswd
+ReadOnlyPaths=/opt/homepage-wardrobe-admin /var/lib/homepage-wardrobe-admin/ui /etc/homepage-wardrobe-admin
+MemoryMax=128M
+CPUQuota=20%
+TasksMax=32
+Restart=on-failure
+RestartSec=5

@@ -258,6 +258,23 @@ for (const filename of readdirSync(join(root, 'src/content/blog')).filter((f) =>
   ok(`Reading time ${key} (${lang})`, html.includes(label) && !/^readMins:/m.test(frontmatter));
 }
 
+// Wardrobe administration is a private operational artifact, never an Astro route.
+function privateFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap(entry =>
+    entry.isDirectory() ? privateFiles(join(directory, entry.name)) : [join(directory, entry.name)]);
+}
+const publicFiles = privateFiles(dist);
+const privateNames = /wardrobe-admin|wardrobe-token|homepage-wardrobe-admin|operator\.json|htpasswd/i;
+ok('Wardrobe admin artifacts absent from dist', publicFiles.every(path => !privateNames.test(path.slice(dist.length))));
+const secretPattern = /Bearer\s+[A-Za-z0-9._~+\/-]{16,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|\$6\$[A-Za-z0-9./]{1,16}\$[A-Za-z0-9./]{86}|GITHUB_PAT_RW|wardrobe-token\.json|\/etc\/homepage-wardrobe-admin\//;
+const publicText = publicFiles.filter(path => /\.(html|js|css|json|xml|txt)$/.test(path)).map(path => readFileSync(path, 'utf8'));
+ok('Wardrobe admin secrets absent from public output', publicText.every(text => !secretPattern.test(text)));
+ok('Wardrobe admin absent from all public pages and navigation', publicFiles.filter(path => path.endsWith('.html')).every(path => !/\/wardrobe-admin(?:[\/"'?#]|$)/.test(readFileSync(path, 'utf8'))));
+ok('Wardrobe admin absent from sitemap RSS and llms', [sitemap, rssZh, rssEn, llms, read('sitemap-index.xml') || ''].every(text => !/wardrobe-admin/.test(text)));
+const uiDirectory = join(root, 'ops/wardrobe-admin/ui');
+ok('Wardrobe UI contains only fixed static files', JSON.stringify(readdirSync(uiDirectory).sort()) === JSON.stringify(['admin.css', 'admin.js', 'index.html']));
+ok('Wardrobe UI contains no credentials or private config paths', privateFiles(uiDirectory).every(path => !secretPattern.test(readFileSync(path, 'utf8'))));
+
 console.log(`\n=== ${pass} passed, ${fail} failed ===`);
 if (fails.length) { console.log('FAILURES:'); fails.forEach(f => console.log(' - ' + f)); }
 process.exit(fail ? 1 : 0);

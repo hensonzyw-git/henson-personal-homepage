@@ -1,12 +1,24 @@
 # Project State — Personal Homepage
 
-Last updated: 2026-10-30
+Last updated: 2026-11-02
 
 ## Current Status
 
 This repo is Henson's personal homepage built with Astro. It is separate from the public GitHub profile repository `hensonzyw-git/hensonzyw-git`.
 
 The site is bilingual with Chinese as default and English mirror routes. It positions Henson as an open-platform PM with AI practice, writing, and side-project evidence.
+
+## Original-image fallback fixed — 2026-11-02
+
+At Henson's explicit repair request, fixed F1 by reattaching the image before loading the original. Two new UI regressions fail before and pass after; UI total 3/3, build 51 pages, AC 150/150. Real browser verified preview-error→original success and original-error→retry success through the existing synthetic local stack. No business API changes or Git/release actions. Remaining Linux/mobile/systemd/production gaps persist; prior NOT PASSED section below is the initial acceptance snapshot. See [repair verification](docs/verification/wardrobe-admin-image-fallback-fix-2026-11-02.md).
+
+## Mac Wardrobe Admin Acceptance — 2026-11-02
+
+Tested the pinned Homepage `1add56c` + Wardrobe `f29ca9d` using synthetic SQLite/images through real local Nginx, Unix proxy, TCP API and browser. Operator 187, proxy 27 (no skips), UI 1, AC 150 and 15 real HTTP assertions passed; build 51 pages. Overall acceptance remains **NOT PASSED**: preview failure detaches the image and “view original” updates a detached element. Mac preview generation is Linux-only by design; 390px, systemd/cross-UID and production TLS remain unverified. No business-code changes, commit/push or deployment. See [current report](docs/verification/wardrobe-admin-mac-2026-11-02.md). The candidate section below is historical evidence from the earlier environment.
+
+## Local Wardrobe Admin Candidate — 2026-11-02
+
+Approved v0.2 implemented only in the worktree: private UI, fixed Unix adapter, signed CSRF, dedicated Nginx/systemd/install artifacts; no Astro routes or public navigation. No commit, push, deployment, production credential access or database migration. Build: 51 pages; AC: 150/150; admin unittest: 26 passed / 1 skipped; analytics: 11 Python + 1 Node passed. Nginx absent and sockets denied: real Nginx/TCP/UID/systemd/browser verification remains **NO_EVIDENCE**. See [verification](docs/verification/wardrobe-admin-2026-11-02.md), [runbook](ops/wardrobe-admin/README.md), and D17.
 
 ## Latest Release — Cloud Workflow and Open Platforms (2026-10-30)
 

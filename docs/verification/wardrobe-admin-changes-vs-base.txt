@@ -1,0 +1,47 @@
+Base: ff7a868f248db4e13d5e34e9731319fc68ac5b79
+HEAD: 6a41d8bcb326dacdbddb5ab4a0071b5f86453e32
+git diff --stat Base (tracked; no staging/commit):
+ AGENTS.md           |  1 +
+ CLAUDE.md           |  1 +
+ PROJECT_STATE.md    |  6 +++++-
+ docs/DECISIONS.md   |  7 +++++++
+ docs/HANDOFF.md     |  4 ++++
+ docs/PROJECT_LOG.md |  5 +++++
+ test/ac-checks.mjs  | 17 +++++++++++++++++
+ 7 files changed, 40 insertions(+), 1 deletion(-)
+
+Untracked additions (git diff does not include these):
+docs/verification/wardrobe-admin-2026-11-02.md | 41 lines
+docs/verification/wardrobe-admin-changes-vs-base.txt | generated inventory (this file)
+docs/衣橱后台_技术方案_v0.2_指针.md | 23 lines
+ops/wardrobe-admin/README.md | 19 lines
+ops/wardrobe-admin/homepage-wardrobe-admin.service | 36 lines
+ops/wardrobe-admin/homepage-wardrobe-admin.socket | 13 lines
+ops/wardrobe-admin/install.py | 171 lines
+ops/wardrobe-admin/nginx-http.conf | 19 lines
+ops/wardrobe-admin/nginx-location.conf | 42 lines
+ops/wardrobe-admin/nginx-server.conf | 7 lines
+ops/wardrobe-admin/proxy.py | 536 lines
+ops/wardrobe-admin/ui/admin.css | 68 lines
+ops/wardrobe-admin/ui/admin.js | 279 lines
+ops/wardrobe-admin/ui/index.html | 47 lines
+test/wardrobe-admin-ui.test.mjs | 106 lines
+test/wardrobe_admin_nginx.py | 140 lines
+test/wardrobe_admin_test.py | 502 lines
+
+git status -sb:
+## feat/wardrobe-admin
+ M AGENTS.md
+ M CLAUDE.md
+ M PROJECT_STATE.md
+ M docs/DECISIONS.md
+ M docs/HANDOFF.md
+ M docs/PROJECT_LOG.md
+ D docs/衣橱后台_技术方案_v0.1_指针.md
+ M test/ac-checks.mjs
+?? docs/verification/
+?? docs/衣橱后台_技术方案_v0.2_指针.md
+?? ops/wardrobe-admin/
+?? test/wardrobe-admin-ui.test.mjs
+?? test/wardrobe_admin_nginx.py
+?? test/wardrobe_admin_test.py
