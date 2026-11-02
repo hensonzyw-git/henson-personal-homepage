@@ -1,5 +1,9 @@
 # Project Log — Personal Homepage
 
+## 2026-11-02 — Wardrobe admin deployed for online acceptance
+
+Feature PRs Wardrobe #31 / Homepage #2 merged, deployed exact `0c4c7a4` / `3483f89` after protected backup and Linux synthetic checks. Existing apex URL path and analytics auth, no DNS or shared-password change, no public static redeploy. Production checks confirmed unauthenticated 401/security headers, trusted Unix/TCP reads, cross-UID denial, active units, schema unchanged and existing public/shared-service integrity. No real clothing writes or photo/provider tests; human acceptance pending. [Release record](releases/2026-11-02-wardrobe-admin.md).
+
 ## 2026-11-02 — Repair original-image fallback
 
 Henson authorized repair after local acceptance. Restored the image node before changing to the original URL; original failure continues to show an error and permit another manual retry. Added two failing-before/passing-after UI regressions (3/3 total). Build 51 pages and AC 150/150 pass; actual browser verified both recovery paths using only synthetic files. [Verification](verification/wardrobe-admin-image-fallback-fix-2026-11-02.md). No commit/push, production operations or backend code changes.

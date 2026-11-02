@@ -1,5 +1,9 @@
 # Handoff — Personal Homepage
 
+## Online Wardrobe Admin — 2026-11-02
+
+Deployed paired code Wardrobe `0c4c7a4` / Homepage `3483f89` after feature PR #31 / #2 merged. [Release record](releases/2026-11-02-wardrobe-admin.md) covers backups, artifact hashes, exact deployment and checks. Visit `https://zhuyawei.com/wardrobe-admin/` with existing analytics credentials; no DNS action. Production unauthenticated guard and trusted www-data reads passed; human login, clothing writes and 390px remain pending. Preserve zero migrations/agent=false. Current dedicated grant expires 2026-11-03 23:51:08 Asia/Shanghai; no automatic renewal. Do not treat historical pending-deploy sections below as current state.
+
 ## Original-image fallback repaired — 2026-11-02
 
 F1 is fixed in the current uncommitted Homepage worktree; no longer an open code defect. UI 3/3, build 51 pages, AC 150/150; browser proved preview failure then original success, plus failed-original retry after recovery. [Repair report](verification/wardrobe-admin-image-fallback-fix-2026-11-02.md) pins source/test hashes and screenshots. Prior acceptance and implementation descriptions below are historical. Linux preview generation, 390px, cross-UID/systemd and production TLS remain unverified. No API/source permission changes, commit, push or deployment.
