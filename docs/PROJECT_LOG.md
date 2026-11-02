@@ -1,5 +1,13 @@
 # Project Log — Personal Homepage
 
+## 2026-11-02 — Repair original-image fallback
+
+Henson authorized repair after local acceptance. Restored the image node before changing to the original URL; original failure continues to show an error and permit another manual retry. Added two failing-before/passing-after UI regressions (3/3 total). Build 51 pages and AC 150/150 pass; actual browser verified both recovery paths using only synthetic files. [Verification](verification/wardrobe-admin-image-fallback-fix-2026-11-02.md). No commit/push, production operations or backend code changes.
+
+## 2026-11-02 — Mac wardrobe admin acceptance
+
+Pinned Homepage `1add56c` / Wardrobe `f29ca9d`; exercised browser→Nginx→Unix proxy→TCP API→synthetic SQLite. Verified paging/filter/order, edit/delete/restore receipts, missing-image restore denial, conflict preservation, auth/CSRF and idempotency. Operator 187, proxy 27, UI 1, AC 150, real HTTP 15 passed; build 51 pages. Found original-image fallback defect after preview failure; overall acceptance NOT PASSED. Mac Python/hash/preview differences and remaining production/mobile gaps are recorded in [report](verification/wardrobe-admin-mac-2026-11-02.md). Only verification/context documents and synthetic screenshots added; no source changes or release actions.
+
 ## 2026-10-30 — Published: cloud workflow and open-platform reflection
 
 - Henson confirmed the local preview and authorized publication. Article/test commit `99abd3be6358180ff5df0f73d456d77db59a3480` pushed to main; no changes to production app/layout/deployment code.

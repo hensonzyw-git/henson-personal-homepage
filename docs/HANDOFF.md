@@ -1,5 +1,13 @@
 # Handoff — Personal Homepage
 
+## Original-image fallback repaired — 2026-11-02
+
+F1 is fixed in the current uncommitted Homepage worktree; no longer an open code defect. UI 3/3, build 51 pages, AC 150/150; browser proved preview failure then original success, plus failed-original retry after recovery. [Repair report](verification/wardrobe-admin-image-fallback-fix-2026-11-02.md) pins source/test hashes and screenshots. Prior acceptance and implementation descriptions below are historical. Linux preview generation, 390px, cross-UID/systemd and production TLS remain unverified. No API/source permission changes, commit, push or deployment.
+
+## Mac acceptance — 2026-11-02
+
+Latest evidence: [report](verification/wardrobe-admin-mac-2026-11-02.md). Paired candidates remain Homepage `1add56c` / Wardrobe `f29ca9d`. Real local browser/Nginx/Unix/TCP writes now verified with synthetic data, but overall NOT PASSED: fix `ops/wardrobe-admin/ui/admin.js:64-69` original-image fallback after preview error, then recheck. Mac preview worker intentionally refuses non-Linux; do not count it as production image-generation evidence. Local preview remains on localhost:18765. No source fix, commit/push or deployment; original candidate status below describes the prior environment.
+
 ## Local Wardrobe Admin Candidate — 2026-11-02
 
 Read `ops/wardrobe-admin/README.md` and `docs/verification/wardrobe-admin-2026-11-02.md`. Approved v0.2 implemented in this uncommitted worktree; 26 admin tests passed / 1 real-socket skip, build 51 pages, AC 150/150, analytics 11 Python + 1 Node passed. Preserve all local changes for coordinator review/commit. Nginx, real sockets/TCP, cross-UID, systemd and browser journeys remain NO_EVIDENCE. No deployment/grant/real-data authorization exists. P3 pointer is now `docs/衣橱后台_技术方案_v0.2_指针.md`. D17 records the limited always-on adapter exception; public Astro stays static.

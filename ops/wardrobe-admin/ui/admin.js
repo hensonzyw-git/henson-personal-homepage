@@ -61,12 +61,13 @@ if (typeof document !== 'undefined') {
     image.src = ref.preview_url;
     image.alt = item.name || '衣物预览';
     image.loading = 'lazy';
-    image.addEventListener('error', () => image.replaceWith(node('p', '图片不可用或预览暂不可用')));
+    const unavailable = node('p', '图片不可用或预览暂不可用');
+    image.addEventListener('error', () => image.replaceWith(unavailable));
     if (!large) return image;
     const wrapper = node('div'); wrapper.append(image);
     const open = node('button', '查看原图'); open.type = 'button';
     if (['image/heic', 'image/heif'].includes(ref.mime)) wrapper.append(node('p', '原图为 HEIC／HEIF，浏览器可能无法显示，请使用预览。'));
-    open.addEventListener('click', () => { image.src = ref.content_url; }); wrapper.append(open); return wrapper;
+    open.addEventListener('click', () => { unavailable.replaceWith(image); image.src = ref.content_url; }); wrapper.append(open); return wrapper;
   }
   function card(item) {
     const card = node('article');

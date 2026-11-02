@@ -4,9 +4,22 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 class Element {
-  constructor(tag = 'div') { this.tagName = tag; this.children = []; this.handlers = {}; this.hidden = false; this.disabled = false; this.open = false; this.value = ''; this.textContent = ''; this.dataset = {}; }
-  append(...children) { if (this.tagName === 'select' && !this.children.length && children.length) this.value = children[0].value; this.children.push(...children); }
-  replaceChildren(...children) { this.children = [...children]; }
+  constructor(tag = 'div') { this.tagName = tag; this.children = []; this.parentElement = null; this.handlers = {}; this.hidden = false; this.disabled = false; this.open = false; this.value = ''; this.textContent = ''; this.dataset = {}; }
+  append(...children) {
+    if (this.tagName === 'select' && !this.children.length && children.length) this.value = children[0].value;
+    for (const child of children) {
+      if (child.parentElement) child.parentElement.children.splice(child.parentElement.children.indexOf(child), 1);
+      child.parentElement = this; this.children.push(child);
+    }
+  }
+  replaceChildren(...children) { for (const child of this.children) child.parentElement = null; this.children = []; this.append(...children); }
+  replaceWith(replacement) {
+    const parent = this.parentElement;
+    if (!parent) return;
+    if (replacement.parentElement) replacement.parentElement.children.splice(replacement.parentElement.children.indexOf(replacement), 1);
+    parent.children.splice(parent.children.indexOf(this), 1, replacement);
+    this.parentElement = null; replacement.parentElement = parent;
+  }
   addEventListener(name, callback) { (this.handlers[name] ??= []).push(callback); }
   dispatch(name) { for (const callback of this.handlers[name] ?? []) callback({preventDefault() {}}); }
   get options() { return this.children; }
@@ -104,3 +117,49 @@ await test('UI detail loading clears prior write target; stale response cannot o
     delete globalThis.document; delete globalThis.Option; delete globalThis.fetch;
   }
 });
+
+for (const previewFails of [false, true]) {
+  await test(`UI original image remains visible and retryable after preview ${previewFails ? 'failure' : 'success'}`, async () => {
+    const elements = new Map();
+    const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
+    get('state').value = 'active'; get('order').value = 'desc';
+    const item = {...first, image_references: [{preview_url: '/wardrobe-admin/images/synthetic/preview', content_url: '/wardrobe-admin/images/synthetic/content', mime: 'image/png'}]};
+    globalThis.document = {getElementById: get, createElement: tag => new Element(tag), activeElement: new Element('button')};
+    globalThis.Option = class extends Element { constructor(text, value) { super('option'); this.textContent = text; this.value = value; } };
+    const originalInterval = globalThis.setInterval;
+    globalThis.setInterval = () => 1;
+    globalThis.fetch = async path => {
+      if (path.endsWith('/api/session')) return response({csrf_token: 'synthetic-csrf'});
+      if (path.includes('/api/categories?')) return response({items: [], has_more: false, next_cursor: null, catalog_revision: 1});
+      if (path.includes('/api/garments?')) return response({items: [item], has_more: false, next_cursor: null, catalog_revision: 1});
+      return response({garment: item});
+    };
+    try {
+      await import(`../ops/wardrobe-admin/ui/admin.js?image-test-${previewFails}`); await tick();
+      get('cards').children[0].children.at(-1).dispatch('click'); await tick();
+      const wrapper = get('record').children[0];
+      const image = wrapper.children.find(child => child.tagName === 'img');
+      const open = wrapper.children.find(child => child.tagName === 'button');
+      assert.equal(image.src, item.image_references[0].preview_url);
+      if (previewFails) {
+        image.dispatch('error');
+        assert.equal(wrapper.children.some(child => child.tagName === 'img'), false);
+        assert.match(wrapper.children[0].textContent, /图片不可用/);
+      }
+      open.dispatch('click');
+      assert.equal(image.src, item.image_references[0].content_url);
+      assert.equal(wrapper.children.filter(child => child.tagName === 'img').length, 1, 'original must be attached to the visible detail');
+      assert.equal(wrapper.children.some(child => child.tagName === 'p'), false, 'stale image error must be removed');
+      image.dispatch('error');
+      assert.match(wrapper.children[0].textContent, /图片不可用/);
+      assert.equal(open.parentElement, wrapper, 'failed original must retain the retry control');
+      open.dispatch('click');
+      assert.equal(image.parentElement, wrapper, 'retry after an original failure must reattach the image');
+      assert.equal(image.src, item.image_references[0].content_url);
+      assert.equal(wrapper.children.filter(child => child.tagName === 'img').length, 1);
+    } finally {
+      globalThis.setInterval = originalInterval;
+      delete globalThis.document; delete globalThis.Option; delete globalThis.fetch;
+    }
+  });
+}
